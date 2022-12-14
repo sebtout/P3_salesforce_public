@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Idea;
 use App\Form\IdeaType;
+use App\Repository\CommentRepository;
 use App\Repository\IdeaRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -43,10 +44,13 @@ class IdeaController extends AbstractController
     }
 
     #[Route('/{id}', name: 'show', methods: ['GET'])]
-    public function show(Idea $idea): Response
+    public function show(Idea $idea, CommentRepository $commentRepository): Response
     {
+        $comments = $commentRepository->findAll();
+
         return $this->render('idea/show.html.twig', [
             'idea' => $idea,
+            'comments' => $comments,
         ]);
     }
 

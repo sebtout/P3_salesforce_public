@@ -37,12 +37,16 @@
 		</div>
 
 		<div class="col-6">
-			<h1>Comments will go here ;-)</h1>
-
-			<div class="m-3 p-3 card-body border border-secondary rounded border-5 bg-secondary">
-				<h2>Titre :</h2>
-				<p class="card-text">Contenu Contenu Contenu Contenu Contenu</p>
-			</div>
+			<h1>Comments</h1>
+			{% for comment in comments %}
+				<div class="m-3 p-3 card-body border border-secondary rounded border-5 bg-secondary">
+					<h2>{{ comment.author }}</h2>
+					<p>{{ comment.createdAt ? comment.createdAt|date('Y-m-d H:i:s') : '' }}</p>
+					<p class="card-text">{{ comment.content }}</p>
+				</div>
+			{% else %}
+				No comments found.
+			{% endfor %}
 
 			<div class="d-grid gap-5 d-md-flex justify-content-md-center">
 				<button type="button" class="btn btn-success">Preview</button>
