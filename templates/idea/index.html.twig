@@ -9,7 +9,7 @@
 	<table class="table">
 		<thead>
 			<tr>
-				<th>Id</th>
+				<th>author</th>
 				<th>Title</th>
 				<th>Content</th>
 				<th>Status</th>
@@ -19,7 +19,7 @@
 		<tbody>
 			{% for idea in ideas %}
 				<tr>
-					<td>{{ idea.id }}</td>
+					<td>{{ idea.author }}</td>
 					<td>{{ idea.title }}</td>
 					<td>{{ idea.content }}</td>
 					<td>{{ idea.status }}</td>

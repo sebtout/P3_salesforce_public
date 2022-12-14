@@ -1,11 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Idea{% endblock %}
+{% block title %}New Idea
+{% endblock %}
 
 {% block body %}
-    <h1>Create new Idea</h1>
-
-    {{ include('idea/_form.html.twig') }}
-
-    <a href="{{ path('app_idea_index') }}">back to list</a>
+	<h1>Create new Idea</h1>
+	{{ include('idea/_form.html.twig') }}
+	<a href="{{ path('app_idea_index') }}">back to list</a>
 {% endblock %}

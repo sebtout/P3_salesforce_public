@@ -1,34 +1,35 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Idea{% endblock %}
+{% block title %}Idea
+{% endblock %}
 
 {% block body %}
-    <h1>Idea</h1>
+	<h1>Idea</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ idea.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ idea.title }}</td>
-            </tr>
-            <tr>
-                <th>Content</th>
-                <td>{{ idea.content }}</td>
-            </tr>
-            <tr>
-                <th>Status</th>
-                <td>{{ idea.status }}</td>
-            </tr>
-        </tbody>
-    </table>
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Author</th>
+				<td>{{ idea.author }}</td>
+			</tr>
+			<tr>
+				<th>Title</th>
+				<td>{{ idea.title }}</td>
+			</tr>
+			<tr>
+				<th>Content</th>
+				<td>{{ idea.content }}</td>
+			</tr>
+			<tr>
+				<th>Status</th>
+				<td>{{ idea.status }}</td>
+			</tr>
+		</tbody>
+	</table>
 
-    <a href="{{ path('app_idea_index') }}">back to list</a>
+	<a href="{{ path('app_idea_index') }}">back to list</a>
 
-    <a href="{{ path('app_idea_edit', {'id': idea.id}) }}">edit</a>
+	<a href="{{ path('app_idea_edit', {'id': idea.id}) }}">edit</a>
 
-    {{ include('idea/_delete_form.html.twig') }}
+	{{ include('idea/_delete_form.html.twig') }}
 {% endblock %}
