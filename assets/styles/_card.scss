@@ -1,5 +1,18 @@
-
 .row {
     --bs-gutter-x: 0rem;
+}
 
+.user_picture {
+    max-height: 150px;
+    max-width: 150px;
+}
+
+.img-fluid {
+    width: auto;
+    max-height: 100%;
+}
+
+
+.card-text {
+    height: 220px;
 }
