@@ -69,7 +69,7 @@ class IdeaController extends AbstractController
     #[Route('/{id}', name: 'app_idea_delete', methods: ['POST'])]
     public function delete(Request $request, Idea $idea, IdeaRepository $ideaRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$idea->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $idea->getId(), $request->request->get('_token'))) {
             $ideaRepository->remove($idea, true);
         }
 
