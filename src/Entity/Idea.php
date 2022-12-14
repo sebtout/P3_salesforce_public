@@ -25,12 +25,12 @@ class Idea
     #[ORM\Column(length: 255)]
     private ?string $status = null;
 
-    #[ORM\OneToMany(mappedBy: 'idea', targetEntity: Commentary::class, orphanRemoval: true)]
-    private Collection $commentaries;
+    #[ORM\OneToMany(mappedBy: 'idea', targetEntity: Comment::class, orphanRemoval: true)]
+    private Collection $comments;
 
     public function __construct()
     {
-        $this->commentaries = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -75,29 +75,29 @@ class Idea
     }
 
     /**
-     * @return Collection<int, Commentary>
+     * @return Collection<int, Comment>
      */
-    public function getCommentaries(): Collection
+    public function getComments(): Collection
     {
-        return $this->commentaries;
+        return $this->comments;
     }
 
-    public function addCommentary(Commentary $commentary): self
+    public function addComment(Comment $comment): self
     {
-        if (!$this->commentaries->contains($commentary)) {
-            $this->commentaries->add($commentary);
-            $commentary->setIdea($this);
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
+            $comment->setIdea($this);
         }
 
         return $this;
     }
 
-    public function removeCommentary(Commentary $commentary): self
+    public function removeComment(Comment $comment): self
     {
-        if ($this->commentaries->removeElement($commentary)) {
+        if ($this->comments->removeElement($comment)) {
             // set the owning side to null (unless already changed)
-            if ($commentary->getIdea() === $this) {
-                $commentary->setIdea(null);
+            if ($comment->getIdea() === $this) {
+                $comment->setIdea(null);
             }
         }
 
