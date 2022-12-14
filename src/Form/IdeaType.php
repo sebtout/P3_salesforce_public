@@ -15,7 +15,7 @@ class IdeaType extends AbstractType
             ->add('title')
             ->add('content')
             ->add('status')
-        ;
+            ->add('author');
     }
 
     public function configureOptions(OptionsResolver $resolver): void
