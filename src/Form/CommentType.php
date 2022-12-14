@@ -15,8 +15,10 @@ class CommentType extends AbstractType
             ->add('author')
             ->add('content')
             ->add('createdAt')
-            ->add('idea');
+            ->add('idea', null, ['choice_label' => 'title'])
+        ;
     }
+
 
     public function configureOptions(OptionsResolver $resolver): void
     {
