@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
+use App\Form\CommentType;
 use App\Entity\Idea;
 use App\Form\IdeaType;
 use App\Repository\CommentRepository;
@@ -44,13 +46,26 @@ class IdeaController extends AbstractController
     }
 
     #[Route('/{id}', name: 'show', methods: ['GET'])]
-    public function show(Idea $idea, CommentRepository $commentRepository): Response
+    public function show(Idea $idea, CommentRepository $commentRepository, Request $request): Response
     {
         $comments = $commentRepository->findAll();
+
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->get('idea')->setData($idea);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $commentRepository->save($comment, true);
+
+            var_dump($comment);
+            exit();
+        }
 
         return $this->render('idea/show.html.twig', [
             'idea' => $idea,
             'comments' => $comments,
+            'form' => $form->createView(),
         ]);
     }
 
