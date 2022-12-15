@@ -1,15 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Home
+{% endblock %}
 
 {% block body %}
-    <div class="pink-stripe">
-        <h1>
-            Let's start coding&nbsp;&#129304;
-        </h1>
-    </div>
-    <div class="white-stripe">
-        <img src="{{ asset('build/images/LOGO_WILD_CODE_SCHOOL.png') }}"
-             alt="">
-    </div>
+	<div class="text-center mt-5">
+		<h1>
+			{{ website }}
+		</h1>
+		<h2>
+			Participatory Innovation 
+		</h2>
+		<div class="grid m-5">
+
+			<img src="{{ asset('/build/images/idee-lampe-.jpeg') }}" class="img-home rounded float-start img-fluid" alt="" width="400">
+			<div class="col-md-4 ms-md-auto m-5">
+				<h2>
+					The site to share your ideas.
+				</h2>
+
+				<h5>
+					Come and use our ideation tool to promote what is important to you!!
+				</h5>
+			</div>
+		</div>
+	</div>
 {% endblock %}
