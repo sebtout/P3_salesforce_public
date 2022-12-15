@@ -1,4 +1,11 @@
-{{ form_start(form) }}
-{{ form_widget(form) }}
-<button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+<div class="bloc_test">
+	<section class="form-idea">
+		{{ form_start(form) }}
+		{{ form_widget(form) }}
+		<div class="bloc-btn">
+			<button class="btn btn-save-marge">{{ button_label|default('preview') }}</button>
+			<button class="btn btn-save-marge">{{ button_label|default('send the idea') }}</button>
+		</div>
+		{{ form_end(form) }}
+	</section>
+</div>
