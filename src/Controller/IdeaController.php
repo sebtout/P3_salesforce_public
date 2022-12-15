@@ -24,7 +24,7 @@ class IdeaController extends AbstractController
         ]);
     }
 
-    #[Route('/list', name: 'list_idea', methods: ['GET', 'POST'])]
+    #[Route('/list', name: 'list_idea', methods: ['GET'])]
     public function list(IdeaRepository $ideaRepository): Response
     {
         return $this->render('idea/list_idea_admin.html.twig', [
