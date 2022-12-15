@@ -5,28 +5,10 @@
 
 {% block body %}
 	<div class="row">
-		<div class="col-6">
-			<div class="idea_card m-5" style="width: 30rem;">
-				<div class="idea_card_header row p-3 border border-secondary rounded-top border-3 bg-secondary">
-					<div class="p-3 col-8">
-						<p class="">Lastname:</p>
-						<p class="">Firstname:</p>
-						<p class="">Profession:</p>
-					</div>
-					<div class="user_picture col-4 border border-info rounded border-3">
-						<img class="card-img-top img-fluid mx-auto d-block" src="https://th.bing.com/th/id/OIP.PEyJEq2LadECSuY05CbMOgHaLJ?w=198&h=298&c=7&r=0&o=5&pid=1.7" alt="Card image cap">
-					</div>
-				</div>
-				<div class="card-body p-2 border border-info  border-5 bg-info">
-					<div class="p-3 card-body border border-secondary rounded border-5 bg-secondary">
-						<h2>{{ idea.title }}
-							:</h2>
-						<p class="card-text">{{ idea.content }}</p>
-					</div>
-				</div>
-				<div class="p-3 border border-info rounded-bottom border-4 bg-info d-grid gap-5 d-md-flex justify-content-md-center">
-					<button type="button" class="btn btn-success">Comment</button>
-					<button type="button" class="btn btn-success">Like</button>
+		<div class="col-12 col-md-6">
+			<div class="container mt-5">
+				<div class="row d-flex justify-content-around">
+					{% include "Shared/_ideaCard.html.twig" %}
 				</div>
 			</div>
 			<div class="d-md-flex justify-content-md-center">
@@ -36,11 +18,19 @@
 			</div>
 		</div>
 
-		<div class="col-6">
-			<h1>Comments</h1>
+		<div class="col-12 col-md-6 pe-5">
+			<h1 class="mt-5">Comments</h1>
+			<div class="m-3">
+				<form action="{{ path('app_idea_show', {'id': idea.id}) }}" method="POST">
+					{{ form_start(form) }}
+					{{ form_widget(form) }}
+					{{ form_end(form) }}
+				</form>
+			</div>
+
 			{% for comment in idea.comments %}
-				<div class="m-3 p-3 card-body border border-secondary rounded border-5 bg-secondary">
-					<h2>{{ comment.author }}</h2>
+				<div class="m-3 p-3 border border-secondary rounded border-5 bg-secondary">
+					<h3>{{ comment.author }}</h3>
 					<p>{{ comment.createdAt ? comment.createdAt|date('Y-m-d H:i:s') : '' }}</p>
 					<p class="card-text">{{ comment.content }}</p>
 				</div>
@@ -48,17 +38,6 @@
 				No comments found.
 			{% endfor %}
 
-			<form action="{{ path('app_idea_show', {'id': idea.id}) }}" method="POST">
-				{{ form_start(form) }}
-				{{ form_widget(form) }}
-				{{ form_end(form) }}
-			</form>
-
-			<div class="d-grid gap-5 d-md-flex justify-content-md-center">
-				<button type="button" class="btn btn-success">Preview</button>
-				<button type="button" class="btn btn-success">Send</button>
-			</div>
-			
 		</div>
 	</div>
 {% endblock %}

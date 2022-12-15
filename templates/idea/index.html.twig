@@ -10,6 +10,16 @@
 			<a href="{{ path('app_idea_new') }}">Create new</a>
 		</button>
 	</div>
-	{% include "Shared/_ideaCard.html.twig" %}
+	<div class="container">
+	<div class="row d-flex justify-content-around">
+		{% for idea in ideas %}
+		{% include "Shared/_ideaCard.html.twig" %}
+		{% else %}
+			<tr>
+				<td colspan="5">no records found</td>
+			</tr>
+		{% endfor %}
+	</div>
+	</div>
 
 {% endblock %}
