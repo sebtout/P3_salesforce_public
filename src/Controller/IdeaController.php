@@ -21,6 +21,16 @@ class IdeaController extends AbstractController
         ]);
     }
 
+    #[Route('/list', name: 'list_idea', methods: ['GET', 'POST'])]
+    public function list(IdeaRepository $ideaRepository): Response
+    {
+        return $this->render('idea/list_idea_admin.html.twig', [
+            'ideas' => $ideaRepository->findAll(),
+        ]);
+    }
+
+
+
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
     public function new(
         Request $request,
@@ -72,11 +82,8 @@ class IdeaController extends AbstractController
     }
 
     #[Route('/{id}', name: 'delete', methods: ['POST'])]
-    public function delete(
-        Request $request,
-        Idea $idea,
-        IdeaRepository $ideaRepository
-    ): Response {
+    public function delete(Request $request, Idea $idea, IdeaRepository $ideaRepository): Response
+    {
         if ($this->isCsrfTokenValid('delete' . $idea->getId(), $request->request->get('_token'))) {
             $ideaRepository->remove($idea, true);
         }
