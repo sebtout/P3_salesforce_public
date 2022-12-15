@@ -5,8 +5,6 @@
 
 {% block body %}
 	<section class="section-new-idea container-sm">
-		<h1>Create new Idea</h1>
 		{{ include('idea/_form.html.twig') }}
-		<a href="{{ path('app_idea_index') }}">back to list</a>
 	</section>
 {% endblock %}
