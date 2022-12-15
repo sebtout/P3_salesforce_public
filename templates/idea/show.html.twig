@@ -38,7 +38,7 @@
 
 		<div class="col-6">
 			<h1>Comments</h1>
-			{% for comment in comments %}
+			{% for comment in idea.comments %}
 				<div class="m-3 p-3 card-body border border-secondary rounded border-5 bg-secondary">
 					<h2>{{ comment.author }}</h2>
 					<p>{{ comment.createdAt ? comment.createdAt|date('Y-m-d H:i:s') : '' }}</p>
@@ -48,10 +48,11 @@
 				No comments found.
 			{% endfor %}
 
-			{{ form_start(form) }}
-			{{ form_widget(form) }}
-			<button class="btn">{{ button_label|default('Save') }}</button>
-			{{ form_end(form) }}
+			<form action="{{ path('app_idea_show', {'id': idea.id}) }}" method="POST">
+				{{ form_start(form) }}
+				{{ form_widget(form) }}
+				{{ form_end(form) }}
+			</form>
 
 			<div class="d-grid gap-5 d-md-flex justify-content-md-center">
 				<button type="button" class="btn btn-success">Preview</button>

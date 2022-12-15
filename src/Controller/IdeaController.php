@@ -45,10 +45,12 @@ class IdeaController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'show', methods: ['GET'])]
+    #[Route('/{id}', name: 'show', methods: ['GET', 'POST'])]
     public function show(Idea $idea, CommentRepository $commentRepository, Request $request): Response
     {
-        $comments = $commentRepository->findAll();
+        $id = $idea->getId();
+
+        $idea->getComments();
 
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
@@ -58,13 +60,11 @@ class IdeaController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $commentRepository->save($comment, true);
 
-            var_dump($comment);
-            exit();
+            return $this->redirectToRoute('app_idea_show', ['id' => $id], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('idea/show.html.twig', [
             'idea' => $idea,
-            'comments' => $comments,
             'form' => $form->createView(),
         ]);
     }
