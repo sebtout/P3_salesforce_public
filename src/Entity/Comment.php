@@ -6,6 +6,7 @@ use App\Repository\CommentRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use DateTimeImmutable;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
 class Comment
@@ -20,9 +21,19 @@ class Comment
     private ?Idea $idea = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'Don\'t leave me empty')]
+    #[Assert\Length(
+        max: 255,
+        maxMessage: 'The entered comment is too long, it should not exceed {{ limit }} characters',
+    )]
     private ?string $author = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank(message: 'Don\'t leave me empty')]
+    #[Assert\Length(
+        max: 500,
+        maxMessage: 'The entered comment is too long, it should not exceed {{ limit }} characters',
+    )]
     private ?string $content = null;
 
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
