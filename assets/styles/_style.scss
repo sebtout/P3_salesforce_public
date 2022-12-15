@@ -1,4 +1,5 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap');
+$title-color: #032D60;
 
 body { 
     background-color:#faf5ed;
@@ -12,12 +13,7 @@ body {
     width: 60px;
 }
 
-h1 {
-    font-family: 'Inter', sans-serif;
-    color: #032D60;
+h1, h2 {
+    color: $title-color;
 }
 
-h2 {
-    font-family: 'Inter', sans-serif;
-    color: #032D60;
-}
