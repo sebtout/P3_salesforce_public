@@ -1,46 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Idea index{% endblock %}
-
-{% block body %}
-    <h1>Idea index</h1>
-<<<<<<< HEAD
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Content</th>
-                <th>Status</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for idea in ideas %}
-            <tr>
-                <td>{{ idea.id }}</td>
-                <td>{{ idea.title }}</td>
-                <td>{{ idea.content }}</td>
-                <td>{{ idea.status }}</td>
-                <td>
-
-                    <a href="{{ path('app_idea_show', {'id': idea.id}) }}">show</a>
-                    <a href="{{ path('app_idea_edit', {'id': idea.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-=======
-{% include "Shared/_ideaCard.html.twig" %}
->>>>>>> 129cee369846067ab68a1d21fdc5e79899d03e7a
-    <a href="{{ path('app_idea_new') }}">Create new</a>
+{% block title %}Idea index
 {% endblock %}
 
+{% block body %}
+	<h1 class="text-center m-3">Idea index</h1>
+	<div class="d-flex flex-row-reverse">
+		<button type="button" class="btn btn-success m-5">
+			<a href="{{ path('app_idea_new') }}">Create new</a>
+		</button>
+	</div>
+	{% include "Shared/_ideaCard.html.twig" %}
 
+{% endblock %}
