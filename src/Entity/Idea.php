@@ -7,8 +7,16 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: IdeaRepository::class)]
+#[UniqueEntity(
+    fields:['title'],
+    errorPath: '',
+    message:'Don\'t leave me empty'
+)]
+
 class Idea
 {
     #[ORM\Id]
@@ -16,13 +24,28 @@ class Idea
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(name:'title', type: 'string', length: 255, unique: true)]
+    #[Assert\NotBlank(message: 'Don\'t leave me empty')]
+    #[Assert\Length(
+        max: 255,
+        maxMessage: 'The category entered is too long, it should not exceed  characters {{ limit }} characters',
+    )]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank(message: 'Don\'t leave me empty')]
+    #[Assert\Length(
+        max: 500,
+        maxMessage: 'The category entered is too long, it should not exceed  characters {{ limit }} characters',
+    )]
     private ?string $content = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'Don\'t leave me empty')]
+    #[Assert\Length(
+        max: 255,
+        maxMessage: 'The category entered is too long, it should not exceed  characters {{ limit }} characters',
+    )]
     private ?string $status = null;
 
     #[ORM\OneToMany(mappedBy: 'idea', targetEntity: Comment::class, orphanRemoval: true)]
