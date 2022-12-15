@@ -21,11 +21,12 @@
 					</div>
 				</div>
 				<div class="p-3 border border-info rounded-bottom border-4 bg-info d-grid gap-5 d-md-flex justify-content-md-center">
-					<button type="button" class="btn btn-success">Comment</button>
+					<button type="button" class="btn btn-success">
+						<a href="{{ path('app_idea_show', {'id': idea.id}) }}">Comment</a>
+					</button>
 					<button type="button" class="btn btn-success">Like</button>
 				</div>
 			</div>
-
 		{% endfor %}
 
 	</div>
