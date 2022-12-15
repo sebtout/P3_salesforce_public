@@ -1,13 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Idea{% endblock %}
+{% block title %}Edit Idea
+{% endblock %}
 
 {% block body %}
-    <h1>Edit Idea</h1>
+	<h1>Edit Idea</h1>
 
-    {{ include('idea/_form.html.twig', {'button_label': 'Update'}) }}
+	{{ include('idea/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('app_idea_index') }}">back to list</a>
+	<a class="a-back-list" href="{{ path('app_idea_index') }}">back to list</a>
 
-    {{ include('idea/_delete_form.html.twig') }}
+	{{ include('idea/_delete_form.html.twig') }}
 {% endblock %}
