@@ -35,10 +35,10 @@
 							</button>
 						</td>
 					</tr>
-				</td>
+				{% endfor %}
 			</tbody>
 		</table>
 
-	{% endfor %}
-	<a href="{{ path('app_idea_new') }}">Create new</a>
-</div>{% endblock %}
+		<a href="{{ path('app_idea_new') }}">Create new</a>
+	</div>
+{% endblock %}

@@ -24,7 +24,7 @@ class IdeaController extends AbstractController
         ]);
     }
 
-    #[Route('/list', name: 'list_idea', methods: ['GET'])]
+    #[Route('/list', name: 'list_idea', methods: ['GET', 'POST'])]
     public function list(IdeaRepository $ideaRepository): Response
     {
         return $this->render('idea/list_idea_admin.html.twig', [
@@ -54,6 +54,18 @@ class IdeaController extends AbstractController
             'form' => $form,
         ]);
     }
+
+    #[Route('/{id}', name: 'delete', methods: ['POST'])]
+    public function delete(Request $request, Idea $idea, IdeaRepository $ideaRepository): Response
+    {
+
+        if ($this->isCsrfTokenValid('delete' . $idea->getId(), $request->request->get('_token'))) {
+            $ideaRepository->remove($idea, true);
+        }
+
+        return $this->redirectToRoute('app_idea_list_idea', [], Response::HTTP_SEE_OTHER);
+    }
+
 
     #[Route('/{id}', name: 'show', methods: ['GET', 'POST'])]
     public function show(Idea $idea, CommentRepository $commentRepository, Request $request): Response
@@ -98,15 +110,5 @@ class IdeaController extends AbstractController
             'idea' => $idea,
             'form' => $form,
         ]);
-    }
-
-    #[Route('/{id}', name: 'delete', methods: ['POST'])]
-    public function delete(Request $request, Idea $idea, IdeaRepository $ideaRepository): Response
-    {
-        if ($this->isCsrfTokenValid('delete' . $idea->getId(), $request->request->get('_token'))) {
-            $ideaRepository->remove($idea, true);
-        }
-
-        return $this->redirectToRoute('app_idea_index', [], Response::HTTP_SEE_OTHER);
     }
 }
