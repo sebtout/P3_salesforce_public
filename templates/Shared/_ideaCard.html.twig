@@ -1,33 +1,24 @@
-<div class="container">
-
-	<div class="row">
-		{% for idea in ideas %}
-
-			<div class="idea_card m-5 col-4" style="width: 21rem;">
-				<div class="idea_card_header row p-3 border border-secondary rounded-top border-3 bg-secondary">
-					<div class="p-3 col-8">
-						<p class="">Lastname:</p>
-						<p class="">Firstname:</p>
-						<p class="">Profession:</p>
-					</div>
-					<div class="user_picture col-4  ">
-						<img class="card-img-top img-thumbnail img-fluid mx-auto d-block" src="https://th.bing.com/th/id/OIP.PEyJEq2LadECSuY05CbMOgHaLJ?w=198&h=298&c=7&r=0&o=5&pid=1.7" alt="Card image cap">
-					</div>
-				</div>
-				<div class=" p-2 border border-info  border-5 bg-info">
-					<div class="card-body p-3 border border-secondary rounded border-5 bg-secondary">
-						<h2>{{ idea.title }}:</h2>
-						<p class="card-text">{{ idea.content }}</p>
-					</div>
-				</div>
-				<div class="p-3 border border-info rounded-bottom border-4 bg-info d-grid gap-5 d-md-flex justify-content-md-center">
-					<button type="button" class="btn btn-success">
-						<a href="{{ path('app_idea_show', {'id': idea.id}) }}">Comment</a>
-					</button>
-					<button type="button" class="btn btn-success">Like</button>
-				</div>
-			</div>
-		{% endfor %}
-
+<div class="idea_card m-2 col-12 col-md-4" style="width: 21rem;">
+	<div class="idea_card_header row p-3 border border-secondary rounded-top border-3 bg-secondary">
+		<div class="p-3 col-8">
+			<p class="">Lastname :</p>
+			<p class="">Firstname :</p>
+			<p class="">Profession :</p>
+		</div>
+		<div class="user_picture col-4  ">
+			<img class="card-img-top img-thumbnail img-fluid mx-auto d-block" src="https://th.bing.com/th/id/OIP.PEyJEq2LadECSuY05CbMOgHaLJ?w=198&h=298&c=7&r=0&o=5&pid=1.7" alt="Card image cap">
+		</div>
+	</div>
+	<div class=" p-2 border border-info  border-5 bg-info">
+		<div class="card-body p-3 border border-secondary rounded border-5 bg-secondary">
+			<h3>{{ idea.title }}:</h3>
+			<p class="card-text">{{ idea.content }}</p>
+		</div>
+	</div>
+	<div class="p-3 border border-info rounded-bottom border-4 bg-info d-grid gap-5 d-md-flex justify-content-md-center">
+		<button type="button" class="btn btn-success">
+			<a href="{{ path('app_idea_show', {'id': idea.id}) }}">Comment</a>
+		</button>
+		<button type="button" class="btn btn-success">Like</button>
 	</div>
 </div>
