@@ -55,6 +55,9 @@ class IdeaController extends AbstractController
         ]);
     }
 
+
+
+
     #[Route('/{id}', name: 'show', methods: ['GET', 'POST'])]
     public function show(Idea $idea, CommentRepository $commentRepository, Request $request): Response
     {
@@ -99,14 +102,14 @@ class IdeaController extends AbstractController
             'form' => $form,
         ]);
     }
-
-    #[Route('/{id}', name: 'delete', methods: ['POST'])]
+    #[Route('delete/{id}', name: 'delete', methods: ['POST'])]
     public function delete(Request $request, Idea $idea, IdeaRepository $ideaRepository): Response
     {
+
         if ($this->isCsrfTokenValid('delete' . $idea->getId(), $request->request->get('_token'))) {
             $ideaRepository->remove($idea, true);
         }
 
-        return $this->redirectToRoute('app_idea_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_idea_list_idea', [], Response::HTTP_SEE_OTHER);
     }
 }

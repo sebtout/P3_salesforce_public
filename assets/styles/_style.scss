@@ -14,9 +14,21 @@ body {
     width: 60px;
 }
 
-h1,
+h1 {
+    color: $title-color;
+    font-size: 60px;
+}
 h2 {
     color: $title-color;
+    font-size: 45px;
+}
+
+.text-home {
+    font-size: 30px;
+}
+
+.title-text {
+    font-size: 40px;
 }
 
 a {

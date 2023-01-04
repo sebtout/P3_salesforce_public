@@ -16,7 +16,6 @@ class IdeaType extends AbstractType
         $builder
             ->add('title', TextType::class)
             ->add('content', TextareaType::class)
-            ->add('status', TextType::class)
             ->add('author', TextType::class);
     }
 
