@@ -19,8 +19,8 @@
 	<div class="container-fluid shadow">
 		<div class="row">
 			<nav class="navbar navbar-expand-lg bg-white">
-				<a class="navbar-brand" href="/home">
-					<img src="{{ asset('/build/images/shareforce.png') }}" class="img-logo" alt="Logo">
+				<a class="navbar-brand" href="{{ path('app_home') }}">
+					<img src="{{ asset('/build/images/shareforce.png') }}" class="img-logo mx-3" alt="Logo">
 				</a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
@@ -42,8 +42,8 @@
 					</ul>
 				</div>
 			</nav>
-		</div>
-	</div>
+		 </div>
+      </div>
 	<body>
 		{% block body %}{% endblock %}
 	</body>
