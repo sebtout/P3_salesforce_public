@@ -16,10 +16,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 #[Route('/idea', name: 'app_idea_')]
 #[IsGranted('ROLE_USER')]
-#[IsGranted('ROLE_ADMIN')]
+
 class IdeaController extends AbstractController
 {
     #[Route('/', name: 'index', methods: ['GET'])]
+
     public function index(IdeaRepository $ideaRepository): Response
     {
         return $this->render('idea/index.html.twig', [
@@ -39,8 +40,7 @@ class IdeaController extends AbstractController
 
 
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
-    #[IsGranted('ROLE_ADMIN')]
-    #[IsGranted('ROLE_USER')]
+
     public function new(
         Request $request,
         IdeaRepository $ideaRepository
@@ -65,7 +65,7 @@ class IdeaController extends AbstractController
 
 
     #[Route('/{id}', name: 'show', methods: ['GET', 'POST'])]
-    #[IsGranted('ROLE_ADMIN')]
+
     public function show(Idea $idea, CommentRepository $commentRepository, Request $request): Response
     {
         $id = $idea->getId();
@@ -90,8 +90,7 @@ class IdeaController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
-    #[IsGranted('ROLE_USER')]
-    #[IsGranted('ROLE_ADMIN')]
+
     public function edit(
         Request $request,
         Idea $idea,
@@ -112,8 +111,7 @@ class IdeaController extends AbstractController
         ]);
     }
     #[Route('delete/{id}', name: 'delete', methods: ['POST'])]
-    #[IsGranted('ROLE_ADMIN')]
-    #[IsGranted('ROLE_USER')]
+
     public function delete(Request $request, Idea $idea, IdeaRepository $ideaRepository): Response
     {
 
