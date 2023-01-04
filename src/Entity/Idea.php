@@ -27,8 +27,8 @@ class Idea
     #[ORM\Column(name: 'title', type: 'string', length: 255, unique: true)]
     #[Assert\NotBlank(message: 'Don\'t leave me empty')]
     #[Assert\Length(
-        max: 255,
-        maxMessage: 'The category entered is too long, it should not exceed  characters {{ limit }} characters',
+        max: 40,
+        maxMessage: 'The title entered is too long, it should not exceed  characters {{ limit }} characters',
     )]
     private ?string $title = null;
 
@@ -40,12 +40,12 @@ class Idea
     )]
     private ?string $content = null;
 
-
-    #[ORM\Column(length: 255)]
-    private ?string $author = null;
-
     #[ORM\OneToMany(mappedBy: 'idea', targetEntity: Comment::class, orphanRemoval: true)]
     private Collection $comments;
+
+    #[ORM\ManyToOne(inversedBy: 'ideas')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $author = null;
 
     public function __construct()
     {
@@ -81,19 +81,6 @@ class Idea
         return $this;
     }
 
-
-    public function getAuthor(): ?string
-    {
-        return $this->author;
-    }
-
-    public function setAuthor(string $author): self
-    {
-        $this->author = $author;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Comment>
      */
@@ -120,6 +107,18 @@ class Idea
                 $comment->setIdea(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): self
+    {
+        $this->author = $author;
 
         return $this;
     }

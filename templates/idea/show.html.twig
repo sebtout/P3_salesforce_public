@@ -47,7 +47,9 @@
 
 			{% for comment in idea.comments %}
 				<div class="m-3 p-3 border border-secondary rounded border-5 bg-secondary">
-					<h3>{{ comment.author }}</h3>
+					<h3>From:
+						{{ comment.author.lastname }}
+						{{ comment.author.firstname }}</h3>
 					<p>{{ comment.createdAt ? comment.createdAt|date('Y-m-d H:i:s') : '' }}</p>
 					<p class="card-text">{{ comment.content }}</p>
 				</div>
