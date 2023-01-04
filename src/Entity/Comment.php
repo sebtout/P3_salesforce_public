@@ -17,7 +17,7 @@ class Comment
 
     #[ORM\ManyToOne(inversedBy: 'comments')]
     #[ORM\JoinColumn(nullable: false)]
-    private ? Idea $idea = null;
+    private ?Idea $idea = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $content = null;
@@ -27,7 +27,7 @@ class Comment
 
     #[ORM\ManyToOne(inversedBy: 'comments')]
     #[ORM\JoinColumn(nullable: false)]
-    private ? User $author = null;
+    private ?User $author = null;
 
     public function __construct()
     {
@@ -39,12 +39,12 @@ class Comment
         return $this->id;
     }
 
-    public function getIdea(): ? Idea
+    public function getIdea(): ?Idea
     {
         return $this->idea;
     }
 
-    public function setIdea(? Idea $idea): self
+    public function setIdea(?Idea $idea): self
     {
         $this->idea = $idea;
 
@@ -63,24 +63,24 @@ class Comment
         return $this;
     }
 
-    public function getCreatedAt(): ? DateTime
+    public function getCreatedAt(): ?DateTime
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(? DateTime $createdAt): self
+    public function setCreatedAt(?DateTime $createdAt): self
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getAuthor(): ? User
+    public function getAuthor(): ?User
     {
         return $this->author;
     }
 
-    public function setAuthor(? User $author): self
+    public function setAuthor(?User $author): self
     {
         $this->author = $author;
 

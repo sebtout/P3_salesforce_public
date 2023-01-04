@@ -15,8 +15,8 @@ class IdeaFixtures extends Fixture implements DependentFixtureInterface
         $faker = Factory::create();
         for ($i = 0; $i < 40; $i++) {
             $idea = new Idea();
-            $idea->setTitle($faker->realText($maxNbChars = 40, $indexSize = 2));
-            $idea->setContent($faker->realTextBetween($minNbChars = 160, $maxNbChars = 500, $indexSize = 2));
+            $idea->setTitle($faker->realText(40, 2));
+            $idea->setContent($faker->realTextBetween(160, 500, 2));
             $idea->setAuthor($this->getReference('author_' . $faker->numberBetween(0, 19)));
             $manager->persist($idea);
             $this->addReference('idea_' . $i, $idea);

@@ -17,7 +17,7 @@ class CommentFixtures extends Fixture implements DependentFixtureInterface
             $comment = new Comment();
             $comment->setAuthor($this->getReference('author_' . $faker->numberBetween(0, 19)));
             $comment->setIdea($this->getReference('idea_' . $faker->numberBetween(0, 39)));
-            $comment->setContent($faker->realTextBetween($minNbChars = 160, $maxNbChars = 500, $indexSize = 2));
+            $comment->setContent($faker->realTextBetween(160, 500, 2));
             $comment->setCreatedAt($faker->dateTimeBetween('-3 years', 'now'));
             $manager->persist($comment);
         }
