@@ -3,10 +3,10 @@
 namespace App\Entity;
 
 use App\Repository\CommentRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use DateTimeImmutable;
-use Symfony\Component\Validator\Constraints as Assert;
+use DateTime;
 
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
 class Comment
@@ -20,14 +20,6 @@ class Comment
     #[ORM\JoinColumn(nullable: false)]
     private ?Idea $idea = null;
 
-    #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: 'Don\'t leave me empty')]
-    #[Assert\Length(
-        max: 255,
-        maxMessage: 'The entered comment is too long, it should not exceed {{ limit }} characters',
-    )]
-    private ?string $author = null;
-
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank(message: 'Don\'t leave me empty')]
     #[Assert\Length(
@@ -36,12 +28,16 @@ class Comment
     )]
     private ?string $content = null;
 
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
-    private DateTimeImmutable $createdAt;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private DateTime $createdAt;
+
+    #[ORM\ManyToOne(inversedBy: 'comments')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $author = null;
 
     public function __construct()
     {
-        $this->createdAt = new DateTimeImmutable();
+        $this->createdAt = new DateTime();
     }
 
     public function getId(): ?int
@@ -61,18 +57,6 @@ class Comment
         return $this;
     }
 
-    public function getAuthor(): ?string
-    {
-        return $this->author;
-    }
-
-    public function setAuthor(string $author): self
-    {
-        $this->author = $author;
-
-        return $this;
-    }
-
     public function getContent(): ?string
     {
         return $this->content;
@@ -85,14 +69,26 @@ class Comment
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?DateTime
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(?\DateTimeImmutable $createdAt): self
+    public function setCreatedAt(?DateTime $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): self
+    {
+        $this->author = $author;
 
         return $this;
     }
