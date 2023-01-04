@@ -5,7 +5,7 @@ namespace App\Entity;
 use App\Repository\CommentRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use DateTimeImmutable;
+use DateTime;
 
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
 class Comment
@@ -17,20 +17,21 @@ class Comment
 
     #[ORM\ManyToOne(inversedBy: 'comments')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Idea $idea = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $author = null;
+    private ? Idea $idea = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $content = null;
 
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
-    private DateTimeImmutable $createdAt;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private DateTime $createdAt;
+
+    #[ORM\ManyToOne(inversedBy: 'comments')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ? User $author = null;
 
     public function __construct()
     {
-        $this->createdAt = new DateTimeImmutable();
+        $this->createdAt = new DateTime();
     }
 
     public function getId(): ?int
@@ -38,26 +39,14 @@ class Comment
         return $this->id;
     }
 
-    public function getIdea(): ?Idea
+    public function getIdea(): ? Idea
     {
         return $this->idea;
     }
 
-    public function setIdea(?Idea $idea): self
+    public function setIdea(? Idea $idea): self
     {
         $this->idea = $idea;
-
-        return $this;
-    }
-
-    public function getAuthor(): ?string
-    {
-        return $this->author;
-    }
-
-    public function setAuthor(string $author): self
-    {
-        $this->author = $author;
 
         return $this;
     }
@@ -74,14 +63,26 @@ class Comment
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ? DateTime
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(?\DateTimeImmutable $createdAt): self
+    public function setCreatedAt(? DateTime $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getAuthor(): ? User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(? User $author): self
+    {
+        $this->author = $author;
 
         return $this;
     }
