@@ -67,10 +67,10 @@ class IdeaController extends AbstractController
 
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
-        $form->get('idea')->setData($idea);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setIdea($idea);
             $commentRepository->save($comment, true);
 
             return $this->redirectToRoute('app_idea_show', ['id' => $id], Response::HTTP_SEE_OTHER);
