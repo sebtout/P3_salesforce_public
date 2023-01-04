@@ -15,8 +15,7 @@ class IdeaType extends AbstractType
     {
         $builder
             ->add('title', TextType::class)
-            ->add('content', TextareaType::class)
-            ->add('author', TextType::class);
+            ->add('content', TextareaType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

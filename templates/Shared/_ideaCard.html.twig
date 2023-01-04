@@ -1,9 +1,9 @@
 <div class="idea_card m-2 col-12 col-md-4" style="width: 21rem;">
 	<div class="idea_card_header row p-3 border border-secondary rounded-top border-3 bg-secondary">
 		<div class="p-3 col-8">
-			<p class="">Lastname :</p>
-			<p class="">Firstname :</p>
-			<p class="">Profession :</p>
+			<p class="">Lastname : {{ idea.author.lastname }}</p>
+			<p class="">Firstname : {{ idea.author.firstname }}</p>
+			<p class="">Profession : {{ idea.author.profession }}</p>
 		</div>
 		<div class="user_picture col-4  ">
 			<img class="card-img-top img-thumbnail img-fluid mx-auto d-block" src="https://th.bing.com/th/id/OIP.PEyJEq2LadECSuY05CbMOgHaLJ?w=198&h=298&c=7&r=0&o=5&pid=1.7" alt="Card image cap">
