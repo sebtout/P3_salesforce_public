@@ -36,10 +36,20 @@
 						<li class="nav-item">
 							<a class="nav-link active" href="{{ path('app_idea_list_idea') }}">Admin</a>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link active" href="{{ path('app_logout') }}">Se déconnecter</a>
-						</li>
 					</ul>
+					<li class="nav-item nav-link active d-flex justify-content-end">
+						{% if app.user %}
+							<p>Welcome
+								{{ app.user.firstname }}
+								{{ app.user.lastname }}</p>
+						{% endif %}
+					</li>
+					<li class="nav-item d-flex justify-content-end">
+						{% if app.user %}
+							<a class="nav-link active" href="{{ path('app_logout') }}">
+								Se déconnecter</a>
+						{% endif %}
+					</li>
 				</div>
 			</nav>
 		</div>
