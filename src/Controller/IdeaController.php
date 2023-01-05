@@ -6,6 +6,7 @@ use App\Entity\Comment;
 use App\Form\CommentType;
 use App\Entity\Idea;
 use App\Form\IdeaType;
+use App\Form\IdeaAdminType;
 use App\Repository\CommentRepository;
 use App\Repository\IdeaRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -43,13 +44,18 @@ class IdeaController extends AbstractController
 
     public function new(
         Request $request,
-        IdeaRepository $ideaRepository
+        IdeaRepository $ideaRepository,
     ): Response {
+
+        /** @var \App\Entity\User $user */
+        $user = $this->getUser();
+
         $idea = new Idea();
         $form = $this->createForm(IdeaType::class, $idea);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $idea->setAuthor($user);
             $ideaRepository->save($idea, true);
 
             return $this->redirectToRoute('app_idea_index', [], Response::HTTP_SEE_OTHER);
@@ -72,12 +78,16 @@ class IdeaController extends AbstractController
 
         $idea->getComments();
 
+        /** @var \App\Entity\User $user */
+        $user = $this->getUser();
+
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
-        $form->get('idea')->setData($idea);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setIdea($idea);
+            $comment->setAuthor($user);
             $commentRepository->save($comment, true);
 
             return $this->redirectToRoute('app_idea_show', ['id' => $id], Response::HTTP_SEE_OTHER);
@@ -90,13 +100,13 @@ class IdeaController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
-
+    #[IsGranted('ROLE_ADMIN')]
     public function edit(
         Request $request,
         Idea $idea,
         IdeaRepository $ideaRepository
     ): Response {
-        $form = $this->createForm(IdeaType::class, $idea);
+        $form = $this->createForm(IdeaAdminType::class, $idea);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

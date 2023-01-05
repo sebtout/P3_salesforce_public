@@ -17,6 +17,7 @@ class IdeaFixtures extends Fixture implements DependentFixtureInterface
             $idea = new Idea();
             $idea->setTitle($faker->realText(40, 2));
             $idea->setContent($faker->realTextBetween(160, 500, 2));
+            $idea->setStatus('in progress');
             $idea->setAuthor($this->getReference('author_' . $faker->numberBetween(0, 19)));
             $manager->persist($idea);
             $this->addReference('idea_' . $i, $idea);
@@ -28,7 +29,7 @@ class IdeaFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies(): array
     {
         return [
-                UserFixtures::class,
+            UserFixtures::class,
         ];
     }
 }

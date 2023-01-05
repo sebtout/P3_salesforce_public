@@ -2,37 +2,33 @@
 
 namespace App\Form;
 
-use App\Entity\Comment;
+use App\Entity\Idea;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-class CommentType extends AbstractType
+class IdeaAdminType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('content', TextareaType::class, [
-                'attr' => [
-                    'placeholder' => 'Enter your comment'
-                ]
-            ])
-            ->add('submit', SubmitType::class, [
-                'label' => 'Add comment',
-                'attr' => [
-                    'class' => "btn-success"
+            ->add('title', TextType::class)
+            ->add('content', TextareaType::class)
+            ->add('status', ChoiceType::class, [
+                'choices' => [
+                    'in progress' => 'in progress',
+                    'complete' => 'complete',
                 ]
             ]);
     }
 
-
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Comment::class,
+            'data_class' => Idea::class,
         ]);
     }
 }

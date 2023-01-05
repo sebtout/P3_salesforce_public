@@ -14,7 +14,9 @@
 	<div class="container">
 		<div class="row d-flex justify-content-around">
 			{% for idea in ideas %}
-				{% include "Shared/_ideaCard.html.twig" %}
+				{% if idea.status == 'in progress' %}
+					{% include "Shared/_ideaCard.html.twig" %}
+				{% endif %}
 			{% else %}
 				<tr>
 					<td colspan="5">no records found</td>
