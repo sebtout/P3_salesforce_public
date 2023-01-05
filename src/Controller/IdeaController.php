@@ -5,9 +5,11 @@ namespace App\Controller;
 use App\Entity\Comment;
 use App\Form\CommentType;
 use App\Entity\Idea;
+use App\Entity\IdeaLike;
 use App\Form\IdeaType;
 use App\Form\IdeaAdminType;
 use App\Repository\CommentRepository;
+use App\Repository\IdeaLikeRepository;
 use App\Repository\IdeaRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,8 +40,6 @@ class IdeaController extends AbstractController
         ]);
     }
 
-
-
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
 
     public function new(
@@ -66,9 +66,6 @@ class IdeaController extends AbstractController
             'form' => $form,
         ]);
     }
-
-
-
 
     #[Route('/{id}', name: 'show', methods: ['GET', 'POST'])]
 
@@ -120,7 +117,8 @@ class IdeaController extends AbstractController
             'form' => $form,
         ]);
     }
-    #[Route('delete/{id}', name: 'delete', methods: ['POST'])]
+
+    #[Route('/delete/{id}', name: 'delete', methods: ['POST'])]
 
     public function delete(Request $request, Idea $idea, IdeaRepository $ideaRepository): Response
     {
@@ -130,5 +128,39 @@ class IdeaController extends AbstractController
         }
 
         return $this->redirectToRoute('app_idea_list_idea', [], Response::HTTP_SEE_OTHER);
+    }
+
+    /**
+     * Like or unlike an Idea
+     * @param Idea $idea
+     * @param IdeaLikeRepository $ideaLikeRepository
+     * @return Response
+     */
+
+    #[Route('/like/{id}', name: 'like', methods: ['GET'])]
+
+    public function like(Idea $idea, IdeaLikeRepository $ideaLikeRepository): Response
+    {
+        /** @var \App\Entity\User $user */
+        $user = $this->getUser();
+
+        if ($idea->isLikedByUser($user)) {
+            $like = $ideaLikeRepository->findOneBy([
+                'idea' => $idea,
+                'user' => $user,
+            ]);
+
+            $ideaLikeRepository->remove($like, true);
+
+            return $this->redirectToRoute('app_idea_show', ['id' => $idea->getId()], Response::HTTP_SEE_OTHER);
+        }
+
+        $like = new IdeaLike();
+        $like->setIdea($idea);
+        $like->setUser($user);
+
+        $ideaLikeRepository->save($like, true);
+
+        return $this->redirectToRoute('app_idea_show', ['id' => $idea->getId()], Response::HTTP_SEE_OTHER);
     }
 }

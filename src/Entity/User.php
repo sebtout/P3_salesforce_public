@@ -44,10 +44,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Comment::class, orphanRemoval: true)]
     private Collection $comments;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: IdeaLike::class)]
+    private Collection $ideaLikes;
+
     public function __construct()
     {
         $this->ideas = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->ideaLikes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -211,6 +215,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($comment->getAuthor() === $this) {
                 $comment->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, IdeaLike>
+     */
+    public function getIdeaLikes(): Collection
+    {
+        return $this->ideaLikes;
+    }
+
+    public function addIdeaLike(IdeaLike $ideaLike): self
+    {
+        if (!$this->ideaLikes->contains($ideaLike)) {
+            $this->ideaLikes->add($ideaLike);
+            $ideaLike->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIdeaLike(IdeaLike $ideaLike): self
+    {
+        if ($this->ideaLikes->removeElement($ideaLike)) {
+            // set the owning side to null (unless already changed)
+            if ($ideaLike->getUser() === $this) {
+                $ideaLike->setUser(null);
             }
         }
 

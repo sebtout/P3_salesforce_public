@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\User;
 use App\Repository\IdeaRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -50,9 +51,13 @@ class Idea
     #[ORM\Column(length: 255)]
     private ?string $status = null;
 
+    #[ORM\OneToMany(mappedBy: 'idea', targetEntity: IdeaLike::class)]
+    private Collection $likes;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->likes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -136,5 +141,53 @@ class Idea
         $this->status = $status;
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, IdeaLike>
+     */
+    public function getLikes(): Collection
+    {
+        return $this->likes;
+    }
+
+    public function addLike(IdeaLike $like): self
+    {
+        if (!$this->likes->contains($like)) {
+            $this->likes->add($like);
+            $like->setIdea($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLike(IdeaLike $like): self
+    {
+        if ($this->likes->removeElement($like)) {
+            // set the owning side to null (unless already changed)
+            if ($like->getIdea() === $this) {
+                $like->setIdea(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * Know if this idea is liked by one user
+     *
+     * @param User $user
+     * @return boolean
+     */
+    public function isLikedByUser(User $user): bool
+    {
+        foreach ($this->likes as $like) {
+            if ($like->getUser() === $user) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

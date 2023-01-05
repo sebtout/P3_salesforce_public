@@ -1,5 +1,5 @@
 <div class="idea_card m-2 col-12 col-md-4" style="width: 21rem;">
-	<div class="idea_card_header row p-3 border border-secondary rounded-top border-3 bg-secondary">
+	<div class="idea_card_header row p-3 border border-secondary rounded-top border-3 bg-light">
 		<div class="p-3 col-8">
 			<p class="fw-bold">{{ idea.author.lastname }}</p>
 			<p class="fw-bold">{{ idea.author.firstname }}</p>
@@ -15,10 +15,13 @@
 			<p class="card-text">{{ idea.content }}</p>
 		</div>
 	</div>
-	<div class="p-3 border border-info rounded-bottom border-4 bg-info d-grid gap-5 d-md-flex justify-content-md-center">
-		<button type="button" class="btn btn-success">
-			<a href="{{ path('app_idea_show', {'id': idea.id}) }}">Comment</a>
-		</button>
-		<button type="button" class="btn btn-success">Like</button>
+	<div class="p-3 border border-info rounded-bottom border-4 bg-info d-grid gap-2 d-md-flex justify-content-md-center align-items-center">
+		<a href="{{ path('app_idea_show', {'id': idea.id}) }}" class="btn btn-success me-auto p-2">Comment</a>
+		{% if app.user and idea.isLikedByUser(app.user) %}
+			<a href="{{ path('app_idea_like', {'id': idea.id}) }}" class=" btn btn-success p-2">Like</a>
+		{% else %}
+			<a href="{{ path('app_idea_like', {'id': idea.id}) }}" class=" btn btn-secondary p-2">Like</a>
+		{% endif %}
+		<span class="text-dark bg-secondary rounded p-2">{{ idea.likes | length }}</span>
 	</div>
 </div>
