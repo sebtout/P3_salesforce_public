@@ -6,19 +6,21 @@ use App\Entity\Comment;
 use App\Form\CommentType;
 use App\Entity\Idea;
 use App\Form\IdeaType;
-use App\Entity\User;
 use App\Repository\CommentRepository;
 use App\Repository\IdeaRepository;
-use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 #[Route('/idea', name: 'app_idea_')]
+#[IsGranted('ROLE_USER')]
+
 class IdeaController extends AbstractController
 {
     #[Route('/', name: 'index', methods: ['GET'])]
+
     public function index(IdeaRepository $ideaRepository): Response
     {
         return $this->render('idea/index.html.twig', [
@@ -27,6 +29,7 @@ class IdeaController extends AbstractController
     }
 
     #[Route('/list', name: 'list_idea', methods: ['GET'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function list(IdeaRepository $ideaRepository): Response
     {
         return $this->render('idea/list_idea_admin.html.twig', [
@@ -37,6 +40,7 @@ class IdeaController extends AbstractController
 
 
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
+
     public function new(
         Request $request,
         IdeaRepository $ideaRepository,
@@ -66,11 +70,12 @@ class IdeaController extends AbstractController
 
 
     #[Route('/{id}', name: 'show', methods: ['GET', 'POST'])]
-    public function show(Idea $idea, CommentRepository $commentRepository, Request $request, User $user): Response
+
+    public function show(Idea $idea, CommentRepository $commentRepository, Request $request): Response
     {
         $id = $idea->getId();
 
-        $idea->getComments();
+        $idea->getComments(['created_at' => 'DESC']);
 
         /** @var \App\Entity\User $user */
         $user = $this->getUser();
@@ -94,6 +99,7 @@ class IdeaController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
+
     public function edit(
         Request $request,
         Idea $idea,
@@ -114,6 +120,7 @@ class IdeaController extends AbstractController
         ]);
     }
     #[Route('delete/{id}', name: 'delete', methods: ['POST'])]
+
     public function delete(Request $request, Idea $idea, IdeaRepository $ideaRepository): Response
     {
 
