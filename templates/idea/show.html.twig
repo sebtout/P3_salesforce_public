@@ -19,16 +19,33 @@
 		</div>
 
 		<div class="col-12 col-md-6 pe-5">
-			<h1 class="mt-5">Comments</h1>
-			<div class="m-3">
-				{{ form_start(form) }}
-				{{ form_widget(form) }}
-				{{ form_end(form) }}
+			<div class="container bloc_test">
+				<div class="row">
+					<div class="mb-3 mx-auto">
+						<div class="align-middle">
+							<h1 class="text-center m-5">Comments</h1>
+							<form class="form-idea form bg-lightgrey p-3 shadow bg-light" method="post" action="#anchor">
+								{{ form_start(form) }}
+								{{ form_errors(form) }}
+								<div>
+									{{ form_row(form.content)}}
+									{{ form_errors(form.content)}}
+								</div>
+								<div class="text-center">
+									{{ form_row(form.submit, { 'label': 'Add comment' }) }}
+								</div>
+								{{ form_end(form) }}
+							</form>
+						</div>
+					</div>
+				</div>
 			</div>
 
 			{% for comment in idea.comments %}
 				<div class="m-3 p-3 border border-secondary rounded border-5 bg-secondary">
-					<h3>From: {{ comment.author.lastname }} {{ comment.author.firstname }}</h3>
+					<h3>From:
+						{{ comment.author.lastname }}
+						{{ comment.author.firstname }}</h3>
 					<p>{{ comment.createdAt ? comment.createdAt|date('Y-m-d H:i:s') : '' }}</p>
 					<p class="card-text">{{ comment.content }}</p>
 				</div>

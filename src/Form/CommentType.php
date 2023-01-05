@@ -20,7 +20,6 @@ class CommentType extends AbstractType
                     'placeholder' => 'Enter your comment'
                 ]
             ])
-            ->add('idea', null, ['choice_label' => 'title'])
             ->add('submit', SubmitType::class, [
                 'label' => 'Add comment',
                 'attr' => [
