@@ -21,13 +21,28 @@
 				<p class="text-home font-weight-light">
 					Come and use our ideation tool to promote what is important to you!!
 				</p>
-				<form>
-					<div class="col-lg-8">
-						<div class="card-body py-5 px-md-5">
 
-						</div>
+				<div class="col-lg-8">
+					<div class="card-body py-5 px-md-5">
+						{% if error is defined and error %}
+							<div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+						{% endif %}
+						<form action="{{ path('app_homes') }}" method="post">
+							<label for="username">Email:</label>
+							<input type="text" id="username" name="_username">
+
+							<label for="password">Password:</label>
+							<input
+							type="password" id="password" name="_password">
+
+							{# If you want to control the URL the user is redirected to on success
+																																																																																																																																								        <input type="hidden" name="_target_path" value="/account"> #}
+
+							<button type="submit">login</button>
+						</form>
 					</div>
-				</form>
+				</div>
+
 			</div>
 		</div>
 	</div>
