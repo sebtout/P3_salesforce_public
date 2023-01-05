@@ -75,7 +75,7 @@ class IdeaController extends AbstractController
     {
         $id = $idea->getId();
 
-        $idea->getComments(['created_at' => 'DESC']);
+        $idea->getComments();
 
         /** @var \App\Entity\User $user */
         $user = $this->getUser();
