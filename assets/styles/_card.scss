@@ -11,10 +11,40 @@
     max-height: 100%;
 }
 
-.card-body{
+.card-body {
 
     height: 400px;
+    display: flex;
+    flex-direction: column;
 }
+
 .img-thumbnail {
     background-color: #168BAC;
+}
+
+.card-text {
+    flex: 1;
+    height: 80%;
+    overflow: auto;
+}
+
+::-webkit-scrollbar-track {
+    border: 5px solid #D9D9D9;
+    // border color does not support transparent on scrollbar
+    // border-color: transparent;
+    background-color: #b2bec3;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+    background-color: #D9D9D9;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: dimgray;
+    border-radius: 10px;
+}
+
+.idea_card_header {
+    height: 190px;
 }
