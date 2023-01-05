@@ -6,8 +6,10 @@ use App\Entity\Comment;
 use App\Form\CommentType;
 use App\Entity\Idea;
 use App\Form\IdeaType;
+use App\Entity\User;
 use App\Repository\CommentRepository;
 use App\Repository\IdeaRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,13 +39,17 @@ class IdeaController extends AbstractController
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
     public function new(
         Request $request,
-        IdeaRepository $ideaRepository
+        IdeaRepository $ideaRepository,
+        UserRepository $userRepository,
     ): Response {
+        $userRepository = $this->getUser();
+
         $idea = new Idea();
         $form = $this->createForm(IdeaType::class, $idea);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $idea->setAuthor($userRepository);
             $ideaRepository->save($idea, true);
 
             return $this->redirectToRoute('app_idea_index', [], Response::HTTP_SEE_OTHER);
@@ -59,11 +65,13 @@ class IdeaController extends AbstractController
 
 
     #[Route('/{id}', name: 'show', methods: ['GET', 'POST'])]
-    public function show(Idea $idea, CommentRepository $commentRepository, Request $request): Response
+    public function show(Idea $idea, CommentRepository $commentRepository, Request $request, User $user): Response
     {
         $id = $idea->getId();
 
         $idea->getComments();
+
+        $user = $this->getUser();
 
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
@@ -71,6 +79,7 @@ class IdeaController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $comment->setIdea($idea);
+            $comment->setAuthor($user);
             $commentRepository->save($comment, true);
 
             return $this->redirectToRoute('app_idea_show', ['id' => $id], Response::HTTP_SEE_OTHER);
