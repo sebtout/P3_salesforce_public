@@ -40,16 +40,17 @@ class IdeaController extends AbstractController
     public function new(
         Request $request,
         IdeaRepository $ideaRepository,
-        UserRepository $userRepository,
     ): Response {
-        $userRepository = $this->getUser();
+
+        /** @var \App\Entity\User $user */
+        $user = $this->getUser();
 
         $idea = new Idea();
         $form = $this->createForm(IdeaType::class, $idea);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $idea->setAuthor($userRepository);
+            $idea->setAuthor($user);
             $ideaRepository->save($idea, true);
 
             return $this->redirectToRoute('app_idea_index', [], Response::HTTP_SEE_OTHER);
@@ -71,6 +72,7 @@ class IdeaController extends AbstractController
 
         $idea->getComments();
 
+        /** @var \App\Entity\User $user */
         $user = $this->getUser();
 
         $comment = new Comment();
