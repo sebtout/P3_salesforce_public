@@ -26,7 +26,7 @@
 					<span class="navbar-toggler-icon"></span>
 				</button>
 				<div class="collapse navbar-collapse" id="navbarNav">
-					<ul class="navbar-nav">
+					<ul class="navbar-nav col-10">
 						<li class="nav-item">
 							<a class="nav-link active" aria-current="page" href="{{ path('app_home') }}">Home</a>
 						</li>
@@ -36,10 +36,13 @@
 						<li class="nav-item">
 							<a class="nav-link active" href="{{ path('app_idea_list_idea') }}">Admin</a>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link active" href="{{ path('app_logout') }}">Se déconnecter</a>
-						</li>
 					</ul>
+					<div class="navbar-nav col-2 text-center">
+							{% if app.user %}
+								<a class="nav-link active text-right text-center" href="{{ path('app_logout') }}">
+									Disconnect</a>
+							{% endif %}
+					</div>
 				</div>
 			</nav>
 		</div>
