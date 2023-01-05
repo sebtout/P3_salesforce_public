@@ -10,7 +10,7 @@
 				<tr>
 					<th>Id</th>
 					<th>Title</th>
-					<th>Content</th>
+					<th>Status</th>
 					<th>Delete</th>
 					<th>Update</th>
 				</tr>
@@ -21,7 +21,7 @@
 					<tr class="align-middle">
 						<td>{{ idea.id }}</td>
 						<td>{{ idea.title }}</td>
-						<td></td>
+						<td>{{ idea.status }}</td>
 						<td>
 							{{ include('idea/_delete_form.html.twig') }}
 						</td>

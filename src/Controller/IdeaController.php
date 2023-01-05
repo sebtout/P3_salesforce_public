@@ -6,6 +6,7 @@ use App\Entity\Comment;
 use App\Form\CommentType;
 use App\Entity\Idea;
 use App\Form\IdeaType;
+use App\Form\IdeaAdminType;
 use App\Repository\CommentRepository;
 use App\Repository\IdeaRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -90,13 +91,13 @@ class IdeaController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
-
+    #[IsGranted('ROLE_ADMIN')]
     public function edit(
         Request $request,
         Idea $idea,
         IdeaRepository $ideaRepository
     ): Response {
-        $form = $this->createForm(IdeaType::class, $idea);
+        $form = $this->createForm(IdeaAdminType::class, $idea);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
