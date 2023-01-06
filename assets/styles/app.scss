@@ -1,2 +1,9 @@
-//start coding by removing this file and adding yours ;)
-@import "wcs";
+$secondary: #D9D9D9;
+$info: #168BAC;
+$success: #B3E342;
+
+@import "~bootstrap/scss/bootstrap";
+@import "_style";
+@import "_card";
+@import "_form";
+@import "_admin";

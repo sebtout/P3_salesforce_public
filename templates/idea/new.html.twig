@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Idea
+{% endblock %}
+
+{% block body %}
+	<section class="section-new-idea container-sm">
+		{{ include('idea/_form.html.twig') }}
+	</section>
+{% endblock %}

@@ -1,22 +1,53 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="icon" type="image/png" href="{{ asset('build/images/favicon.png') }}"/>
-        <title>
-            {% block title %}Projet 3 Name{% endblock %}
-        </title>
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="icon" type="image/png" href="{{ asset('/build/images/salesforce.png') }}"/>
+		<title>
+			{% block title %}Shareforce
+			{% endblock %}
+		</title>
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+		{% block stylesheets %}
+			{{ encore_entry_link_tags('app') }}
+		{% endblock %}
+		{% block javascripts %}
+			{{ encore_entry_script_tags('app') }}
+		{% endblock %}
+	</head>
+	<div class="container-fluid shadow">
+		<div class="row">
+			<nav class="navbar navbar-expand-lg bg-white">
+				<a class="navbar-brand" href="{{ path('app_home') }}">
+					<img src="{{ asset('/build/images/shareforce.png') }}" class="img-logo mx-3" alt="Logo">
+				</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNav">
+					<ul class="navbar-nav col-10">
+						<li class="nav-item">
+							<a class="nav-link active" aria-current="page" href="{{ path('app_home') }}">Home</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" href="{{ path('app_idea_index') }}">Suggestion box</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" href="{{ path('app_idea_list_idea') }}">Admin</a>
+						</li>
+					</ul>
+					<div class="navbar-nav col-2 text-center">
+							{% if app.user %}
+								<a class="nav-link active text-right text-center" href="{{ path('app_logout') }}">
+									Disconnect</a>
+							{% endif %}
+					</div>
+				</div>
+			</nav>
+		</div>
+	</div>
+	<body>
+		{% block body %}{% endblock %}
+	</body>
 </html>
