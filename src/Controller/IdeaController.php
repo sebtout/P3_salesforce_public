@@ -56,6 +56,7 @@ class IdeaController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $idea->setAuthor($user);
+            $idea->setStatus('in progress');
             $ideaRepository->save($idea, true);
 
             return $this->redirectToRoute('app_idea_index', [], Response::HTTP_SEE_OTHER);
