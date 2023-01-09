@@ -52,22 +52,6 @@ class IdeaRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
-   /*  public function findDurationByProgram(Program $program): array
-    {
-        $query = $this->createQueryBuilder('p')
-            ->addSelect('s', 'e') //to make Doctrine actually use the join
-            ->leftJoin('p.seasons', 's')
-            ->andWhere('s.program = :program')
-            ->leftJoin('s.episodes', 'e')
-            ->andWhere('e.season = s.episodes')
-            ->setParameter('program', $program)
-            ->select('SUM(e.duration) as episodesDuration')
-            ->getQuery();
-
-            return $query->getResult()
-        ;
-    } */
-
 //    /**
 //     * @return Idea[] Returns an array of Idea objects
 //     */
