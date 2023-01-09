@@ -15,7 +15,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 class DashboardController extends AbstractDashboardController
 {
     #[IsGranted('ROLE_ADMIN')]
-    #[Route('/admin', name: 'admin')]
+    #[Route('/admin', name: 'app_admin')]
     public function index(): Response
     {
         return $this->render('admin/dashboard.html.twig');
@@ -28,9 +28,9 @@ class DashboardController extends AbstractDashboardController
     }
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linktoRoute('Back to the website', 'fas fa-home', 'home/index.html.twig');
+        yield MenuItem::linktoRoute('Back to the website', 'fas fa-home', 'app_home');
         yield MenuItem::linkToCrud('Users', 'fas fa-users', User::class);
-        yield MenuItem::linkToCrud('Ideas', 'fas fa-light-on', Idea::class);
+        yield MenuItem::linkToCrud('Ideas', 'fas fa-pen-nib', Idea::class);
         yield MenuItem::linkToCrud('Comments', 'fas fa-comments', Comment::class);
     }
 }
