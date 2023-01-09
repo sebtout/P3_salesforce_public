@@ -13,7 +13,7 @@
 
 .card-body {
 
-    height: 400px;
+    height: 215px;
     display: flex;
     flex-direction: column;
 }
@@ -23,26 +23,12 @@
 }
 
 .card-text {
-    flex: 1;
-    height: 80%;
-    overflow: auto;
+    height: 200px;
 }
 
-::-webkit-scrollbar-track {
-    border: 5px solid #D9D9D9;
-    background-color: #b2bec3;
-}
-
-::-webkit-scrollbar {
-    width: 5px;
-    background-color: #D9D9D9;
-}
-
-::-webkit-scrollbar-thumb {
-    background-color: dimgray;
-    border-radius: 10px;
-}
-
-.idea_card_header {
-    height: 190px;
+.idea_card:hover {
+    box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.75);
+    -webkit-transition: all 0.4s cubic-bezier(0.79, 0.33, 0, -0.01);transition: all 0.4s cubic-bezier(0.79, 0.33, 0, -0.01);
 }

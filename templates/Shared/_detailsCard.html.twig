@@ -10,11 +10,11 @@
 		</div>
 	</div>
 	<div class="p-2 border border-info  border-5 bg-info">
-		<div class="card-body p-2 border border-secondary rounded border-5 bg-secondary text-break">
+		<div class="p-2 border border-secondary rounded border-5 bg-secondary text-break">
 			<a href="{{ path('app_idea_like', {'id': idea.id}) }}">
-				<h3>{{ idea.title|u.truncate(20, '...') }}:</h3>
+				<h3>{{ idea.title }}:</h3>
 			</a>
-			<p class="card-text">{{ idea.content|u.truncate(120, '...') }}</p>
+			<p>{{ idea.content }}</p>
 		</div>
 	</div>
 	<div class="p-3 border border-info rounded-bottom border-4 bg-info d-grid gap-2 d-md-flex justify-content-md-center align-items-center">
