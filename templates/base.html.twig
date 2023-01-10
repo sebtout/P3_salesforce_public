@@ -37,7 +37,9 @@
 						</li>
 						<hr class="m-0">
 						<li class="nav-item">
-							<a class="nav-link active" href="{{ path('app_idea_list_idea') }}">Admin</a>
+							{% if is_granted("ROLE_ADMIN") %}
+								<a class="nav-link active" href="{{ path('app_admin') }}">Admin</a>
+							{% endif %}
 						</li>
 						<hr class="m-0">
 					</ul>
