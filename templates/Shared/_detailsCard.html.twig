@@ -15,14 +15,14 @@
 			<p>{{ idea.content }}</p>
 		</div>
 	</div>
-	<div
-		class="p-3 border border-info rounded-bottom border-4 bg-info d-grid gap-2 d-md-flex justify-content-md-center align-items-center">
-		<a href="{{ path('app_idea_index') }}" class="btn btn-success me-auto p-2">back to list</a>
+	<div class="p-3 border border-info rounded-bottom border-4 bg-info d-grid gap-2 d-md-flex justify-content-md-between align-items-center">
+		<a href="{{ path('app_idea_index') }}" class="btn btn-success">back to list</a>
 		{% if app.user and idea.isLikedByUser(app.user) %}
-			<a href="{{ path('app_idea_like', {'id': idea.id}) }}" class="btn btn-success p-2">Like</a>
+			<a href="{{ path('app_idea_like', {'id': idea.id}) }}" class="btn btn-success">Like -
+				{{ idea.likes | length }}</a>
 		{% else %}
-			<a href="{{ path('app_idea_like', {'id': idea.id}) }}" class="btn btn-secondary p-2">Like</a>
+			<a href="{{ path('app_idea_like', {'id': idea.id}) }}" class="btn btn-secondary">Like -
+				{{ idea.likes | length }}</a>
 		{% endif %}
-		<span class="text-dark bg-secondary rounded p-2">{{ idea.likes | length }}</span>
 	</div>
 </div>
