@@ -6,7 +6,7 @@
 			<p>{{ idea.author.profession }}</p>
 		</div>
 		<div class="user_picture col-4  ">
-			<img class="card-img-top img-thumbnail img-fluid mx-auto d-block" src="https://th.bing.com/th/id/OIP.PEyJEq2LadECSuY05CbMOgHaLJ?w=198&h=298&c=7&r=0&o=5&pid=1.7" alt="Card image cap">
+			<img class="card-img-top img-thumbnail img-fluid mx-auto d-block" src="{{ vich_uploader_asset(app.user) }}" alt="{{ idea.author.firstname }}">
 		</div>
 	</div>
 	<div class=" p-2 border border-info  border-5 bg-info">
