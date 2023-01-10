@@ -39,6 +39,19 @@ class IdeaRepository extends ServiceEntityRepository
         }
     }
 
+    public function findAllIdeasWithAuthorAndLike(): array
+    {
+        $query = $this->createQueryBuilder('i')
+            ->addSelect('a', 'l') //to make Doctrine actually use the join
+            ->leftJoin('i.author', 'a')
+            ->leftJoin('i.likes', 'l')
+            ->orderBy('i.id', 'DESC')
+            ->getQuery()
+        ;
+
+        return $query->getResult();
+    }
+
 //    /**
 //     * @return Idea[] Returns an array of Idea objects
 //     */

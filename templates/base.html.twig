@@ -22,22 +22,26 @@
 				<a class="navbar-brand" href="{{ path('app_home') }}">
 					<img src="{{ asset('/build/images/shareforce.png') }}" class="img-logo mx-3" alt="Logo">
 				</a>
-				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<button class="navbar-toggler me-4" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
 				<div class="collapse navbar-collapse" id="navbarNav">
-					<ul class="navbar-nav col-10">
+					<ul class="navbar-nav col-10 text-center m-auto">
+						<hr class="m-0">
 						<li class="nav-item">
 							<a class="nav-link active" aria-current="page" href="{{ path('app_home') }}">Home</a>
 						</li>
+						<hr class="m-0">
 						<li class="nav-item">
 							<a class="nav-link active" href="{{ path('app_idea_index') }}">Suggestion box</a>
 						</li>
+						<hr class="m-0">
 						<li class="nav-item">
 							{% if is_granted("ROLE_ADMIN") %}
 								<a class="nav-link active" href="{{ path('app_admin') }}">Admin</a>
 							{% endif %}
 						</li>
+						<hr class="m-0">
 					</ul>
 					<div class="navbar-nav col-2 text-center">
 						{% if app.user %}
