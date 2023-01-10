@@ -8,6 +8,7 @@ body {
 
 .img-home {
     width: 400px;
+    object-fit: cover;
 }
 
 .img-logo {
@@ -16,19 +17,19 @@ body {
 
 h1 {
     color: $title-color;
-    font-size: 60px;
+    font-size: 5vw;
 }
 h2 {
     color: $title-color;
-    font-size: 45px;
+    font-size: 4vw;
 }
 
 .text-home {
-    font-size: 30px;
+    font-size: 3vw;
 }
 
 .title-text {
-    font-size: 40px;
+    font-size: 4vw;
 }
 
 a {
