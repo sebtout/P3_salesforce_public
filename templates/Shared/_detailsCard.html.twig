@@ -17,7 +17,6 @@
 	</div>
 	<div
 		class="p-3 border border-info rounded-bottom border-4 bg-info d-grid gap-2 d-md-flex justify-content-md-center align-items-center">
-		{# <a href="{{ path('app_idea_show', {'id': idea.id}) }}" class="btn btn-success me-auto p-2">Comment</a> #}
 		<a href="{{ path('app_idea_index') }}" class="btn btn-success me-auto p-2">back to list</a>
 		{% if app.user and idea.isLikedByUser(app.user) %}
 			<a href="{{ path('app_idea_like', {'id': idea.id}) }}" class="btn btn-success p-2">Like</a>
