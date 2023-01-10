@@ -20,7 +20,7 @@ class UserPictureType extends AbstractType
                 'download_uri' => true, // not mandatory, default is true
                 ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Ajouter un acteur'
+                'label' => 'Add profile picture'
             ])
         ;
     }

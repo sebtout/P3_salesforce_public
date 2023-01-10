@@ -12,6 +12,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
+use DateTimeInterface;
+use DateTime;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[Vich\Uploadable]
@@ -53,17 +55,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $ideaLikes;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-     private ?string $profilePicture;
+    private ?string $profilePicture;
 
-     #[Vich\UploadableField(mapping: 'profile_file', fileNameProperty: 'profilePicture')]
-     #[Assert\File(
+    #[Vich\UploadableField(mapping: 'profile_file', fileNameProperty: 'profilePicture')]
+    #[Assert\File(
         maxSize: '1M',
         mimeTypes: ['image/jpeg', 'image/png'],
     )]
-     private ?File $profilePictureFile = null;
+    private ?File $profilePictureFile = null;
 
-     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-     private ?\DateTime $updateAt = null;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $updateAt = null;
 
     public function __construct()
     {
@@ -269,33 +271,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-     /**
-      * Get the value of profilePicture
-      */ 
-     public function getProfilePicture()
-     {
-          return $this->profilePicture;
-     }
+    public function getProfilePicture(): ?string
+    {
+        return $this->profilePicture;
+    }
 
-     /**
-      * Set the value of profilePicture
-      *
-      * @return  self
-      */ 
-     public function setProfilePicture($profilePicture)
-     {
-          $this->profilePicture = $profilePicture;
+    /**
+     * Set the value of profilePicture
+     *
+     * @return  self
+     */
+    public function setProfilePicture(string $profilePicture)
+    {
+        $this->profilePicture = $profilePicture;
 
-          return $this;
-     }
+        return $this;
+    }
 
-     public function setprofilePictureFile(File $image = null): User
+    public function setprofilePictureFile(File $image = null): User
     {
         $this->profilePictureFile = $image;
         if ($image) {
-            $this->updateAt = new \DateTime('now');
+            $now = new DateTime('now');
+            $this->updateAt = $now;
         }
-      
         return $this;
     }
 
@@ -304,16 +303,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->profilePictureFile;
     }
 
-    public function getUpdateAt(): ?\DateTimeInterface
+    public function getUpdateAt(): ?DateTimeInterface
     {
         return $this->updateAt;
     }
 
-    public function setUpdateAt(?\DateTimeInterface $updateAt): self
+    public function setUpdateAt(?DateTimeInterface $updateAt): self
     {
         $this->updateAt = $updateAt;
 
         return $this;
     }
-    
 }
