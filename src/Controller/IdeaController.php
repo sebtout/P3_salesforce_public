@@ -27,7 +27,7 @@ class IdeaController extends AbstractController
     public function index(IdeaRepository $ideaRepository): Response
     {
         return $this->render('idea/index.html.twig', [
-            'ideas' => $ideaRepository->findAll(),
+            'ideas' => $ideaRepository->findAllIdeasWithAuthorAndLike(),
         ]);
     }
 
