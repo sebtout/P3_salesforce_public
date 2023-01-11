@@ -31,14 +31,17 @@ class IdeaController extends AbstractController
         ]);
     }
 
-    #[Route('/list', name: 'list_idea', methods: ['GET'])]
+    #[Route('admin/list', name: 'list_idea', methods: ['GET'])]
     #[IsGranted('ROLE_ADMIN')]
+
     public function list(IdeaRepository $ideaRepository): Response
     {
         return $this->render('idea/list_idea_admin.html.twig', [
             'ideas' => $ideaRepository->findAll(),
         ]);
     }
+
+
 
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
 

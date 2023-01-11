@@ -173,13 +173,6 @@ class Idea
         return $this;
     }
 
-
-    /**
-     * Know if this idea is liked by one user
-     *
-     * @param User $user
-     * @return boolean
-     */
     public function isLikedByUser(User $user): bool
     {
         foreach ($this->likes as $like) {
