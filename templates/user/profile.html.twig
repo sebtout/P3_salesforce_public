@@ -3,10 +3,10 @@
 {% block title %}Edit User{% endblock %}
 
 {% block body %}
-    <h1>Edit User</h1>
-
-    {{ form_start(form) }}
-	{{ form_widget(form) }}
-	{{ form_end(form) }}
-
+    <h2>Edit User</h2>
+    <div class="col-6 m-3">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
 {% endblock %}

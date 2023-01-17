@@ -7,17 +7,18 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Serializable;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Serializer\Annotation\Ignore;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
-use DateTimeInterface;
 use DateTime;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[Vich\Uploadable]
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface, Serializable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -62,10 +63,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         maxSize: '1M',
         mimeTypes: ['image/jpeg', 'image/png'],
     )]
+
     private ?File $profilePictureFile = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $updateAt = null;
+    private ?DateTime $updateAt = null;
 
     public function __construct()
     {
@@ -292,8 +294,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->profilePictureFile = $image;
         if ($image) {
-            $now = new DateTime('now');
-            $this->updateAt = $now;
+            $this->updateAt = new DateTime('now');
         }
         return $this;
     }
@@ -303,14 +304,51 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->profilePictureFile;
     }
 
-    public function getUpdateAt(): ?DateTimeInterface
+    public function getUpdateAt(): ?DateTime
     {
         return $this->updateAt;
     }
 
-    public function setUpdateAt(?DateTimeInterface $updateAt): self
+    public function setUpdateAt(?DateTime $updateAt): self
     {
         $this->updateAt = $updateAt;
+
+        return $this;
+    }
+
+    public function serialize()
+    {
+        return serialize([
+            'id' => $this->getId(),
+            'password' => $this->getPassword(),
+            'email' => $this->getEmail(),
+            'userLastname' => $this->getLastname(),
+            'userFirstname' => $this->getFirstname(),
+            'roles' => $this->getRoles(),
+        ]);
+    }
+
+    public function unserialize($data)
+    {
+        $unserialized = unserialize($data);
+
+        $this
+            ->setId($unserialized['id'])
+            ->setPassword($unserialized['password'])
+            ->setEmail($unserialized['email'])
+            ->setLastname($unserialized['userLastname'])
+            ->setFirstname($unserialized['userFirstname'])
+            ->setRoles($unserialized['roles']);
+    }
+
+    /**
+     * Set the value of id
+     *
+     * @return  self
+     */
+    public function setId(int $id)
+    {
+        $this->id = $id;
 
         return $this;
     }
