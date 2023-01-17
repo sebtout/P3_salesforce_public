@@ -5,8 +5,12 @@
 				{{ idea.author.firstname }}</p>
 			<p>{{ idea.author.profession }}</p>
 		</div>
-		<div class="user_picture col-4  ">
-			<img class="card-img-top img-thumbnail img-fluid mx-auto d-block rounded" src="{{ vich_uploader_asset(idea.author) }}" alt="{{ idea.author.firstname }}">
+		<div class="user_picture col-4">
+			{% if idea.author.profilePicture %}			
+				<img class="card-img-top img-thumbnail img-fluid mx-auto d-block rounded" src="{{ vich_uploader_asset(idea.author) }}" alt="{{ idea.author.firstname }}">
+			{% else %}
+				<img class="card-img-top img-thumbnail img-fluid mx-auto d-block rounded" src="{{ asset('/build/images/astroSalesforce.png') }}" alt="astro salesforce">
+			{% endif %}
 		</div>
 	</div>
 	<div class="p-2 border border-info  border-5 bg-info">
