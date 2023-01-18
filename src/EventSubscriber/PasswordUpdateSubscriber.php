@@ -36,7 +36,7 @@ class PasswordUpdateSubscriber implements EventSubscriberInterface
             return;
         }
 
-        if (!($entity->getPassword()) && '' != $entity->getPassword()) {
+        if (null !== ($entity->getPassword()) && '' != $entity->getPassword()) {
             $entity->setPassword(
                 $this->passwordHasher->hashPassword($entity, $entity->getPassword())
             );
