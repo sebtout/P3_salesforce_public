@@ -5,15 +5,23 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Serializable;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
+use DateTime;
+
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+#[Vich\Uploadable]
+class User implements UserInterface, PasswordAuthenticatedUserInterface, Serializable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -53,6 +61,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: IdeaLike::class)]
     private Collection $ideaLikes;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $profilePicture;
+
+    #[Vich\UploadableField(mapping: 'profile_file', fileNameProperty: 'profilePicture')]
+    #[Assert\File(
+        maxSize: '1M',
+        mimeTypes: ['image/jpeg', 'image/png'],
+    )]
+
+    private ?File $profilePictureFile = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?DateTime $updateAt = null;
 
     public function __construct()
     {
@@ -254,6 +276,86 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $ideaLike->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getProfilePicture(): ?string
+    {
+        return $this->profilePicture;
+    }
+
+    /**
+     * Set the value of profilePicture
+     *
+     * @return  self
+     */
+    public function setProfilePicture(string $profilePicture)
+    {
+        $this->profilePicture = $profilePicture;
+
+        return $this;
+    }
+
+    public function setprofilePictureFile(File $image = null): User
+    {
+        $this->profilePictureFile = $image;
+        if ($image) {
+            $this->updateAt = new DateTime('now');
+        }
+        return $this;
+    }
+
+    public function getprofilePictureFile(): ?File
+    {
+        return $this->profilePictureFile;
+    }
+
+    public function getUpdateAt(): ?DateTime
+    {
+        return $this->updateAt;
+    }
+
+    public function setUpdateAt(?DateTime $updateAt): self
+    {
+        $this->updateAt = $updateAt;
+
+        return $this;
+    }
+
+    public function serialize()
+    {
+        return serialize([
+            'id' => $this->getId(),
+            'password' => $this->getPassword(),
+            'email' => $this->getEmail(),
+            'userLastname' => $this->getLastname(),
+            'userFirstname' => $this->getFirstname(),
+            'roles' => $this->getRoles(),
+        ]);
+    }
+
+    public function unserialize($data)
+    {
+        $unserialized = unserialize($data);
+
+        $this
+            ->setId($unserialized['id'])
+            ->setPassword($unserialized['password'])
+            ->setEmail($unserialized['email'])
+            ->setLastname($unserialized['userLastname'])
+            ->setFirstname($unserialized['userFirstname'])
+            ->setRoles($unserialized['roles']);
+    }
+
+    /**
+     * Set the value of id
+     *
+     * @return  self
+     */
+    public function setId(int $id)
+    {
+        $this->id = $id;
 
         return $this;
     }

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Comment;
+use App\Entity\User;
 use App\Form\CommentType;
 use App\Entity\Idea;
 use App\Entity\IdeaLike;
@@ -28,6 +29,7 @@ class IdeaController extends AbstractController
     {
         return $this->render('idea/index.html.twig', [
             'ideas' => $ideaRepository->findAllIdeasWithAuthorAndLike(),
+
         ]);
     }
 
@@ -141,9 +143,36 @@ class IdeaController extends AbstractController
      * @return Response
      */
 
-    #[Route('/like/{id}', name: 'like', methods: ['GET'])]
+    #[Route('/likeIndex/{id}', name: 'likeIndex', methods: ['GET'])]
 
-    public function like(Idea $idea, IdeaLikeRepository $ideaLikeRepository): Response
+    public function likeIndex(Idea $idea, IdeaLikeRepository $ideaLikeRepository): Response
+    {
+        /** @var \App\Entity\User $user */
+        $user = $this->getUser();
+
+        if ($idea->isLikedByUser($user)) {
+            $like = $ideaLikeRepository->findOneBy([
+                'idea' => $idea,
+                'user' => $user,
+            ]);
+
+            $ideaLikeRepository->remove($like, true);
+
+            return $this->redirectToRoute('app_idea_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        $like = new IdeaLike();
+        $like->setIdea($idea);
+        $like->setUser($user);
+
+        $ideaLikeRepository->save($like, true);
+
+        return $this->redirectToRoute('app_idea_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/likeShow/{id}', name: 'likeShow', methods: ['GET'])]
+
+    public function likeShow(Idea $idea, IdeaLikeRepository $ideaLikeRepository): Response
     {
         /** @var \App\Entity\User $user */
         $user = $this->getUser();
