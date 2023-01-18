@@ -33,14 +33,17 @@ class IdeaController extends AbstractController
         ]);
     }
 
-    #[Route('/list', name: 'list_idea', methods: ['GET'])]
+    #[Route('admin/list', name: 'list_idea', methods: ['GET'])]
     #[IsGranted('ROLE_ADMIN')]
+
     public function list(IdeaRepository $ideaRepository): Response
     {
         return $this->render('idea/list_idea_admin.html.twig', [
             'ideas' => $ideaRepository->findAll(),
         ]);
     }
+
+
 
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
 
@@ -140,9 +143,36 @@ class IdeaController extends AbstractController
      * @return Response
      */
 
-    #[Route('/like/{id}', name: 'like', methods: ['GET'])]
+    #[Route('/likeIndex/{id}', name: 'likeIndex', methods: ['GET'])]
 
-    public function like(Idea $idea, IdeaLikeRepository $ideaLikeRepository): Response
+    public function likeIndex(Idea $idea, IdeaLikeRepository $ideaLikeRepository): Response
+    {
+        /** @var \App\Entity\User $user */
+        $user = $this->getUser();
+
+        if ($idea->isLikedByUser($user)) {
+            $like = $ideaLikeRepository->findOneBy([
+                'idea' => $idea,
+                'user' => $user,
+            ]);
+
+            $ideaLikeRepository->remove($like, true);
+
+            return $this->redirectToRoute('app_idea_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        $like = new IdeaLike();
+        $like->setIdea($idea);
+        $like->setUser($user);
+
+        $ideaLikeRepository->save($like, true);
+
+        return $this->redirectToRoute('app_idea_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/likeShow/{id}', name: 'likeShow', methods: ['GET'])]
+
+    public function likeShow(Idea $idea, IdeaLikeRepository $ideaLikeRepository): Response
     {
         /** @var \App\Entity\User $user */
         $user = $this->getUser();
