@@ -1,4 +1,4 @@
-<div class="idea_card m-2 col-12 col-md-4 rounded" style="width:35rem">
+<div class="card-details m-2 col-12 col-md-4 rounded" style="width:35rem">
 	<div class="idea_card_header row p-3 border border-secondary rounded-top border-3 bg-light">
 		<div class="col-9">
 			<p class="fw-bold">{{ idea.author.lastname }}
@@ -6,7 +6,7 @@
 			<p>{{ idea.author.profession }}</p>
 		</div>
 		<div class="user_picture col-3">
-			{% if idea.author.profilePicture %}			
+			{% if idea.author.profilePicture %}
 				<img class="card-img-top img-thumbnail img-fluid mx-auto d-block rounded" src="{{ vich_uploader_asset(idea.author) }}" alt="{{ idea.author.firstname }}">
 			{% else %}
 				<img class="card-img-top img-thumbnail img-fluid mx-auto d-block rounded" src="{{ asset('/build/images/astroSalesforce.png') }}" alt="astro salesforce">

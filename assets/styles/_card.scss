@@ -34,10 +34,26 @@
     transition: all 0.4s cubic-bezier(0.79, 0.33, 0, -0.01);
 }
 
+.card-details {
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.75);
+    -webkit-transition: all 0.4s cubic-bezier(0.79, 0.33, 0, -0.01);
+    transition: all 0.4s cubic-bezier(0.79, 0.33, 0, -0.01);
+}
+
 .detail_card {
     width: 100%;
 }
 
+.link-card-decoration:hover {
+    color: black;
+}
+
 .idea_card:hover h3 {
     color:rgb(26, 136, 215);
+}
+
+.container-card {
+    height: 465px;
 }
