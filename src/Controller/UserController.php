@@ -56,7 +56,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
+    #[Route('/{id}', requirements: ['id' => '\d+'], name: 'app_user_show', methods: ['GET'])]
     public function show(User $user): Response
     {
         return $this->render('user/show.html.twig', [
@@ -82,17 +82,20 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/profile', name: 'app_user_profile', methods: ['GET', 'POST'])]
+    #[Route('/profile', name: 'app_user_profile', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_USER')]
-    public function updateProfilePicture(Request $request, User $user, UserRepository $userRepository): Response
+    public function updateProfilePicture(Request $request, UserRepository $userRepository): Response
     {
+        /** @var \App\Entity\User $user */
+        $user = $this->getUser();
+
         $form = $this->createForm(UserPictureType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $userRepository->save($user, true);
 
-            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_user_profile', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('user/profile.html.twig', [
