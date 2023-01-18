@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Form\UserPictureType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,6 +13,7 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 #[Route('/user')]
 class UserController extends AbstractController
@@ -54,7 +56,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
+    #[Route('/{id}', requirements: ['id' => '\d+'], name: 'app_user_show', methods: ['GET'])]
     public function show(User $user): Response
     {
         return $this->render('user/show.html.twig', [
@@ -75,6 +77,28 @@ class UserController extends AbstractController
         }
 
         return $this->renderForm('user/edit.html.twig', [
+            'user' => $user,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/profile', name: 'app_user_profile', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_USER')]
+    public function updateProfilePicture(Request $request, UserRepository $userRepository): Response
+    {
+        /** @var \App\Entity\User $user */
+        $user = $this->getUser();
+
+        $form = $this->createForm(UserPictureType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $userRepository->save($user, true);
+
+            return $this->redirectToRoute('app_user_profile', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('user/profile.html.twig', [
             'user' => $user,
             'form' => $form,
         ]);

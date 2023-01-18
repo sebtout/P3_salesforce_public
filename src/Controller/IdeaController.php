@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Comment;
+use App\Entity\User;
 use App\Form\CommentType;
 use App\Entity\Idea;
 use App\Entity\IdeaLike;
