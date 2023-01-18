@@ -9,7 +9,11 @@
 			<p>{{ idea.author.profession }}</p>
 		</div>
 		<div class="user_picture col-4">
-			<img class="card-img-top img-thumbnail img-fluid mx-auto d-block rounded" src="https://th.bing.com/th/id/OIP.PEyJEq2LadECSuY05CbMOgHaLJ?w=198&h=298&c=7&r=0&o=5&pid=1.7" alt="Card image cap">
+			{% if idea.author.profilePicture %}			
+				<img class="card-img-top img-thumbnail img-fluid mx-auto d-block rounded" src="{{ vich_uploader_asset(idea.author) }}" alt="{{ idea.author.firstname }}">
+			{% else %}
+				<img class="card-img-top img-thumbnail img-fluid mx-auto d-block rounded" src="{{ asset('/build/images/astroSalesforce.png') }}" alt="astro salesforce">
+			{% endif %}
 		</div>
 	</div>
 	<div class="p-2 border border-info  border-5 bg-info">
@@ -24,10 +28,10 @@
 	<div class="p-3 border border-info rounded-bottom border-4 bg-info d-grid gap-2 d-md-flex justify-content-md-center align-items-center">
 		<a href="{{ path('app_idea_show', {'id': idea.id}) }}" class="btn btn-success me-auto p-2">Comment</a>
 		{% if app.user and idea.isLikedByUser(app.user) %}
-			<a href="{{ path('app_idea_like', {'id': idea.id}) }}" class="btn btn-success p-2">Like -
+			<a href="{{ path('app_idea_likeIndex', {'id': idea.id}) }}" class="btn btn-success p-2">Like -
 				{{ idea.likes | length }}</a>
 		{% else %}
-			<a href="{{ path('app_idea_like', {'id': idea.id}) }}" class="btn btn-secondary p-2">Like -
+			<a href="{{ path('app_idea_likeIndex', {'id': idea.id}) }}" class="btn btn-secondary p-2">Like -
 				{{ idea.likes | length }}</a>
 		{% endif %}
 	</div>
