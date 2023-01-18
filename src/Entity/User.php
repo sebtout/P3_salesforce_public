@@ -18,7 +18,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 use DateTime;
 
-
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[Vich\Uploadable]
 class User implements UserInterface, PasswordAuthenticatedUserInterface, Serializable
@@ -32,7 +31,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Seriali
     #[Email]
     #[NotBlank]
     private ?string $email = null;
-
 
     #[ORM\Column]
     private array $roles = [];
