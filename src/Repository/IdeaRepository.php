@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Idea;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Entity\Comment;
 
 /**
  * @extends ServiceEntityRepository<Idea>
@@ -46,12 +47,23 @@ class IdeaRepository extends ServiceEntityRepository
             ->leftJoin('i.author', 'a')
             ->leftJoin('i.likes', 'l')
             ->orderBy('i.id', 'DESC')
-            ->getQuery()
+            ->getQuery();
         ;
 
         return $query->getResult();
     }
 
+    public function findAllCommentByIdea(): array
+    {
+        $query = $this->createQueryBuilder('i')
+            ->Join('i.comments', 'c')
+            ->groupBy('i.id')
+            ->orderBy("count('i.comments')", 'DESC')
+            ->getQuery();
+
+
+        return $query->getResult();
+    }
 //    /**
 //     * @return Idea[] Returns an array of Idea objects
 //     */

@@ -9,6 +9,7 @@ use App\Entity\Idea;
 use App\Entity\IdeaLike;
 use App\Form\IdeaType;
 use App\Form\IdeaAdminType;
+use App\Form\SearchIdeaType;
 use App\Repository\CommentRepository;
 use App\Repository\IdeaLikeRepository;
 use App\Repository\IdeaRepository;
@@ -23,16 +24,22 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class IdeaController extends AbstractController
 {
-    #[Route('/', name: 'index', methods: ['GET'])]
-
-    public function index(IdeaRepository $ideaRepository): Response
+    #[Route('/', name: 'index', methods: ['GET','POST'])]
+    public function index(Request $request, IdeaRepository $ideaRepository): Response
     {
-        return $this->render('idea/index.html.twig', [
-            'ideas' => $ideaRepository->findAllIdeasWithAuthorAndLike(),
+        $form = $this->createForm(SearchIdeaType::class);
+        $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $ideas = $ideaRepository->findAllCommentByIdea();
+        } else {
+            $ideas = $ideaRepository->findAllIdeasWithAuthorAndLike();
+        }
+        return $this->render('idea/index.html.twig', [
+            'ideas' => $ideas,
+            'form' => $form->createView()
         ]);
     }
-
     #[Route('admin/list', name: 'list_idea', methods: ['GET'])]
     #[IsGranted('ROLE_ADMIN')]
 

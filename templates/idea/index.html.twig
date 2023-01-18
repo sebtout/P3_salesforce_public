@@ -8,6 +8,11 @@
 		<button type="button" class="btn btn-success m-5">
 			<a href="{{ path('app_idea_new') }}">Create new idea</a>
 		</button>
+		{{ form_start(form) }}
+		{{ form_widget(form) }}
+		{{ form_end(form) }}
+
+
 	</div>
 	<div class="d-flex flex-row-reverse"></div>
 	<div class="container">
@@ -27,4 +32,3 @@
 	</div>
 	<button id="btnTop">Back top</button>
 {% endblock %}
-
