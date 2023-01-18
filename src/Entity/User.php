@@ -25,6 +25,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Seriali
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[Assert\NotBlank(message: 'Don\'t leave me empty')]
+    #[Assert\Email(message: 'The email is not valid')]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -34,15 +36,37 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Seriali
      * @var string The hashed password
      */
     #[ORM\Column]
+    #[Assert\NotBlank(message: 'Don\'t leave me empty')]
+    #[Assert\Length(
+        min: 6,
+        max: 40,
+        minMessage: 'The password entered is too short, it should exceed {{ limit }} characters',
+        maxMessage: 'The password entered is too long, it should not exceed {{ limit }} characters',
+    )]
     private ?string $password = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\NotBlank(message: 'Don\'t leave me empty')]
+    #[Assert\Length(
+        max: 255,
+        maxMessage: 'The lastname entered is too long, it should not exceed {{ limit }} characters',
+    )]
     private ?string $lastname = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\NotBlank(message: 'Don\'t leave me empty')]
+    #[Assert\Length(
+        max: 255,
+        maxMessage: 'The firstname entered is too long, it should not exceed {{ limit }} characters',
+    )]
     private ?string $firstname = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\NotBlank(message: 'Don\'t leave me empty')]
+    #[Assert\Length(
+        max: 255,
+        maxMessage: 'The profession entered is too long, it should not exceed {{ limit }} characters',
+    )]
     private ?string $profession = null;
 
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Idea::class, orphanRemoval: true)]
