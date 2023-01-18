@@ -1,5 +1,8 @@
-<div class="idea_card m-2 col-12 col-md-4 rounded" style="width: 21rem;">
-	<div class="idea_card_header row p-3 border border-secondary rounded-top border-3 bg-light">
+{# <a href="{{ path('app_idea_show', {'id': idea.id}) }}" class="title-h3-redirection col-12 col-md-4"> #}
+<div
+	class="idea_card m-2 col-12 col-md-4 rounded" style="width: 21rem;" id="card">
+	{# onclick="this.querySelector('a').click(); return true;" #}
+	<div class=" idea_card_header row p-3 border border-secondary rounded-top border-3 bg-light">
 		<div class="col-8">
 			<p class="fw-bold">{{ idea.author.lastname }}
 				{{ idea.author.firstname }}</p>
@@ -10,10 +13,11 @@
 		</div>
 	</div>
 	<div class="p-2 border border-info  border-5 bg-info">
-		<div class="card-body p-2 border border-secondary rounded border-5 bg-secondary text-break">
-			<a href="{{ path('app_idea_show', {'id': idea.id}) }}">
-				<h3>{{ idea.title|u.truncate(20, '...') }}:</h3>
-			</a>
+		<div
+			class="card-body p-2 border border-secondary rounded border-5 bg-secondary text-break">
+			{# <a href="{{ path('app_idea_show', {'id': idea.id}) }}" class="title-h3-redirection"> #}
+			<h3>{{ idea.title|u.truncate(20, '...') }}:</h3>
+			{# </a> #}
 			<p class="card-text">{{ idea.content|u.truncate(120, '...') }}</p>
 		</div>
 	</div>
@@ -28,3 +32,4 @@
 		{% endif %}
 	</div>
 </div>
+{# </a> #}
