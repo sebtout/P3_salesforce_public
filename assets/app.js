@@ -14,7 +14,3 @@ import './bootstrap';
 
 require('bootstrap');
 
-
-document.querySelectorAll('card').addEventListener('click', function() {
-    this.querySelector('a').click();
-});
