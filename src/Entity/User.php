@@ -10,6 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Serializable;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -25,8 +28,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Seriali
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+
     #[Assert\NotBlank(message: 'Don\'t leave me empty')]
     #[Assert\Email(message: 'The email is not valid')]
+
     private ?string $email = null;
 
     #[ORM\Column]
@@ -43,6 +48,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Seriali
         minMessage: 'The password entered is too short, it should exceed {{ limit }} characters',
         maxMessage: 'The password entered is too long, it should not exceed {{ limit }} characters',
     )]
+
     private ?string $password = null;
 
     #[ORM\Column(length: 255, nullable: true)]
