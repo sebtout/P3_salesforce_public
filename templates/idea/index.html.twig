@@ -25,7 +25,6 @@
 	<div class="d-flex flex-row-reverse"></div>
 	<div class="container">
 		<div class="row d-flex justify-content-around">
-
 			{% for idea in ideas %}
 				{% if idea.status == 'in progress' %}
 					{% include "Shared/_ideaCard.html.twig" %}

@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
+use App\Form\RoleType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
@@ -32,11 +33,12 @@ class UserCrudController extends AbstractCrudController
             EmailField::new('email'),
             ChoiceField::new('roles')
                 ->setChoices([
-                    'Admin' => "ROLE_ADMIN",
-                    'User'  => "ROLE_USER",
+                    'Admin' => 'ROLE_ADMIN',
+                    'User' => 'ROLE_USER',
                 ])
-                ->setRequired(isRequired: true)
-                ->allowMultipleChoices(),
+                ->allowMultipleChoices(false)
+                ->renderExpanded(true)
+                ->setFormType(RoleType::class),
             TextField::new('password')
                 ->hideWhenUpdating()
                 ->hideOnIndex(),

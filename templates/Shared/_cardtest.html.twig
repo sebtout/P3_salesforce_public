@@ -1,0 +1,30 @@
+<div class="container bg-warning rounded" style="width: 21rem;">
+	<a href="{ path('app_idea_show', {'id': idea.id}) }}">
+		<div>
+			<div class="d-flex p-3 border border-3 border-secondary rounded-top bg-light w-100">
+				<div>
+					<p class="fw-bold">{{ idea.author.lastname }}
+						{{ idea.author.firstname }}</p>
+					<p>{{ idea.author.profession }}</p>
+				</div>
+				<div class="user_picture col-4">
+					<img class="card-img-top img-thumbnail img-fluid mx-auto d-block rounded" src="https://th.bing.com/th/id/OIP.PEyJEq2LadECSuY05CbMOgHaLJ?w=198&h=298&c=7&r=0&o=5&pid=1.7" alt="Card image cap">
+				</div>
+			</div>
+			<div class="text-break">
+				<h3>{{ idea.title|u.truncate(20, '...') }}:</h3>
+				<p class="card-text">{{ idea.content|u.truncate(120, '...') }}</p>
+			</div>
+			<div>
+				<a href="{{ path('app_idea_show', {'id': idea.id}) }}" class="btn btn-success me-auto p-2">Comment</a>
+				{% if app.user and idea.isLikedByUser(app.user) %}
+					<a href="{{ path('app_idea_like', {'id': idea.id}) }}" class="btn btn-success p-2">Like -
+						{{ idea.likes | length }}</a>
+				{% else %}
+					<a href="{{ path('app_idea_like', {'id': idea.id}) }}" class="btn btn-secondary p-2">Like -
+						{{ idea.likes | length }}</a>
+				{% endif %}
+			</div>
+		</div>
+	</a>
+</div>
