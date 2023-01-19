@@ -36,14 +36,16 @@ class IdeaController extends AbstractController
 
             /** @var ClickableInterface $clikable1  */
             $clikable1 = $form->get('mostCommented');
-
             /** @var ClickableInterface $clikable2  */
             $clikable2 = $form->get('mostLiked');
+            /** @var ClickableInterface $clikable3  */
+            $clikable3 = $form->get('myLiked');
 
             if ($clikable1->isClicked()) {
                 $ideas = $ideaRepository->findAllCommentByIdea();
-            }
-            if ($clikable2->isClicked()) {
+            } elseif ($clikable2->isClicked()) {
+                $ideas = $ideaRepository->mostLikedIdeas();
+            } elseif ($clikable3->isClicked()) {
                 $ideas = $ideaRepository->mostLikedIdeas();
             } else {
                 $ideas = $ideaRepository->findAllIdeasWithAuthorAndLike();

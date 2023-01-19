@@ -14,14 +14,19 @@ class SearchIdeaType extends AbstractType
     {
         $builder
                 ->add('mostCommented', SubmitType::class, [
-                'label' => 'most commented ideas',
+                'label' => '10 most commented ideas',
                 'attr' => [
                 'class' => "filter btn-success btn-block" ]
                 ])
                 ->add('mostLiked', SubmitType::class, [
-                'label' => '10 most liked ideas',
-                'attr' => [
-                'class' => "filter btn-success btn-block" ]
+                    'label' => '10 most liked ideas',
+                    'attr' => [
+                    'class' => "filter btn-success btn-block" ]
+                ])
+                ->add('myLiked', SubmitType::class, [
+                    'label' => 'ideas I like',
+                    'attr' => [
+                    'class' => "filter btn-success btn-block" ]
         ]);
     }
 

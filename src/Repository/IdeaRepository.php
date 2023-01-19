@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Idea;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\Comment;
@@ -59,7 +60,7 @@ class IdeaRepository extends ServiceEntityRepository
             ->Join('i.comments', 'c')
             ->groupBy('i.id')
             ->orderBy("count('i.comments')", 'DESC')
-            ->setMaxResults(3)
+            ->setMaxResults(10)
             ->getQuery();
 
 
@@ -69,15 +70,18 @@ class IdeaRepository extends ServiceEntityRepository
     public function mostLikedIdeas(): array
     {
         $query = $this->createQueryBuilder('i')
-            ->Join('i.likes', 'l')
+            ->select('i', 'a')
+            ->leftJoin('i.author', 'a')
+            ->leftJoin('i.likes', 'l')
             ->groupBy('i.id')
-            ->orderBy("count('i.likes')", 'DESC')
+            ->orderBy("count('l.idea')", 'DESC')
             ->setMaxResults(10)
             ->getQuery();
 
 
         return $query->getResult();
     }
+
 //    /**
 //     * @return Idea[] Returns an array of Idea objects
 //     */
