@@ -59,6 +59,20 @@ class IdeaRepository extends ServiceEntityRepository
             ->Join('i.comments', 'c')
             ->groupBy('i.id')
             ->orderBy("count('i.comments')", 'DESC')
+            ->setMaxResults(3)
+            ->getQuery();
+
+
+        return $query->getResult();
+    }
+
+    public function mostLikedIdeas(): array
+    {
+        $query = $this->createQueryBuilder('i')
+            ->Join('i.likes', 'l')
+            ->groupBy('i.id')
+            ->orderBy("count('i.likes')", 'DESC')
+            ->setMaxResults(10)
             ->getQuery();
 
 

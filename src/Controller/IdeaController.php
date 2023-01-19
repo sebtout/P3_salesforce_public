@@ -14,6 +14,8 @@ use App\Repository\CommentRepository;
 use App\Repository\IdeaLikeRepository;
 use App\Repository\IdeaRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Form;
+use Symfony\Component\Form\ClickableInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -31,15 +33,30 @@ class IdeaController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $ideas = $ideaRepository->findAllCommentByIdea();
+
+            /** @var ClickableInterface $clikable1  */
+            $clikable1 = $form->get('mostCommented');
+
+            /** @var ClickableInterface $clikable2  */
+            $clikable2 = $form->get('mostLiked');
+
+            if ($clikable1->isClicked()) {
+                $ideas = $ideaRepository->findAllCommentByIdea();
+            }
+            if ($clikable2->isClicked()) {
+                $ideas = $ideaRepository->mostLikedIdeas();
+            } else {
+                $ideas = $ideaRepository->findAllIdeasWithAuthorAndLike();
+            }
         } else {
             $ideas = $ideaRepository->findAllIdeasWithAuthorAndLike();
         }
         return $this->render('idea/index.html.twig', [
             'ideas' => $ideas,
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
+
     #[Route('admin/list', name: 'list_idea', methods: ['GET'])]
     #[IsGranted('ROLE_ADMIN')]
 

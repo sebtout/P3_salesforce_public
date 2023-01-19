@@ -13,10 +13,15 @@ class SearchIdeaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-                ->add('submit', SubmitType::class, [
-                'label' => 'most commented Ideas',
+                ->add('mostCommented', SubmitType::class, [
+                'label' => 'most commented ideas',
                 'attr' => [
-                'class' => "btn-success" ]
+                'class' => "filter btn-success btn-block" ]
+                ])
+                ->add('mostLiked', SubmitType::class, [
+                'label' => '10 most liked ideas',
+                'attr' => [
+                'class' => "filter btn-success btn-block" ]
         ]);
     }
 
