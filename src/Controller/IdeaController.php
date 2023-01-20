@@ -26,7 +26,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class IdeaController extends AbstractController
 {
-    #[Route('/', name: 'index', methods: ['GET','POST'])]
+    #[Route('/', name: 'index', methods: ['GET', 'POST'])]
     public function index(Request $request, IdeaRepository $ideaRepository): Response
     {
         $form = $this->createForm(SearchIdeaType::class);
