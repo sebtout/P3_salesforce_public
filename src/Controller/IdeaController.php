@@ -29,10 +29,14 @@ class IdeaController extends AbstractController
     #[Route('/', name: 'index', methods: ['GET', 'POST'])]
     public function index(Request $request, IdeaRepository $ideaRepository): Response
     {
+        /** @var \App\Entity\User $user */
+        $user = $this->getUser();
+
         $form = $this->createForm(SearchIdeaType::class);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
+            $ideas = $ideaRepository->findAllIdeaLike($user);
+
 
             /** @var ClickableInterface $clikable1  */
             $clikable1 = $form->get('mostCommented');
@@ -40,11 +44,10 @@ class IdeaController extends AbstractController
             $clikable2 = $form->get('mostLiked');
             /** @var ClickableInterface $clikable3  */
             $clikable3 = $form->get('myLiked');
-
             if ($clikable1->isClicked()) {
                 $ideas = $ideaRepository->findAllCommentByIdea();
             } elseif ($clikable2->isClicked()) {
-                $ideas = $ideaRepository->mostLikedIdeas();
+                $ideas = $ideaRepository->findAllIdeaLike($user);
             } elseif ($clikable3->isClicked()) {
                 $ideas = $ideaRepository->mostLikedIdeas();
             } else {
@@ -69,18 +72,11 @@ class IdeaController extends AbstractController
         ]);
     }
 
-
-
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
-
-    public function new(
-        Request $request,
-        IdeaRepository $ideaRepository,
-    ): Response {
-
+    public function new(Request $request, IdeaRepository $ideaRepository,): Response
+    {
         /** @var \App\Entity\User $user */
         $user = $this->getUser();
-
         $idea = new Idea();
         $form = $this->createForm(IdeaType::class, $idea);
         $form->handleRequest($request);
