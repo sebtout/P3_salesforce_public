@@ -29,7 +29,7 @@ class Idea
     #[Assert\NotBlank(message: 'Don\'t leave me empty')]
     #[Assert\Length(
         max: 40,
-        maxMessage: 'The title entered is too long, it should not exceed  characters {{ limit }} characters',
+        maxMessage: 'The title entered is too long, it should not exceed {{ limit }} characters',
     )]
     private ?string $title = null;
 
@@ -37,7 +37,7 @@ class Idea
     #[Assert\NotBlank(message: 'Don\'t leave me empty')]
     #[Assert\Length(
         max: 500,
-        maxMessage: 'The category entered is too long, it should not exceed  characters {{ limit }} characters',
+        maxMessage: 'The category entered is too long, it should not exceed {{ limit }} characters',
     )]
     private ?string $content = null;
 
@@ -173,13 +173,6 @@ class Idea
         return $this;
     }
 
-
-    /**
-     * Know if this idea is liked by one user
-     *
-     * @param User $user
-     * @return boolean
-     */
     public function isLikedByUser(User $user): bool
     {
         foreach ($this->likes as $like) {

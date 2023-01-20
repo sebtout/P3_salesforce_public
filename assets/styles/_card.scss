@@ -3,8 +3,8 @@
 }
 
 .user_picture {
-    max-height: 150px;
-    max-width: 150px;
+    height: 99.33px;
+    width: 99.33px;
 }
 
 .img-fluid {
@@ -13,7 +13,7 @@
 
 .card-body {
 
-    height: 400px;
+    height: 215px;
     display: flex;
     flex-direction: column;
 }
@@ -23,26 +23,37 @@
 }
 
 .card-text {
-    flex: 1;
-    height: 80%;
-    overflow: auto;
+    height: 200px;
 }
 
-::-webkit-scrollbar-track {
-    border: 5px solid #D9D9D9;
-    background-color: #b2bec3;
+.idea_card:hover {
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.75);
+    -webkit-transition: all 0.4s cubic-bezier(0.79, 0.33, 0, -0.01);
+    transition: all 0.4s cubic-bezier(0.79, 0.33, 0, -0.01);
 }
 
-::-webkit-scrollbar {
-    width: 5px;
-    background-color: #D9D9D9;
+.card-details {
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.75);
+    -webkit-transition: all 0.4s cubic-bezier(0.79, 0.33, 0, -0.01);
+    transition: all 0.4s cubic-bezier(0.79, 0.33, 0, -0.01);
 }
 
-::-webkit-scrollbar-thumb {
-    background-color: dimgray;
-    border-radius: 10px;
+.detail_card {
+    width: 100%;
 }
 
-.idea_card_header {
-    height: 190px;
+.link-card-decoration:hover {
+    color: black;
+}
+
+.idea_card:hover h3 {
+    color:rgb(26, 136, 215);
+}
+
+.container-card {
+    height: 465px;
 }

@@ -14,6 +14,7 @@ class IdeaLike
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'likes')]
+    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
     private ?Idea $idea = null;
 
     #[ORM\ManyToOne(inversedBy: 'ideaLikes')]

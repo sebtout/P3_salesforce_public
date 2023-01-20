@@ -3,15 +3,19 @@
 namespace App\Controller;
 
 use App\Entity\Comment;
+use App\Entity\User;
 use App\Form\CommentType;
 use App\Entity\Idea;
 use App\Entity\IdeaLike;
 use App\Form\IdeaType;
 use App\Form\IdeaAdminType;
+use App\Form\SearchIdeaType;
 use App\Repository\CommentRepository;
 use App\Repository\IdeaLikeRepository;
 use App\Repository\IdeaRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Form;
+use Symfony\Component\Form\ClickableInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,17 +26,45 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class IdeaController extends AbstractController
 {
-    #[Route('/', name: 'index', methods: ['GET'])]
-
-    public function index(IdeaRepository $ideaRepository): Response
+    #[Route('/', name: 'index', methods: ['GET','POST'])]
+    public function index(Request $request, IdeaRepository $ideaRepository): Response
     {
+        /** @var \App\Entity\User $user */
+        $user = $this->getUser();
+
+        $form = $this->createForm(SearchIdeaType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $ideas = $ideaRepository->findAllIdeaLike($user);
+
+
+            /** @var ClickableInterface $clikable1  */
+            $clikable1 = $form->get('mostCommented');
+            /** @var ClickableInterface $clikable2  */
+            $clikable2 = $form->get('mostLiked');
+            /** @var ClickableInterface $clikable3  */
+            $clikable3 = $form->get('myLiked');
+            if ($clikable1->isClicked()) {
+                $ideas = $ideaRepository->findAllCommentByIdea();
+            } elseif ($clikable2->isClicked()) {
+                $ideas = $ideaRepository->findAllIdeaLike($user);
+            } elseif ($clikable3->isClicked()) {
+                $ideas = $ideaRepository->mostLikedIdeas();
+            } else {
+                $ideas = $ideaRepository->findAllIdeasWithAuthorAndLike();
+            }
+        } else {
+            $ideas = $ideaRepository->findAllIdeasWithAuthorAndLike();
+        }
         return $this->render('idea/index.html.twig', [
-            'ideas' => $ideaRepository->findAll(),
+            'ideas' => $ideas,
+            'form' => $form->createView(),
         ]);
     }
 
-    #[Route('/list', name: 'list_idea', methods: ['GET'])]
+    #[Route('admin/list', name: 'list_idea', methods: ['GET'])]
     #[IsGranted('ROLE_ADMIN')]
+
     public function list(IdeaRepository $ideaRepository): Response
     {
         return $this->render('idea/list_idea_admin.html.twig', [
@@ -41,15 +73,10 @@ class IdeaController extends AbstractController
     }
 
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
-
-    public function new(
-        Request $request,
-        IdeaRepository $ideaRepository,
-    ): Response {
-
+    public function new(Request $request, IdeaRepository $ideaRepository,): Response
+    {
         /** @var \App\Entity\User $user */
         $user = $this->getUser();
-
         $idea = new Idea();
         $form = $this->createForm(IdeaType::class, $idea);
         $form->handleRequest($request);
@@ -138,9 +165,36 @@ class IdeaController extends AbstractController
      * @return Response
      */
 
-    #[Route('/like/{id}', name: 'like', methods: ['GET'])]
+    #[Route('/likeIndex/{id}', name: 'likeIndex', methods: ['GET'])]
 
-    public function like(Idea $idea, IdeaLikeRepository $ideaLikeRepository): Response
+    public function likeIndex(Idea $idea, IdeaLikeRepository $ideaLikeRepository): Response
+    {
+        /** @var \App\Entity\User $user */
+        $user = $this->getUser();
+
+        if ($idea->isLikedByUser($user)) {
+            $like = $ideaLikeRepository->findOneBy([
+                'idea' => $idea,
+                'user' => $user,
+            ]);
+
+            $ideaLikeRepository->remove($like, true);
+
+            return $this->redirectToRoute('app_idea_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        $like = new IdeaLike();
+        $like->setIdea($idea);
+        $like->setUser($user);
+
+        $ideaLikeRepository->save($like, true);
+
+        return $this->redirectToRoute('app_idea_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/likeShow/{id}', name: 'likeShow', methods: ['GET'])]
+
+    public function likeShow(Idea $idea, IdeaLikeRepository $ideaLikeRepository): Response
     {
         /** @var \App\Entity\User $user */
         $user = $this->getUser();

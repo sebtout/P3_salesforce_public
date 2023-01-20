@@ -6,19 +6,14 @@
 {% block body %}
 	<div class="row">
 		<div class="col-12 col-md-6">
-			<div class="container mt-5">
-				<div class="row d-flex justify-content-around">
-					{% include "Shared/_ideaCard.html.twig" %}
+			<div class="container mt-5 sticky-top">
+				<div class="detail_card row d-flex justify-content-around">
+					{% include "Shared/_detailsCard.html.twig" %}
 				</div>
-			</div>
-			<div class="d-md-flex justify-content-md-center">
-				<button type="button" class="btn btn-success">
-					<a class="btn btn-success" href="{{ path('app_idea_index') }}">back to list</a>
-				</button>
 			</div>
 		</div>
 
-		<div class="col-12 col-md-6 pe-5">
+		<div class="col-12 col-md-6">
 			<div class="container bloc_test">
 				<div class="row">
 					<div class="mb-3 mx-auto">
@@ -43,11 +38,22 @@
 
 			{% for comment in idea.comments %}
 				<div class="m-3 p-3 border border-secondary rounded border-5 bg-secondary">
-					<h3>From:
-						{{ comment.author.lastname }}
-						{{ comment.author.firstname }}</h3>
-					<p>{{ comment.createdAt ? comment.createdAt|date('Y-m-d H:i:s') : '' }}</p>
-					<p class="card-text">{{ comment.content }}</p>
+					<div class="row">
+						<div class="user_picture col-4">
+							{% if comment.author.profilePicture %}
+								<img class="card-img-top img-thumbnail img-fluid mx-auto d-block rounded" src="{{ vich_uploader_asset(comment.author) }}" alt="{{ comment.author.firstname }}">
+							{% else %}
+								<img class="card-img-top img-thumbnail img-fluid mx-auto d-block rounded" src="{{ asset('/build/images/astroSalesforce.png') }}" alt="astro salesforce">
+							{% endif %}
+						</div>
+						<div class="col-8 p-3">
+							<h3>From:
+								{{ comment.author.lastname }}
+								{{ comment.author.firstname }}</h3>
+							<p>{{ comment.createdAt ? comment.createdAt|date('Y-m-d H:i:s') : '' }}</p>
+						</div>
+					</div>
+					<p>{{ comment.content }}</p>
 				</div>
 			{% else %}
 				No comments found.
