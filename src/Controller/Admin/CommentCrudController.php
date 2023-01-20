@@ -5,6 +5,8 @@ namespace App\Controller\Admin;
 use App\Entity\Comment;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 
 class CommentCrudController extends AbstractCrudController
 {
@@ -20,14 +22,14 @@ class CommentCrudController extends AbstractCrudController
             ->setPaginatorPageSize(25);
     }
 
-    /*
+
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id'),
-            TextField::new('title'),
-            TextEditorField::new('description'),
+            IdField::new('id')
+                ->hideOnForm(),
+            TextEditorField::new('content')
+                ->setNumOfRows(10),
         ];
     }
-    */
 }
