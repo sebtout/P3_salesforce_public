@@ -4,20 +4,27 @@
 {% endblock %}
 
 {% block body %}
-	<div class="text-center">
-		<button type="button" class="btn btn-success m-5">
-			<a href="{{ path('app_idea_new') }}">Create new idea</a>
-		</button>
-		{{ form_start(form) }}
-		{{ form_widget(form) }}
-		{{ form_end(form) }}
 
-
+	<div class="row">
+		<div class="col-6 col-md-2 mt-3 text-center">
+			<div>
+				{{ form_start(form) }}
+				{{ form_widget(form) }}
+				{{ form_end(form) }}
+			</div>
+		</div>
+		<div class="col-6 col-md-8 text-center">
+			<button type="button" class="btn btn-success btn-lg m-5">
+				<a href="{{ path('app_idea_new') }}">Create new idea</a>
+			</button>
+		</div>
+		<div class="col-0 col-md-2 mt-3 text-center">
+		</div>
 	</div>
+
 	<div class="d-flex flex-row-reverse"></div>
 	<div class="container">
 		<div class="row d-flex justify-content-around">
-
 			{% for idea in ideas %}
 				{% if idea.status == 'in progress' %}
 					{% include "Shared/_ideaCard.html.twig" %}

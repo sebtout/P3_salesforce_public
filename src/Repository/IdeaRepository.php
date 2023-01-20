@@ -3,10 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Idea;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use App\Entity\Comment;
-use App\Entity\User;
 
 /**
  * @extends ServiceEntityRepository<Idea>
@@ -60,11 +59,13 @@ class IdeaRepository extends ServiceEntityRepository
             ->Join('i.comments', 'c')
             ->groupBy('i.id')
             ->orderBy("count('i.comments')", 'DESC')
+            ->setMaxResults(10)
             ->getQuery();
 
 
         return $query->getResult();
     }
+
     public function findAllIdeaLike(User $user): array
     {
         $query = $this->createQueryBuilder('i')
@@ -76,9 +77,39 @@ class IdeaRepository extends ServiceEntityRepository
             ->orderBy('i.id', 'DESC')
             ->getQuery();
 
-
             return $query->getResult();
     }
+
+    public function mostLikedIdeas(): array
+    {
+        $query = $this->createQueryBuilder('i')
+            ->select('i', 'a')
+            ->leftJoin('i.author', 'a')
+            ->leftJoin('i.likes', 'l')
+            ->groupBy('i.id')
+            ->orderBy("count('l.idea')", 'DESC')
+            ->setMaxResults(10)
+            ->getQuery();
+
+
+        return $query->getResult();
+    }
+
+//    /**
+//     * @return Idea[] Returns an array of Idea objects
+//     */
+//    public function findByExampleField($value): array
+//    {
+//        return $this->createQueryBuilder('i')
+//            ->andWhere('i.exampleField = :val')
+//            ->setParameter('val', $value)
+//            ->orderBy('i.id', 'ASC')
+//            ->setMaxResults(10)
+//            ->getQuery()
+//            ->getResult()
+//        ;
+//    }
+
     //    /**
     //     * @return Idea[] Returns an array of Idea objects
     //     */
