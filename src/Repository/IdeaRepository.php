@@ -6,6 +6,7 @@ use App\Entity\Idea;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\Comment;
+use App\Entity\User;
 
 /**
  * @extends ServiceEntityRepository<Idea>
@@ -64,28 +65,41 @@ class IdeaRepository extends ServiceEntityRepository
 
         return $query->getResult();
     }
-//    /**
-//     * @return Idea[] Returns an array of Idea objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('i')
-//            ->andWhere('i.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('i.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function findAllIdeaLike(User $user): array
+    {
+        $query = $this->createQueryBuilder('i')
+            ->addSelect('a', 'l') //to make Doctrine actually use the join
+            ->leftJoin('i.author', 'a')
+            ->leftJoin('i.likes', 'l')
+            ->andWhere('l.user = :val')
+            ->setParameter('val', $user)
+            ->orderBy('i.id', 'DESC')
+            ->getQuery();
 
-//    public function findOneBySomeField($value): ?Idea
-//    {
-//        return $this->createQueryBuilder('i')
-//            ->andWhere('i.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+
+            return $query->getResult();
+    }
+    //    /**
+    //     * @return Idea[] Returns an array of Idea objects
+    //     */
+    //    public function findByExampleField($value): array
+    //    {
+    //        return $this->createQueryBuilder('i')
+    //            ->andWhere('i.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->orderBy('i.id', 'ASC')
+    //            ->setMaxResults(10)
+    //            ->getQuery()
+    //            ->getResult()
+    //        ;
+    //    }
+    //    public function findOneBySomeField($value): ?Idea
+    //    {
+    //        return $this->createQueryBuilder('i')
+    //            ->andWhere('i.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->getQuery()
+    //            ->getOneOrNullResult()
+    //        ;
+    //    }
 }

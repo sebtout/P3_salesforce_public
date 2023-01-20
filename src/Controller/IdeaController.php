@@ -27,11 +27,14 @@ class IdeaController extends AbstractController
     #[Route('/', name: 'index', methods: ['GET','POST'])]
     public function index(Request $request, IdeaRepository $ideaRepository): Response
     {
+        /** @var \App\Entity\User $user */
+        $user = $this->getUser();
+
         $form = $this->createForm(SearchIdeaType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $ideas = $ideaRepository->findAllCommentByIdea();
+            $ideas = $ideaRepository->findAllIdeaLike($user);
         } else {
             $ideas = $ideaRepository->findAllIdeasWithAuthorAndLike();
         }
