@@ -44,9 +44,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Seriali
     #[Assert\NotBlank(message: 'Don\'t leave me empty')]
     #[Assert\Length(
         min: 6,
-        max: 40,
         minMessage: 'The password entered is too short, it should exceed {{ limit }} characters',
-        maxMessage: 'The password entered is too long, it should not exceed {{ limit }} characters',
     )]
 
     private ?string $password = null;

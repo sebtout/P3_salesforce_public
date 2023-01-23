@@ -27,13 +27,10 @@
 				<a href="{{ path('app_idea_show', {'id': idea.id}) }}" class="btn btn-success p-2 w-100">Comment</a>
 			</div>
 			<div>
-				{% if app.user and idea.isLikedByUser(app.user) %}
-					<a href="{{ path('app_idea_likeShow', {'id': idea.id}) }}" class="btn btn-success p-2 w-100">Like -
-						{{ idea.likes | length }}</a>
-				{% else %}
-					<a href="{{ path('app_idea_likeIndex', {'id': idea.id}) }}" class="btn btn-secondary p-2 w-100">Like -
-						{{ idea.likes | length }}</a>
-				{% endif %}
+				<a href="{{ path('app_idea_likeIndex', {'id': idea.id}) }}" 
+					class="like btn {{ app.user and idea.isLikedByUser(app.user) ? 'btn-success' : 'btn-secondary' }} p-2 w-100">
+					Like - {{ idea.likes | length }}
+				</a>
 			</div>
 		</div>
 	</div>
