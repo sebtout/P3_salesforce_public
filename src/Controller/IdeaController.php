@@ -180,7 +180,10 @@ class IdeaController extends AbstractController
 
             $ideaLikeRepository->remove($like, true);
 
-            return $this->redirectToRoute('app_idea_index', [], Response::HTTP_SEE_OTHER);
+            return $this->json([
+                'isLikedByUser' => $idea->isLikedByUser($user),
+                'numberOfLikes' => count($idea->getLikes())
+            ]);
         }
 
         $like = new IdeaLike();
@@ -189,7 +192,10 @@ class IdeaController extends AbstractController
 
         $ideaLikeRepository->save($like, true);
 
-        return $this->redirectToRoute('app_idea_index', [], Response::HTTP_SEE_OTHER);
+        return $this->json([
+            'isLikedByUser' => $idea->isLikedByUser($user),
+            'numberOfLikes' => count($idea->getLikes())
+        ]);
     }
 
     #[Route('/likeShow/{id}', name: 'likeShow', methods: ['GET'])]
