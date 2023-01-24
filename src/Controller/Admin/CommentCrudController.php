@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Comment;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 
@@ -30,6 +31,10 @@ class CommentCrudController extends AbstractCrudController
                 ->hideOnForm(),
             TextEditorField::new('content')
                 ->setNumOfRows(10),
+            AssociationField::new('idea')
+                ->hideOnForm(),
+            AssociationField::new('author')
+                ->hideOnForm(),
         ];
     }
 }

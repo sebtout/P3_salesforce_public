@@ -10,9 +10,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Serializable;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Validator\Constraints\Email;
-use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -378,5 +375,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Seriali
         $this->id = $id;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->firstname . ' ' . $this->lastname;
     }
 }
