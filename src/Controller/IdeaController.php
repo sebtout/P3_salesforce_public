@@ -35,8 +35,6 @@ class IdeaController extends AbstractController
         $form = $this->createForm(SearchIdeaType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $ideas = $ideaRepository->findAllIdeaLike($user);
-
 
             /** @var ClickableInterface $clikable1  */
             $clikable1 = $form->get('mostCommented');
@@ -47,9 +45,9 @@ class IdeaController extends AbstractController
             if ($clikable1->isClicked()) {
                 $ideas = $ideaRepository->findAllCommentByIdea();
             } elseif ($clikable2->isClicked()) {
-                $ideas = $ideaRepository->findAllIdeaLike($user);
-            } elseif ($clikable3->isClicked()) {
                 $ideas = $ideaRepository->mostLikedIdeas();
+            } elseif ($clikable3->isClicked()) {
+                $ideas = $ideaRepository->findAllIdeaLike($user);
             } else {
                 $ideas = $ideaRepository->findAllIdeasWithAuthorAndLike();
             }
