@@ -68,9 +68,9 @@ class IdeaRepository extends ServiceEntityRepository
     public function findAllIdeaLike(User $user): array
     {
         $query = $this->createQueryBuilder('i')
-            ->addSelect('a', 'l') //to make Doctrine actually use the join
-            ->leftJoin('i.author', 'a')
-            ->leftJoin('i.likes', 'l')
+            ->addSelect('a') //to make Doctrine actually use the join
+            ->Join('i.author', 'a')
+            ->join('i.likes', 'l')
             ->andWhere('l.user = :val')
             ->setParameter('val', $user)
             ->orderBy('i.id', 'DESC')
@@ -93,6 +93,7 @@ class IdeaRepository extends ServiceEntityRepository
 
         return $query->getResult();
     }
+
 
     //    /**
     //     * @return Idea[] Returns an array of Idea objects
@@ -132,4 +133,5 @@ class IdeaRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
 }

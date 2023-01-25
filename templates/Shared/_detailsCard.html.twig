@@ -20,13 +20,13 @@
 		</div>
 	</div>
 	<div class="p-3 border border-info rounded-bottom border-4 bg-info d-grid gap-2 d-md-flex justify-content-md-between align-items-center">
-		<a href="{{ path('app_idea_index') }}" class="btn btn-success">back to list</a>
-		{% if app.user and idea.isLikedByUser(app.user) %}
-			<a href="{{ path('app_idea_likeShow', {'id': idea.id}) }}" class="btn btn-success">Like -
-				{{ idea.likes | length }}</a>
-		{% else %}
-			<a href="{{ path('app_idea_likeShow', {'id': idea.id}) }}" class="btn btn-secondary">Like -
-				{{ idea.likes | length }}</a>
-		{% endif %}
+		<div class="col-md-2"></div>
+		<a href="{{ path('app_idea_index') }}" class="btn btn-success col-md-3">back to list</a>
+		<div class="col-md-2"></div>
+		<a href="{{ path('app_idea_likeIndex', {'id': idea.id}) }}" class="like btn {{ app.user and idea.isLikedByUser(app.user) ? 'btn-success' : 'btn-secondary' }} col-md-3">
+			Like -
+			{{ idea.likes | length }}
+		</a>
+		<div class="col-md-2"></div>
 	</div>
 </div>
