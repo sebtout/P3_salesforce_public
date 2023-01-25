@@ -93,11 +93,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Seriali
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?DateTime $updateAt = null;
 
+    #[ORM\Column]
+    private ?bool $isActive = null;
+
     public function __construct()
     {
         $this->ideas = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->ideaLikes = new ArrayCollection();
+        $this->isActive = true;
     }
 
     public function getId(): ?int
@@ -349,6 +353,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Seriali
             'userLastname' => $this->getLastname(),
             'userFirstname' => $this->getFirstname(),
             'roles' => $this->getRoles(),
+            'isActive' => $this->isIsActive(),
         ]);
     }
 
@@ -362,7 +367,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Seriali
             ->setEmail($unserialized['email'])
             ->setLastname($unserialized['userLastname'])
             ->setFirstname($unserialized['userFirstname'])
-            ->setRoles($unserialized['roles']);
+            ->setRoles($unserialized['roles'])
+            ->setIsActive($unserialized['isActive']);
     }
 
     /**
@@ -380,5 +386,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Seriali
     public function __toString()
     {
         return $this->firstname . ' ' . $this->lastname;
+    }
+
+    public function isIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(bool $isActive): self
+    {
+        $this->isActive = $isActive;
+
+        return $this;
     }
 }
