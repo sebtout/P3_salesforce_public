@@ -33,6 +33,7 @@ Encore
      */
     .addEntry('app', './assets/js/app.js')
     .addEntry('like', './assets/js/like.js')
+    .addEntry('btn', './assets/js/btnreturntop.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')

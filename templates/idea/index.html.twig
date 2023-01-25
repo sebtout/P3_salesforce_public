@@ -5,6 +5,7 @@
 
 {% block javascripts %}
 	{{ encore_entry_script_tags('like') }}
+	{{ encore_entry_script_tags('btn') }}
 	{{ parent() }}
 {% endblock %}
 
@@ -41,5 +42,5 @@
 
 		</div>
 	</div>
-	<button id="btnTop">Back top</button>
+	<button onclick="topFunction()" id="btnTop" title="Go to top"><img src="{{ asset('/build/images/icons8-scroll-up-64.png') }}"></button>
 {% endblock %}
