@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\User;
+use PHPStan\Type\Doctrine\Descriptors\BooleanType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -22,6 +23,7 @@ class UserType extends AbstractType
             ->add('password', PasswordType::class)
             ->add('lastname', TextType::class)
             ->add('firstname', TextType::class)
+            ->add('isActive', BooleanType::class)
             ->add('profession', TextType::class);
     }
 
