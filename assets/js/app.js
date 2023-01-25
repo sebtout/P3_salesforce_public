@@ -11,5 +11,5 @@ import '../styles/app.scss';
 // start the Stimulus application
 import '../bootstrap';
 
-window.bootstrap = require('bootstrap');
+require('bootstrap');
 require('./toast.js');
