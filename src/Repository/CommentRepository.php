@@ -40,7 +40,7 @@ class CommentRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-    public function thread2(User $user): array
+    public function thread(User $user): array
     {
         $query = $this->createQueryBuilder('c')
             ->addSelect('u')
@@ -49,7 +49,7 @@ class CommentRepository extends ServiceEntityRepository
             ->andWhere('u = :val')
             ->setParameter('val', $user)
             ->orderBy('c.idea', 'DESC')
-            ->setMaxResults(3)
+            ->setMaxResults(10)
 
             ->getQuery();
 

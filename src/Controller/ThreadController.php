@@ -12,11 +12,11 @@ use App\Entity\Comment;
 class ThreadController extends AbstractController
 {
     #[Route('/thread', name: 'app_thread')]
-    public function index(IdeaRepository $ideaRepository, CommentRepository $commentRepository): Response
+    public function index(CommentRepository $commentRepository): Response
     {
         /** @var \App\Entity\User $user */
         $user = $this->getUser();
-        $comments = $commentRepository->thread2($user);
+        $comments = $commentRepository->thread($user);
 
         return $this->render('thread/index.html.twig', [
             'comments' => $comments
