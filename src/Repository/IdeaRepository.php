@@ -133,5 +133,4 @@ class IdeaRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
-
 }
