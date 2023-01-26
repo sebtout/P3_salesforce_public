@@ -39,6 +39,7 @@ fos_ck_editor:
                         "HorizontalRule",
                         "/",
                         "Styles", "Format", "Font", "FontSize", "Source",
+                        
                       ]
                   }
 
