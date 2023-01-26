@@ -12,36 +12,36 @@
 			<div class="border rounded-5 border-secondary border-3 my-5 bg-light pt-2">
 				<div class=' d-flex justify-content-between'>
 					<a data-bs-toggle="collapse" href="#idea_{{loop.index}}" role="button" aria-expanded="false" aria-controls="idea_{{loop.index}}">
-						<h3 class="text-center ps-5">{{comment.idea.title}}</h3>
+						<h4 class="text-center ps-5">{{comment.idea.title}}</h4>
 					</a>
 					<a href="{{path('app_idea_show',{'id':comment.idea.id})}}" class="btn btn-success me-5 mb-2">Comment</a>
 				</div>
 
 				<div class="collapse" id="idea_{{loop.index}}">
-					{% for comment1 in comment.idea.comments %}
-
-						<div class="d-flex  {{ key is even ? 'justify-content-end' : 'justify-content-start' }} ">
-
-							<div class="border bg-secondary border-dark w-50  p-2 m-3 rounded-5 ">
-
-								<div class="user_picture2  border-dark mx-3 mw-25 d-flex ">
-
-									{% if comment1.author.profilePicture %}
-										<img class="card-img-top img-thumbnail img-fluid mx-auto d-block rounded" src="{{ vich_uploader_asset(comment1.author) }}" alt="{{ comment1.author.firstname }}">
-									{% else %}
-										<img class="card-img-top img-thumbnail img-fluid mx-auto d-block rounded" src="{{ asset('/build/images/astroSalesforce.png') }}" alt="astro salesforce">
-									{% endif %}
-									<div class="d-flex px-3">
-										{{comment1.author.firstname}}
-										{{comment1.author.lastname}}
+					{% for comment1 in comment.idea.comments|sort((a, b) => b.id <=> a.id) %}
+						{% if loop.index == 1 or loop.index == 2 or loop.index == 3 %}
+							<div class="d-flex  {{ key is even ? 'justify-content-end' : 'justify-content-start' }}">
+								<div class="row border bg-secondary border-secondary w-75  p-2 m-3 rounded-5 ">
+									{# <div class="user_picture2  col-2 border-dark mx-3 mw-25 d-flex "> #}
+									<div class="user_picture2 p-2  col-2">
+										{% if comment1.author.profilePicture %}
+											<img class="card-img-top img-fluid mx-auto d-block rounded" src="{{ vich_uploader_asset(comment1.author) }}" alt="{{ comment1.author.firstname }}">
+										{% else %}
+											<img class="card-img-top img-thumbnail img-fluid mx-auto d-block rounded" src="{{ asset('/build/images/astroSalesforce.png') }}" alt="astro salesforce">
+										{% endif %}
+									</div>
+									<div class="col-2 mt-2">
+										<strong class="d-flex px-3">
+											{{comment1.author.firstname}}
+											{{comment1.author.lastname}}
+										</strong>
+									</div>
+									<div class="col-8">
+										{{comment1.content}}
 									</div>
 								</div>
-								<div class="m-3 ">
-
-									<p>{{comment1.content}}</p>
-								</div>
 							</div>
-						</div>
+						{% endif %}
 					{% endfor %}
 				</div>
 			</div>

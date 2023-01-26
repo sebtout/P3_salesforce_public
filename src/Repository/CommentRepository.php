@@ -43,14 +43,13 @@ class CommentRepository extends ServiceEntityRepository
     public function thread(User $user): array
     {
         $query = $this->createQueryBuilder('c')
-            ->addSelect('u')
+            ->addSelect('i', 'cms', 'a')
             ->leftJoin('c.idea', 'i')
-            ->leftJoin('c.author', 'u')
-            ->andWhere('u = :val')
+            ->leftJoin('i.comments', 'cms')
+            ->leftJoin('cms.author', 'a')
+            ->andWhere('c.author = :val')
             ->setParameter('val', $user)
             ->orderBy('c.idea', 'DESC')
-            ->setMaxResults(10)
-
             ->getQuery();
 
         return $query->getResult();

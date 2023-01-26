@@ -45,19 +45,22 @@
 							<hr class="m-0">
 						</div>
 						<div class="d-lg-flex">
-							<li class="nav-item">
-								{% if app.user %}
+							{% if app.user %}
+								<li class="nav-item">
+									<a class="nav-link active text-right text-center" href="{{ path("app_thread") }}">
+									My thread</a>
+								</li>
+								<hr class="m-0">
+								<li class="nav-item">
 									<a class="nav-link active text-right text-center" href="{{ path("app_user_profile") }}">
-										My profile</a>
-								{% endif %}
-							</li>
-							<hr class="m-0">
-							<li class="nav-item">
-								{% if app.user %}
+									My profile</a>
+								</li>
+								<hr class="m-0">
+								<li class="nav-item">
 									<a class="nav-link active text-right text-center" href="{{ path('app_logout') }}">
-										Disconnect</a>
-								{% endif %}
-							</li>
+									Disconnect</a>
+								</li>
+							{% endif %}
 						</div>
 					</ul>
 				</div>
