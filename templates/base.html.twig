@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -18,7 +18,7 @@
 	</head>
 	<div class="container-fluid shadow">
 		<div class="row">
-			<nav class="navbar navbar-expand-lg bg-white">
+			<nav class="navbar navbar-expand-lg">
 				<a class="navbar-brand" href="{{ path('app_home') }}">
 					<img src="{{ asset('/build/images/shareforce.png') }}" class="img-logo mx-3" alt="Logo">
 				</a>
@@ -43,11 +43,19 @@
 						</li>
 						<hr class="m-0">
 					</ul>
+					<div class="btn-group" role="group" aria-label="Button group darkmode">
+						<button type="button" class="btn btn-success" data-bs-theme-value="light">
+							<i class="bi bi-sun-fill"></i>
+						</button>
+						<button type="button" class="btn btn-success" data-bs-theme-value="dark">
+							<i class="bi bi-moon-stars-fill"></i>
+						</button>
+					</div>
 					<div class="navbar-nav col-1 text-center">
-							{% if app.user %}
-								<a class="nav-link active text-right text-center" href="{{ path("app_user_profile") }}">
-									My profile</a>
-							{% endif %}
+						{% if app.user %}
+							<a class="nav-link active text-right text-center" href="{{ path("app_user_profile") }}">
+								My profile</a>
+						{% endif %}
 					</div>
 					<div class="navbar-nav col-1 text-center">
 						{% if app.user %}
@@ -62,4 +70,4 @@
 	<body>
 		{% block body %}{% endblock %}
 	</body>
-</html>
+</html></html>
