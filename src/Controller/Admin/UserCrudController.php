@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\RoleType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
@@ -39,6 +40,7 @@ class UserCrudController extends AbstractCrudController
                 ->allowMultipleChoices(false)
                 ->renderExpanded(true)
                 ->setFormType(RoleType::class),
+            BooleanField::new('isActive'),
             TextField::new('password')
                 ->hideWhenUpdating()
                 ->hideOnIndex(),

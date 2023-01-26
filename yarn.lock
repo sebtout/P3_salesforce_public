@@ -3082,10 +3082,10 @@
   "resolved" "https://registry.npmjs.org/json-stable-stringify-without-jsonify/-/json-stable-stringify-without-jsonify-1.0.1.tgz"
   "version" "1.0.1"
 
-"json5@^2.1.2", "json5@^2.2.1":
-  "integrity" "sha512-1hqLFMSrGHRHxav9q9gNjJ5EXznIxGVO09xQRrwplcS8qs28pZ8s8hupZAmqDwZUmVZ2Qb2jnyPOWcDH8m8dlA=="
-  "resolved" "https://registry.npmjs.org/json5/-/json5-2.2.1.tgz"
-  "version" "2.2.1"
+json5@^2.1.2, json5@^2.2.1:
+  version "2.2.3"
+  resolved "https://registry.npmjs.org/json5/-/json5-2.2.3.tgz"
+  integrity sha512-XmOWe7eyHYH14cLdVPoyg+GOH3rYX++KpzrylJwSW98t3Nk+U8XOl8FWKOgwtzdb8lXGf6zYwDUzeHMWfxasyg==
 
 "kind-of@^6.0.2":
   "integrity" "sha512-dcS1ul+9tmeD95T+x28/ehLgd9mENa3LsvDTtzm3vyBEO7RPptvAD+t44WVXaUjTBRcrpFeFlC8WCruUR456hw=="
@@ -3115,10 +3115,10 @@
   "resolved" "https://registry.npmjs.org/loader-runner/-/loader-runner-4.3.0.tgz"
   "version" "4.3.0"
 
-"loader-utils@^2.0.0":
-  "integrity" "sha512-TM57VeHptv569d/GKh6TAYdzKblwDNiumOdkFnejjD0XwTH87K90w3O7AiJRqdQoXygvi1VQTJTLGhJl7WqA7A=="
-  "resolved" "https://registry.npmjs.org/loader-utils/-/loader-utils-2.0.2.tgz"
-  "version" "2.0.2"
+loader-utils@^2.0.0:
+  version "2.0.4"
+  resolved "https://registry.npmjs.org/loader-utils/-/loader-utils-2.0.4.tgz"
+  integrity sha512-xXqpXoINfFhgua9xiqD8fPFHgkoq1mmmpE92WlDbm9rNRd/EbRb+Gqf908T2DMfuHjjJlksiK2RbHVOdD/MqSw==
   dependencies:
     "big.js" "^5.2.2"
     "emojis-list" "^3.0.0"
@@ -3547,10 +3547,15 @@
   dependencies:
     "find-up" "^3.0.0"
 
-"postcss-calc@^8.2.3":
-  "integrity" "sha512-SmWMSJmB8MRnnULldx0lQIyhSNvuDl9HfrZkaqqE/WHAhToYsAvDq+yAsA/kIyINDszOp3Rh0GFoNuH5Ypsm3Q=="
-  "resolved" "https://registry.npmjs.org/postcss-calc/-/postcss-calc-8.2.4.tgz"
-  "version" "8.2.4"
+popper.js@^1.16.1:
+  version "1.16.1"
+  resolved "https://registry.npmjs.org/popper.js/-/popper.js-1.16.1.tgz"
+  integrity sha512-Wb4p1J4zyFTbM+u6WuO4XstYx4Ky9Cewe4DWrel7B0w6VVICvPwdOpotjzcf6eD8TsckVnIMNONQyPIUFOUbCQ==
+
+postcss-calc@^8.2.3:
+  version "8.2.4"
+  resolved "https://registry.npmjs.org/postcss-calc/-/postcss-calc-8.2.4.tgz"
+  integrity sha512-SmWMSJmB8MRnnULldx0lQIyhSNvuDl9HfrZkaqqE/WHAhToYsAvDq+yAsA/kIyINDszOp3Rh0GFoNuH5Ypsm3Q==
   dependencies:
     "postcss-selector-parser" "^6.0.9"
     "postcss-value-parser" "^4.2.0"

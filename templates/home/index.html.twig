@@ -6,11 +6,32 @@
 {% block body %}
 	{% for category, messages in app.flashes %}
 		{% for message in messages %}
-			<div class="alert alert-{{ category }}">
-				{{ message }}
+			<div class="toast-container position-fixed bottom-0 end-0 p-3">
+				<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
+					<div class="toast-header">
+						<strong class="mx-auto">Shareforce</strong>
+						<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+					</div>
+					<div class="toast-body text-bg-{{ category }}">
+						{{ message }}
+					</div>
+				</div>
 			</div>
 		{% endfor %}
 	{% endfor %}
+	{% if error is defined and error %}
+		<div class="toast-container position-fixed bottom-0 end-0 p-3">
+			<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
+				<div class="toast-header">
+					<strong class="mx-auto">Shareforce</strong>
+					<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+				</div>
+				<div class="toast-body alert alert-warning">
+					{{ error.messageKey|trans(error.messageData, 'security') }}
+				</div>
+			</div>
+		</div>
+	{% endif %}
 	<div class="container text-center mt-5">
 		<div>
 			<h1>
@@ -40,9 +61,6 @@
 							{{ app.user.lastname }}</p>
 					{% else %}
 						<div>
-							{% if error is defined and error %}
-								<div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-							{% endif %}
 							<form action="{{ path('app_homes') }}" method="post" class="d-flex flex-column  bg-light shadow rounded px-3 pt-3">
 								<label class="text-center rounded bg-light" for="username">Email:</label>
 								<input type="text" id="username" name="_username">

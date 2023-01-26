@@ -94,57 +94,43 @@ class IdeaRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
-    public function thread(User $user): array
-    {
-        $query = $this->createQueryBuilder('i')
-            ->addSelect('a', 'c') //to make Doctrine actually use the join
-            ->leftJoin('i.author', 'a')
-            ->leftJoin('i.comments', 'c')
-            ->andWhere('c.author = :val')
-            ->setParameter('val', $user)
-            ->orderBy('i.id', 'DESC')
-            ->setMaxResults(3)
-            ->getQuery();
 
-        return $query->getResult();
-    }
+    //    /**
+    //     * @return Idea[] Returns an array of Idea objects
+    //     */
+    //    public function findByExampleField($value): array
+    //    {
+    //        return $this->createQueryBuilder('i')
+    //            ->andWhere('i.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->orderBy('i.id', 'ASC')
+    //            ->setMaxResults(10)
+    //            ->getQuery()
+    //            ->getResult()
+    //        ;
+    //    }
 
-//    /**
-//     * @return Idea[] Returns an array of Idea objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('i')
-//            ->andWhere('i.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('i.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    /**
-//     * @return Idea[] Returns an array of Idea objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('i')
-//            ->andWhere('i.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('i.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-//    public function findOneBySomeField($value): ?Idea
-//    {
-//        return $this->createQueryBuilder('i')
-//            ->andWhere('i.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    //    /**
+    //     * @return Idea[] Returns an array of Idea objects
+    //     */
+    //    public function findByExampleField($value): array
+    //    {
+    //        return $this->createQueryBuilder('i')
+    //            ->andWhere('i.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->orderBy('i.id', 'ASC')
+    //            ->setMaxResults(10)
+    //            ->getQuery()
+    //            ->getResult()
+    //        ;
+    //    }
+    //    public function findOneBySomeField($value): ?Idea
+    //    {
+    //        return $this->createQueryBuilder('i')
+    //            ->andWhere('i.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->getQuery()
+    //            ->getOneOrNullResult()
+    //        ;
+    //    }
 }
