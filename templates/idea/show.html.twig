@@ -49,7 +49,7 @@
 			</div>
 
 			{% for comment in idea.comments %}
-				<div class="m-3 p-3 border border-secondary rounded border-5 bg-secondary">
+				<div class="m-3 p-3 border border-secondary rounded border-5 bg-secondary text-break">
 					<div class="row">
 						<div class="user_picture col-4">
 							{% if comment.author.profilePicture %}
@@ -65,7 +65,7 @@
 							<p>{{ comment.createdAt ? comment.createdAt|date('Y-m-d H:i:s') : '' }}</p>
 						</div>
 					</div>
-					<p>{{ comment.content }}</p>
+					<p>{{ comment.content|raw }}</p>
 				</div>
 			{% else %}
 				No comments found.
