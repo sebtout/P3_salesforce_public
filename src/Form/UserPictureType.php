@@ -23,11 +23,13 @@ class UserPictureType extends AbstractType
                 'required'      => false,
                 'allow_delete'  => false, // not mandatory, default is true
                 'download_uri' => false, // not mandatory, default is true
-                ])
-            ->add('submit', SubmitType::class, [
-                'label' => 'Add profile picture'
             ])
-        ;
+            ->add('submit', SubmitType::class, [
+                'label' => 'Add profile picture',
+                'attr' => [
+                    'class' => "btn-success "
+                ]
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
