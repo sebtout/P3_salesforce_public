@@ -49,6 +49,55 @@ class UserFixtures extends Fixture
         $admin->setPassword($hashedPassword);
         $manager->persist($admin);
 
+        $user = new User();
+        $user->setEmail('broyerdamien@gmail.com');
+        $user->setLastname('Broyer');
+        $user->setFirstname('Damien');
+        $user->setProfession('Développeur web');
+        $user->setRoles(['ROLE_USER']);
+        $hashedPassword = $this->passwordHasher->hashPassword(
+            $user,
+            'damienbroyer'
+        );
+
+        $user->setPassword($hashedPassword);
+        $manager->persist($user);
+        $this->addReference('broyer', $user);
+
+
+        $user = new User();
+        $user->setEmail('sarahcroche@gmail.com');
+        $user->setLastname('Sarah');
+        $user->setFirstname('Croche');
+        $user->setProfession('Standardiste');
+        $user->setRoles(['ROLE_USER']);
+        $hashedPassword = $this->passwordHasher->hashPassword(
+            $user,
+            'saracroche/script'
+        );
+
+        $user->setPassword($hashedPassword);
+        $manager->persist($user);
+        $this->addReference('sarah', $user);
+
+
+        $user->setPassword($hashedPassword);
+        $manager->persist($user);
+
+        $admin3 = new User();
+        $admin3->setEmail('chuchnorris.com');
+        $admin3->setLastname('Chuck');
+        $admin3->setFirstname('Norris');
+        $admin3->setProfession('Dieu de la vie');
+        $admin3->setRoles(['ROLE_ADMIN']);
+        $hashedPassword = $this->passwordHasher->hashPassword(
+            $admin3,
+            '<script>je_suis_le_meilleur</script>'
+        );
+        $admin3->setPassword($hashedPassword);
+        $manager->persist($admin3);
+        $this->addReference('chuck', $admin3);
+
         // Création de 20 utilisateurs de type “contributeur” (= auteur)
         $faker = Factory::create();
         for ($i = 0; $i < 20; $i++) {
@@ -66,8 +115,6 @@ class UserFixtures extends Fixture
             $manager->persist($author);
             $this->addReference('author_' . $i, $author);
         }
-
-        // Sauvegarde des 2 nouveaux utilisateurs :
         $manager->flush();
     }
 }

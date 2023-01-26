@@ -3,11 +3,11 @@
 namespace App\Form;
 
 use App\Entity\Idea;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class IdeaType extends AbstractType
 {
@@ -19,7 +19,7 @@ class IdeaType extends AbstractType
                     'class' => "form"
                 ]
             ])
-            ->add('content', TextareaType::class, [
+            ->add('content', CKEditorType::class, [
                 'attr' => [
                     'class' => "form",
                     'placeholder' => 'Enter your idea',
