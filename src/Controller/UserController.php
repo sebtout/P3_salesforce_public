@@ -65,8 +65,11 @@ class UserController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, User $user, UserRepository $userRepository): Response
+    public function edit(Request $request, UserRepository $userRepository): Response
     {
+        /** @var \App\Entity\User $user */
+        $user = $this->getUser();
+
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
@@ -93,6 +96,11 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $fichier = 'public/uploads/pictures/profile' . $user->getProfilePicture();
+            if (file_exists($fichier)) {
+                unlink($fichier);
+            }
+            $user->setProfilePicture('');
             $userRepository->save($user, true);
 
             return $this->redirectToRoute('app_user_profile', [], Response::HTTP_SEE_OTHER);
