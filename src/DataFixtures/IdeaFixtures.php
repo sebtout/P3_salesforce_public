@@ -43,6 +43,7 @@ class IdeaFixtures extends Fixture implements DependentFixtureInterface
         $idea->setStatus('in progress');
         $idea->setAuthor($this->getReference('broyer'));
         $manager->persist($idea);
+        $this->addReference('wild', $idea);
 
         $idea = new Idea();
         $idea->setTitle('Commencer plus tôt le matin');
@@ -50,7 +51,7 @@ class IdeaFixtures extends Fixture implements DependentFixtureInterface
         $idea->setStatus('in progress');
         $idea->setAuthor($this->getReference('broyer'));
         $manager->persist($idea);
-        $this->addReference('wild', $idea);
+
 
         $idea = new Idea();
         $idea->setTitle('Distibution de bonbon une fois par mois');
@@ -66,9 +67,6 @@ class IdeaFixtures extends Fixture implements DependentFixtureInterface
         $idea->setStatus('in progress');
         $idea->setAuthor($this->getReference('sarah'));
         $manager->persist($idea);
-
-
-
 
         $faker = Factory::create();
         for ($i = 0; $i < 40; $i++) {

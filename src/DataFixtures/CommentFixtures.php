@@ -32,13 +32,9 @@ class CommentFixtures extends Fixture implements DependentFixtureInterface
         $comment = new Comment();
         $comment->setAuthor($this->getReference('sarah'));
         $comment->setIdea($this->getReference('wild'));
-        $comment->setContent('Je suis pour la formation actuell est trop courte ');
+        $comment->setContent('Je suis pour la formation actuelle est trop courte ');
         $comment->setCreatedAt($faker->dateTimeBetween('-3 years', 'now'));
         $manager->persist($comment);
-
-
-
-
 
         $faker = Factory::create();
         for ($i = 0; $i < 119; $i++) {
