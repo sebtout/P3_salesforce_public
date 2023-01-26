@@ -19,6 +19,19 @@ $color-mode-type: data;
         background-color: #D9D9D9;
     }
 
+    .card-body-detail {
+        background-color: #D9D9D9;
+    }
+
+    .comment {
+        background-color: #D9D9D9;
+    }
+
+    .form {
+        background-color: #fff;
+        color: #000;
+    }
+
     h1 {
         color: $title-color;
     }
@@ -39,12 +52,30 @@ $color-mode-type: data;
         background-color: grey;
     }
 
+    .card-body-detail {
+        background-color: grey;
+    }
+
+    .comment {
+        background-color: grey;
+        color: #fff;
+    }
+
+    .form {
+        background-color: #fff;
+        color: #000;
+    }
+
     .navbar {
         background-color: grey;
     }
 
     .card-text {
         color: #fff;
+    }
+
+    .text_user {
+        color: #000;
     }
 }
 

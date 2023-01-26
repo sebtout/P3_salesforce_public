@@ -18,6 +18,7 @@ class UserPictureType extends AbstractType
             ->add('profilePictureFile', VichFileType::class, [
                 'label' => 'Add your profile picture',
                 'attr' => [
+                    'class' => 'form',
                     'placeholder' => 'Name',
                 ],
                 'required'      => false,
@@ -27,7 +28,7 @@ class UserPictureType extends AbstractType
             ->add('submit', SubmitType::class, [
                 'label' => 'Add profile picture',
                 'attr' => [
-                    'class' => "btn-success "
+                    'class' => "btn-success"
                 ]
             ]);
     }

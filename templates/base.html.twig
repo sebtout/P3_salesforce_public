@@ -42,22 +42,24 @@
 								{% endif %}
 							</li>
 						</div>
-						<div class="btn-group" role="group" aria-label="Button group darkmode">
-							<button type="button" class="btn btn-success" data-bs-theme-value="light">
-								<i class="bi bi-sun-fill"></i>
-							</button>
-							<button type="button" class="btn btn-success" data-bs-theme-value="dark">
-								<i class="bi bi-moon-stars-fill"></i>
-							</button>
-						</div>
 						<div class="d-lg-flex">
-							<li class="nav-item">
+							<li class="nav-item me-3">
+								<div class="btn-group" role="group" aria-label="Button group darkmode">
+									<button type="button" class="btn btn-success" data-bs-theme-value="light">
+										<i class="bi bi-sun-fill"></i>
+									</button>
+									<button type="button" class="btn btn-success" data-bs-theme-value="dark">
+										<i class="bi bi-moon-stars-fill"></i>
+									</button>
+								</div>
+							</li>
+							<li class="nav-item me-2">
 								{% if app.user %}
 									<a class="nav-link active text-right text-center" href="{{ path("app_user_profile") }}">
 										My profile</a>
 								{% endif %}
 							</li>
-							<li class="nav-item">
+							<li class="nav-item me-3">
 								{% if app.user %}
 									<a class="nav-link active text-right text-center" href="{{ path('app_logout') }}">
 										Disconnect</a>
