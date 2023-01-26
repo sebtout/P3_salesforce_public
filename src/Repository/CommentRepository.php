@@ -40,7 +40,21 @@ class CommentRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    public function thread(User $user): array
+    {
+        $query = $this->createQueryBuilder('c')
+            ->addSelect('u')
+            ->leftJoin('c.idea', 'i')
+            ->leftJoin('c.author', 'u')
+            ->andWhere('u = :val')
+            ->setParameter('val', $user)
+            ->orderBy('c.idea', 'DESC')
+            ->setMaxResults(10)
 
+            ->getQuery();
+
+        return $query->getResult();
+    }
 
     //    /**
     //     * @return Comment[] Returns an array of Comment objects
