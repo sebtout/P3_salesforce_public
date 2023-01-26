@@ -36,13 +36,17 @@
 							<li class="nav-item">
 								<a class="nav-link active" href="{{ path('app_idea_index') }}">Suggestion box</a>
 							</li>
-							<hr class="m-0">
+							{% if is_granted("ROLE_ADMIN") %}
+								<hr class="m-0">
+							{% endif %}
 							<li class="nav-item">
 								{% if is_granted("ROLE_ADMIN") %}
 									<a class="nav-link active " href="{{ path('app_admin') }}">Admin</a>
 								{% endif %}
 							</li>
-							<hr class="m-0">
+							{% if app.user %}
+								<hr class="m-0">
+							{% endif %}
 						</div>
 						<div class="d-lg-flex">
 							{% if app.user %}
@@ -53,10 +57,14 @@
 								<hr class="m-0">
 								<li class="nav-item">
 									<a class="nav-link active text-right text-center" href="{{ path("app_user_profile") }}">
-									My profile</a>
-								</li>
+										My profile</a>
+								{% endif %}
+							</li>
+							{% if app.user %}
 								<hr class="m-0">
-								<li class="nav-item">
+							{% endif %}
+							<li class="nav-item">
+								{% if app.user %}
 									<a class="nav-link active text-right text-center" href="{{ path('app_logout') }}">
 									Disconnect</a>
 								</li>
