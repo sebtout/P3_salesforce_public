@@ -14,7 +14,6 @@
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.13",
         "easycorp/easyadmin-bundle": "^4.5",
-        "ezyang/htmlpurifier": "^4.16",
         "fakerphp/faker": "^1.21",
         "friendsofsymfony/ckeditor-bundle": "^2.4",
         "phpdocumentor/reflection-docblock": "^5.3",
