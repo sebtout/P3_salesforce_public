@@ -12,6 +12,22 @@ class UserFixtures extends Fixture
 {
     private UserPasswordHasherInterface $passwordHasher;
 
+    // private const PICTURES = [
+    //     ['profilePicture' => 'adashelby.jpg'],
+    //     ['profilePicture' => 'cersei.jpg'],
+    //     ['profilePicture' => 'cillianmurphy.jpg'],
+    //     ['profilePicture' => 'daenerys.jpg'],
+    //     ['profilePicture' => 'DrAudreyLim.jpg'],
+    //     ['profilePicture' => 'DrShaunMurfy.jpg'],
+    //     ['profilePicture' => 'eleven.jpg'],
+    //     ['profilePicture' => 'jimhopper.jpg'],
+    //     ['profilePicture' => 'jonsnow.jpg'],
+    //     ['profilePicture' => 'joycebyers.jpg'],
+    //     ['profilePicture' => 'mikewheeler.jpg'],
+    //     ['profilePicture' => 'pollygrey.jpg'],
+    //     ['profilePicture' => 'tyrion.jpg'],
+    // ];
+
     public function __construct(UserPasswordHasherInterface $passwordHasher)
     {
         $this->passwordHasher = $passwordHasher;
@@ -51,7 +67,7 @@ class UserFixtures extends Fixture
 
         // Création de 20 utilisateurs de type “contributeur” (= auteur)
         $faker = Factory::create();
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 13; $i < 20; $i++) {
             $author = new User();
             $author->setEmail($faker->email());
             $author->setLastname($faker->lastName());
@@ -63,8 +79,29 @@ class UserFixtures extends Fixture
                 '123s@lesforce'
             );
             $author->setPassword($hashedPassword);
+            // $author->setProfilePicture($this->getReference(
+            //     self::PICTURES[$faker->numberBetween(0, 12)]['profilePicture']
+            // ));
+            $author->setUpdateAt($faker->dateTimeBetween('-3 years', 'now'));
             $manager->persist($author);
             $this->addReference('author_' . $i, $author);
+        }
+
+        $faker = Factory::create();
+        for ($i = 13; $i < 20; $i++) {
+            $authorw = new User();
+            $authorw->setEmail($faker->email());
+            $authorw->setLastname($faker->lastName());
+            $authorw->setFirstname($faker->firstName());
+            $authorw->setProfession($faker->jobTitle());
+            $authorw->setRoles(['ROLE_USER']);
+            $hashedPassword = $this->passwordHasher->hashPassword(
+                $authorw,
+                '123s@lesforce'
+            );
+            $authorw->setPassword($hashedPassword);
+            $manager->persist($authorw);
+            $this->addReference('author_' . $i, $authorw);
         }
 
         // Sauvegarde des 2 nouveaux utilisateurs :
