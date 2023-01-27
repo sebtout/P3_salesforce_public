@@ -62,15 +62,15 @@
 					{% else %}
 						<div>
 							<form action="{{ path('app_homes') }}" method="post" class="d-flex flex-column  bg-light shadow rounded px-3 pt-3">
-								<label class="text-center rounded bg-light" for="username">Email:</label>
+								<label class="text-center text_user rounded bg-light" for="username">Email:</label>
 								<input type="text" id="username" name="_username">
 
-								<label class="text-center rounded bg-light" for="password">Password:</label>
+								<label class="text-center text_user rounded bg-light" for="password">Password:</label>
 								<input type="password" id="password" name="_password">
 								<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
 								<div class="mt-3 mb-3 m-auto">
-									<button class="btn btn-success" type="submit">login</button>
+									<button class="btn btn-success" type="submit">Login</button>
 								</div>
 								<div class="mb-3 m-auto">
 									<a class="text-center" href="{{ path('app_forgot_password_request') }}">Password forgotten ?</a>

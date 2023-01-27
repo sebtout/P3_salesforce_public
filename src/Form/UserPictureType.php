@@ -6,7 +6,6 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\IsFalse;
 use Vich\UploaderBundle\Form\Type\VichFileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
@@ -18,6 +17,7 @@ class UserPictureType extends AbstractType
             ->add('profilePictureFile', VichFileType::class, [
                 'label' => 'Add your profile picture',
                 'attr' => [
+                    'class' => 'form',
                     'placeholder' => 'Name',
                 ],
                 'required'      => false,
@@ -27,7 +27,7 @@ class UserPictureType extends AbstractType
             ->add('submit', SubmitType::class, [
                 'label' => 'Add profile picture',
                 'attr' => [
-                    'class' => "btn-success "
+                    'class' => "btn-success"
                 ]
             ]);
     }

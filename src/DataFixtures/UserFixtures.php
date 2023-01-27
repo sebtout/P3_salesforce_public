@@ -17,37 +17,37 @@ class UserFixtures extends Fixture
         $this->passwordHasher = $passwordHasher;
     }
 
-
     public function load(ObjectManager $manager): void
     {
-        // Création d’un utilisateur de type “contributeur” (= auteur)
-        $user = new User();
-        $user->setEmail('user@salesforce.com');
-        $user->setLastname('User');
-        $user->setFirstname('Test');
-        $user->setProfession('Sales assistant');
-        $user->setRoles(['ROLE_USER']);
-        $hashedPassword = $this->passwordHasher->hashPassword(
-            $user,
-            '123s@lesforce'
-        );
-
-        $user->setPassword($hashedPassword);
-        $manager->persist($user);
-
-        // Création d’un utilisateur de type “administrateur”
-        $admin = new User();
-        $admin->setEmail('admin@salesforce.com');
-        $admin->setLastname('Admin');
-        $admin->setFirstname('Testing');
-        $admin->setProfession('IT Manager');
-        $admin->setRoles(['ROLE_ADMIN']);
-        $hashedPassword = $this->passwordHasher->hashPassword(
-            $admin,
-            '123s@lesforce'
-        );
-        $admin->setPassword($hashedPassword);
-        $manager->persist($admin);
+        $samples = [
+            ['email' => 'user@salesforce.com', 'lastname' => 'User', 'firstname' => 'Test',
+                'profession' => 'Sales assistant', 'roles' => 'ROLE_USER', 'password' => '123s@lesforce',
+                'reference' => 'user'],
+            ['email' => 'admin@salesforce.com', 'lastname' => 'Admin', 'firstname' => 'Testing',
+                'profession' => 'IT Manager', 'roles' => 'ROLE_ADMIN', 'password' => '123s@lesforce',
+                'reference' => 'admin'],
+            ['email' => 'broyerdamien@gmail.com', 'lastname' => 'Broyer', 'firstname' => 'Damien',
+                'profession' => 'Développeur web', 'roles' => 'ROLE_USER', 'password' => 'damienbroyer',
+                'reference' => 'broyer'],
+            ['email' => 'sarahcroche@gmail.com', 'lastname' => 'Sarah', 'firstname' => 'Croche',
+                'profession' => 'Standardiste', 'roles' => 'ROLE_USER', 'password' => 'saracroche/script',
+                'reference' => 'sarah'],
+            ['email' => 'chuchnorris.com', 'lastname' => 'Chuck', 'firstname' => 'Norris',
+                'profession' => 'Dieu de la vie', 'roles' => 'ROLE_ADMIN',
+                'password' => '<script>je_suis_le_meilleur</script>', 'reference' => 'chuck'],
+        ];
+        foreach ($samples as $sample) {
+            $user = new User();
+            $user->setEmail($sample['email']);
+            $user->setLastname($sample['lastname']);
+            $user->setFirstname($sample['firstname']);
+            $user->setProfession($sample['profession']);
+            $user->setRoles([$sample['roles']]);
+            $hashedPassword = $this->passwordHasher->hashPassword($user, $sample['password']);
+            $user->setPassword($hashedPassword);
+            $manager->persist($user);
+            $this->addReference($sample['reference'], $user);
+        }
 
         // Création de 20 utilisateurs de type “contributeur” (= auteur)
         $faker = Factory::create();
@@ -67,17 +67,13 @@ class UserFixtures extends Fixture
                 'pollygrey.jpg',
                 'tyrion.jpg',
             ];
-
             $author = new User();
             $author->setEmail($faker->email());
             $author->setLastname($faker->lastName());
             $author->setFirstname($faker->firstName());
             $author->setProfession($faker->jobTitle());
             $author->setRoles(['ROLE_USER']);
-            $hashedPassword = $this->passwordHasher->hashPassword(
-                $author,
-                '123s@lesforce'
-            );
+            $hashedPassword = $this->passwordHasher->hashPassword($author, '123s@lesforce');
             $author->setPassword($hashedPassword);
             $author->setProfilePicture($pictures[$i]);
             $author->setUpdateAt($faker->dateTimeBetween('-3 years', 'now'));
@@ -93,16 +89,12 @@ class UserFixtures extends Fixture
             $authorw->setFirstname($faker->firstName());
             $authorw->setProfession($faker->jobTitle());
             $authorw->setRoles(['ROLE_USER']);
-            $hashedPassword = $this->passwordHasher->hashPassword(
-                $authorw,
-                '123s@lesforce'
-            );
+            $hashedPassword = $this->passwordHasher->hashPassword($authorw, '123s@lesforce');
             $authorw->setPassword($hashedPassword);
             $manager->persist($authorw);
             $this->addReference('author_' . $i, $authorw);
         }
 
-        // Sauvegarde des 2 nouveaux utilisateurs :
         $manager->flush();
     }
 }
