@@ -14,8 +14,17 @@ class IdeaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title', TextType::class)
-            ->add('content', CKEditorType::class);
+            ->add('title', TextType::class, [
+                'attr' => [
+                    'class' => "form"
+                ]
+            ])
+            ->add('content', CKEditorType::class, [
+                'attr' => [
+                    'class' => "form",
+                    'placeholder' => 'Enter your idea',
+                ]
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

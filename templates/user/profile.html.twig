@@ -6,12 +6,12 @@
 {% block body %}
 	<h2 class="m-5">My profile</h2>
 
-	<div class="idea_card_header col-4 m-5 row p-3 border border-secondary rounded-top border-3 bg-light">
+	<div class="idea_card_header col-4 m-5 row p-3 border rounded-top border-3 bg-light">
 		<div class="col-8">
-			<p class="fw-bold">{{ app.user.lastname }}
+			<p class="text_user fw-bold">{{ app.user.lastname }}
 				{{ app.user.firstname }}</p>
-			<p>{{ app.user.profession }}</p>
-			<p>{{ app.user.email }}</p>
+			<p class="text_user">{{ app.user.profession }}</p>
+			<p class="text_user">{{ app.user.email }}</p>
 		</div>
 		<div class="user_picture col-4">
 			{% if app.user.profilePicture %}

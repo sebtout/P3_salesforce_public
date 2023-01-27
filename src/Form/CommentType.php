@@ -16,6 +16,7 @@ class CommentType extends AbstractType
         $builder
             ->add('content', CKEditorType::class, [
                 'attr' => [
+                    'class' => 'form',
                     'placeholder' => 'Enter your comment'
                 ]
             ])

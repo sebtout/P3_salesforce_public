@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -18,7 +18,7 @@
 	</head>
 	<div class="container-fluid shadow">
 		<div class="row">
-			<nav class="navbar navbar-expand-lg bg-white">
+			<nav class="navbar navbar-expand-lg">
 				<a class="navbar-brand" href="{{ path('app_home') }}">
 					<img src="{{ asset('/build/images/shareforce.png') }}" class="img-logo mx-3" alt="Logo">
 				</a>
@@ -36,31 +36,33 @@
 							<li class="nav-item">
 								<a class="nav-link active" href="{{ path('app_idea_index') }}">Suggestion box</a>
 							</li>
-							{% if is_granted("ROLE_ADMIN") %}
-								<hr class="m-0">
-							{% endif %}
 							<li class="nav-item">
 								{% if is_granted("ROLE_ADMIN") %}
 									<a class="nav-link active " href="{{ path('app_admin') }}">Admin</a>
 								{% endif %}
 							</li>
-							{% if app.user %}
-								<hr class="m-0">
-							{% endif %}
 						</div>
 						<div class="d-lg-flex">
+							<li class="nav-item me-3">
+								<div class="btn-group" role="group" aria-label="Button group darkmode">
+									<button type="button" class="btn btn-success" data-bs-theme-value="light">
+										<i class="bi bi-sun-fill"></i>
+									</button>
+									<button type="button" class="btn btn-success" data-bs-theme-value="dark">
+										<i class="bi bi-moon-stars-fill"></i>
+									</button>
+								</div>
+							</li>
 							{% if app.user %}
-								<li class="nav-item">
+								<li class="nav-item me-2">
 									<a class="nav-link active text-right text-center" href="{{ path("app_thread") }}">
 										My thread</a>
 								</li>
-								<hr class="m-0">
-								<li class="nav-item">
+								<li class="nav-item me-2">
 									<a class="nav-link active text-right text-center" href="{{ path("app_user_profile") }}">
 										My profile</a>
 								</li>
-								<hr class="m-0">
-								<li class="nav-item">
+								<li class="nav-item me-2">
 									<a class="nav-link active text-right text-center" href="{{ path('app_logout') }}">
 										Disconnect</a>
 								</li>
@@ -74,4 +76,4 @@
 	<body>
 		{% block body %}{% endblock %}
 	</body>
-</html>
+</html></html>
