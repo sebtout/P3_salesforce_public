@@ -12,22 +12,6 @@ class UserFixtures extends Fixture
 {
     private UserPasswordHasherInterface $passwordHasher;
 
-    // private const PICTURES = [
-    //     ['profilePicture' => 'adashelby.jpg'],
-    //     ['profilePicture' => 'cersei.jpg'],
-    //     ['profilePicture' => 'cillianmurphy.jpg'],
-    //     ['profilePicture' => 'daenerys.jpg'],
-    //     ['profilePicture' => 'DrAudreyLim.jpg'],
-    //     ['profilePicture' => 'DrShaunMurfy.jpg'],
-    //     ['profilePicture' => 'eleven.jpg'],
-    //     ['profilePicture' => 'jimhopper.jpg'],
-    //     ['profilePicture' => 'jonsnow.jpg'],
-    //     ['profilePicture' => 'joycebyers.jpg'],
-    //     ['profilePicture' => 'mikewheeler.jpg'],
-    //     ['profilePicture' => 'pollygrey.jpg'],
-    //     ['profilePicture' => 'tyrion.jpg'],
-    // ];
-
     public function __construct(UserPasswordHasherInterface $passwordHasher)
     {
         $this->passwordHasher = $passwordHasher;
@@ -66,26 +50,43 @@ class UserFixtures extends Fixture
         $manager->persist($admin);
 
         // Création de 20 utilisateurs de type “contributeur” (= auteur)
-        $faker = Factory::create();
-        for ($i = 13; $i < 20; $i++) {
-            $author = new User();
-            $author->setEmail($faker->email());
-            $author->setLastname($faker->lastName());
-            $author->setFirstname($faker->firstName());
-            $author->setProfession($faker->jobTitle());
-            $author->setRoles(['ROLE_USER']);
-            $hashedPassword = $this->passwordHasher->hashPassword(
-                $author,
-                '123s@lesforce'
-            );
-            $author->setPassword($hashedPassword);
-            // $author->setProfilePicture($this->getReference(
-            //     self::PICTURES[$faker->numberBetween(0, 12)]['profilePicture']
-            // ));
-            $author->setUpdateAt($faker->dateTimeBetween('-3 years', 'now'));
-            $manager->persist($author);
-            $this->addReference('author_' . $i, $author);
-        }
+        // $faker = Factory::create();
+        // for ($i = 13; $i < 20; $i++) {
+
+        //     $pictures = [
+        //         'adashelby.jpg',
+        //         'cersei.jpg',
+        //         'cillianmurphy.jpg',
+        //         'daenerys.jpg',
+        //         'DrAudreyLim.jpg',
+        //         'DrShaunMurfy.jpg',
+        //         'eleven.jpg',
+        //         'jimhopper.jpg',
+        //         'jonsnow.jpg',
+        //         'joycebyers.jpg',
+        //         'mikewheeler.jpg',
+        //         'pollygrey.jpg',
+        //         'tyrion.jpg',
+        //     ];
+
+        //     $author = new User();
+        //     $author->setEmail($faker->email());
+        //     $author->setLastname($faker->lastName());
+        //     $author->setFirstname($faker->firstName());
+        //     $author->setProfession($faker->jobTitle());
+        //     $author->setRoles(['ROLE_USER']);
+        //     $hashedPassword = $this->passwordHasher->hashPassword(
+        //         $author,
+        //         '123s@lesforce'
+        //     );
+        //     $author->setPassword($hashedPassword);
+        //     $author->setProfilePicture($this->getReference(
+        //         $pictures[$faker->numberBetween(0, 12)]
+        //     ));
+        //     $author->setUpdateAt($faker->dateTimeBetween('-3 years', 'now'));
+        //     $manager->persist($author);
+        //     $this->addReference('author_' . $i, $author);
+        // }
 
         $faker = Factory::create();
         for ($i = 13; $i < 20; $i++) {
