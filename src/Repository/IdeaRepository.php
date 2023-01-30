@@ -48,7 +48,6 @@ class IdeaRepository extends ServiceEntityRepository
             ->leftJoin('i.likes', 'l')
             ->orderBy('i.id', 'DESC')
             ->getQuery();
-        ;
 
         return $query->getResult();
     }
@@ -69,15 +68,15 @@ class IdeaRepository extends ServiceEntityRepository
     public function findAllIdeaLike(User $user): array
     {
         $query = $this->createQueryBuilder('i')
-            ->addSelect('a', 'l') //to make Doctrine actually use the join
-            ->leftJoin('i.author', 'a')
-            ->leftJoin('i.likes', 'l')
+            ->addSelect('a') //to make Doctrine actually use the join
+            ->Join('i.author', 'a')
+            ->join('i.likes', 'l')
             ->andWhere('l.user = :val')
             ->setParameter('val', $user)
             ->orderBy('i.id', 'DESC')
             ->getQuery();
 
-            return $query->getResult();
+        return $query->getResult();
     }
 
     public function mostLikedIdeas(): array
@@ -95,20 +94,21 @@ class IdeaRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
-//    /**
-//     * @return Idea[] Returns an array of Idea objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('i')
-//            ->andWhere('i.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('i.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+
+    //    /**
+    //     * @return Idea[] Returns an array of Idea objects
+    //     */
+    //    public function findByExampleField($value): array
+    //    {
+    //        return $this->createQueryBuilder('i')
+    //            ->andWhere('i.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->orderBy('i.id', 'ASC')
+    //            ->setMaxResults(10)
+    //            ->getQuery()
+    //            ->getResult()
+    //        ;
+    //    }
 
     //    /**
     //     * @return Idea[] Returns an array of Idea objects

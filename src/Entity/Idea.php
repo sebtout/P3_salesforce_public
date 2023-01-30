@@ -172,7 +172,6 @@ class Idea
 
         return $this;
     }
-
     public function isLikedByUser(User $user): bool
     {
         foreach ($this->likes as $like) {
@@ -182,5 +181,10 @@ class Idea
         }
 
         return false;
+    }
+
+    public function __toString()
+    {
+        return $this->title;
     }
 }

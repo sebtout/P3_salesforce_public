@@ -26,7 +26,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class IdeaController extends AbstractController
 {
-    #[Route('/', name: 'index', methods: ['GET','POST'])]
+    #[Route('/', name: 'index', methods: ['GET', 'POST'])]
     public function index(Request $request, IdeaRepository $ideaRepository): Response
     {
         /** @var \App\Entity\User $user */
@@ -35,8 +35,6 @@ class IdeaController extends AbstractController
         $form = $this->createForm(SearchIdeaType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $ideas = $ideaRepository->findAllIdeaLike($user);
-
 
             /** @var ClickableInterface $clikable1  */
             $clikable1 = $form->get('mostCommented');
@@ -47,9 +45,9 @@ class IdeaController extends AbstractController
             if ($clikable1->isClicked()) {
                 $ideas = $ideaRepository->findAllCommentByIdea();
             } elseif ($clikable2->isClicked()) {
-                $ideas = $ideaRepository->findAllIdeaLike($user);
-            } elseif ($clikable3->isClicked()) {
                 $ideas = $ideaRepository->mostLikedIdeas();
+            } elseif ($clikable3->isClicked()) {
+                $ideas = $ideaRepository->findAllIdeaLike($user);
             } else {
                 $ideas = $ideaRepository->findAllIdeasWithAuthorAndLike();
             }
@@ -180,7 +178,10 @@ class IdeaController extends AbstractController
 
             $ideaLikeRepository->remove($like, true);
 
-            return $this->redirectToRoute('app_idea_index', [], Response::HTTP_SEE_OTHER);
+            return $this->json([
+                'isLikedByUser' => $idea->isLikedByUser($user),
+                'numberOfLikes' => count($idea->getLikes())
+            ]);
         }
 
         $like = new IdeaLike();
@@ -189,7 +190,10 @@ class IdeaController extends AbstractController
 
         $ideaLikeRepository->save($like, true);
 
-        return $this->redirectToRoute('app_idea_index', [], Response::HTTP_SEE_OTHER);
+        return $this->json([
+            'isLikedByUser' => $idea->isLikedByUser($user),
+            'numberOfLikes' => count($idea->getLikes())
+        ]);
     }
 
     #[Route('/likeShow/{id}', name: 'likeShow', methods: ['GET'])]

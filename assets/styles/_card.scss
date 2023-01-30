@@ -7,23 +7,24 @@
     width: 99.33px;
 }
 
+.user_picture2 {
+    height: 50px;
+    width: 50px;
+}
+
 .img-fluid {
     max-height: 100%;
 }
 
 .card-body {
-
-    height: 215px;
+    height: 230px;
     display: flex;
     flex-direction: column;
+    gap: 10px;
 }
 
 .img-thumbnail {
     background-color: #168BAC;
-}
-
-.card-text {
-    height: 200px;
 }
 
 .idea_card:hover {
@@ -51,7 +52,7 @@
 }
 
 .idea_card:hover h3 {
-    color:rgb(26, 136, 215);
+    color: rgb(26, 136, 215);
 }
 
 .container-card {

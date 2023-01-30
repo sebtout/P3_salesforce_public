@@ -28,6 +28,7 @@ security:
                 enable_csrf: true
             logout:
                 path: app_logout
+            user_checker: App\Security\UserChecker
               
 
             # activate different ways to authenticate

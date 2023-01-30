@@ -1,7 +1,7 @@
-<div class="container container-card bg-info rounded p-0 mb-3 h-100 idea_card" style="width: 21rem;">
+<div class="container container-card rounded p-0 mb-3 h-100 idea_card" style="width: 21rem;">
 	<a href="{{ path('app_idea_show', {'id': idea.id}) }}" class="link-card-decoration">
 		<div>
-			<div class="d-flex justify-content-between p-3 border border-3 border-secondary rounded-top bg-light w-100">
+			<div class="d-flex justify-content-between p-3 border border-3 rounded-top bg-light w-100">
 				<div>
 					<p class="fw-bold">{{ idea.author.lastname }}
 						{{ idea.author.firstname }}</p>
@@ -16,9 +16,9 @@
 				</div>
 			</div>
 			<div class="p-2 border border-info  border-5 bg-info">
-				<div class="card-body p-2 border border-secondary rounded border-5 bg-secondary text-break">
+				<div class="card-body p-2 rounded text-break">
 					<h3>{{ idea.title|u.truncate(20, '...') }}:</h3>
-					<p class="card-text">{{ idea.content|u.truncate(210, '...') }}</p>
+					<p class="">{{ idea.content|u.truncate(210, '...')|raw }}</p>
 				</div>
 			</div>
 		</a>
@@ -27,13 +27,10 @@
 				<a href="{{ path('app_idea_show', {'id': idea.id}) }}" class="btn btn-success p-2 w-100">Comment</a>
 			</div>
 			<div>
-				{% if app.user and idea.isLikedByUser(app.user) %}
-					<a href="{{ path('app_idea_likeShow', {'id': idea.id}) }}" class="btn btn-success p-2 w-100">Like -
-						{{ idea.likes | length }}</a>
-				{% else %}
-					<a href="{{ path('app_idea_likeIndex', {'id': idea.id}) }}" class="btn btn-secondary p-2 w-100">Like -
-						{{ idea.likes | length }}</a>
-				{% endif %}
+				<a href="{{ path('app_idea_likeIndex', {'id': idea.id}) }}" class="like btn {{ app.user and idea.isLikedByUser(app.user) ? 'btn-success' : 'btn-secondary' }} p-2 w-100">
+					Like -
+					{{ idea.likes | length }}
+				</a>
 			</div>
 		</div>
 	</div>

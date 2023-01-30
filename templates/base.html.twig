@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -18,7 +18,7 @@
 	</head>
 	<div class="container-fluid shadow">
 		<div class="row">
-			<nav class="navbar navbar-expand-lg bg-white">
+			<nav class="navbar navbar-expand-lg">
 				<a class="navbar-brand" href="{{ path('app_home') }}">
 					<img src="{{ asset('/build/images/shareforce.png') }}" class="img-logo mx-3" alt="Logo">
 				</a>
@@ -26,35 +26,49 @@
 					<span class="navbar-toggler-icon"></span>
 				</button>
 				<div class="collapse navbar-collapse" id="navbarNav">
-					<ul class="navbar-nav col-10 text-center m-auto">
-						<hr class="m-0">
-						<li class="nav-item">
-							<a class="nav-link active" aria-current="page" href="{{ path('app_home') }}">Home</a>
-						</li>
-						<hr class="m-0">
-						<li class="nav-item">
-							<a class="nav-link active" href="{{ path('app_idea_index') }}">Suggestion box</a>
-						</li>
-						<hr class="m-0">
-						<li class="nav-item">
-							{% if is_granted("ROLE_ADMIN") %}
-								<a class="nav-link active" href="{{ path('app_admin') }}">Admin</a>
-							{% endif %}
-						</li>
-						<hr class="m-0">
-					</ul>
-					<div class="navbar-nav col-1 text-center">
+					<ul class="navbar-nav col-12 text-center d-flex justify-content-between">
+						<div class="d-lg-flex">
+							<hr class="m-0">
+							<li class="nav-item">
+								<a class="nav-link active" aria-current="page" href="{{ path('app_home') }}">Home</a>
+							</li>
+							<hr class="m-0">
+							<li class="nav-item">
+								<a class="nav-link active" href="{{ path('app_idea_index') }}">Suggestion box</a>
+							</li>
+							<li class="nav-item">
+								{% if is_granted("ROLE_ADMIN") %}
+									<a class="nav-link active " href="{{ path('app_admin') }}">Admin</a>
+								{% endif %}
+							</li>
+						</div>
+						<div class="d-lg-flex">
+							<li class="nav-item me-3">
+								<div class="btn-group" role="group" aria-label="Button group darkmode">
+									<button type="button" class="btn btn-success" data-bs-theme-value="light">
+										<i class="bi bi-sun-fill"></i>
+									</button>
+									<button type="button" class="btn btn-success" data-bs-theme-value="dark">
+										<i class="bi bi-moon-stars-fill"></i>
+									</button>
+								</div>
+							</li>
 							{% if app.user %}
-								<a class="nav-link active text-right text-center" href="{{ path("app_user_profile") }}">
-									My profile</a>
+								<li class="nav-item me-2">
+									<a class="nav-link active text-right text-center" href="{{ path("app_thread") }}">
+										My thread</a>
+								</li>
+								<li class="nav-item me-2">
+									<a class="nav-link active text-right text-center" href="{{ path("app_user_profile") }}">
+										My profile</a>
+								</li>
+								<li class="nav-item me-2">
+									<a class="nav-link active text-right text-center" href="{{ path('app_logout') }}">
+										Disconnect</a>
+								</li>
 							{% endif %}
-					</div>
-					<div class="navbar-nav col-1 text-center">
-						{% if app.user %}
-							<a class="nav-link active text-right text-center" href="{{ path('app_logout') }}">
-								Disconnect</a>
-						{% endif %}
-					</div>
+						</div>
+					</ul>
 				</div>
 			</nav>
 		</div>
@@ -62,4 +76,4 @@
 	<body>
 		{% block body %}{% endblock %}
 	</body>
-</html>
+</html></html>

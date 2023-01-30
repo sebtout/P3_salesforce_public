@@ -10,9 +10,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Serializable;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Validator\Constraints\Email;
-use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -44,9 +41,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Seriali
     #[Assert\NotBlank(message: 'Don\'t leave me empty')]
     #[Assert\Length(
         min: 6,
-        max: 40,
         minMessage: 'The password entered is too short, it should exceed {{ limit }} characters',
-        maxMessage: 'The password entered is too long, it should not exceed {{ limit }} characters',
     )]
 
     private ?string $password = null;
@@ -98,11 +93,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Seriali
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?DateTime $updateAt = null;
 
+    #[ORM\Column]
+    private ?bool $isActive = null;
+
     public function __construct()
     {
         $this->ideas = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->ideaLikes = new ArrayCollection();
+        $this->isActive = true;
     }
 
     public function getId(): ?int
@@ -354,6 +353,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Seriali
             'userLastname' => $this->getLastname(),
             'userFirstname' => $this->getFirstname(),
             'roles' => $this->getRoles(),
+            'isActive' => $this->isIsActive(),
         ]);
     }
 
@@ -367,7 +367,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Seriali
             ->setEmail($unserialized['email'])
             ->setLastname($unserialized['userLastname'])
             ->setFirstname($unserialized['userFirstname'])
-            ->setRoles($unserialized['roles']);
+            ->setRoles($unserialized['roles'])
+            ->setIsActive($unserialized['isActive']);
     }
 
     /**
@@ -378,6 +379,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, Seriali
     public function setId(int $id)
     {
         $this->id = $id;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->firstname . ' ' . $this->lastname;
+    }
+
+    public function isIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(bool $isActive): self
+    {
+        $this->isActive = $isActive;
 
         return $this;
     }

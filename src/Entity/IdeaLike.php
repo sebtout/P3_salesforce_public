@@ -33,6 +33,7 @@ class IdeaLike
     public function setIdea(?Idea $idea): self
     {
         $this->idea = $idea;
+        $this->idea->addLike($this);
 
         return $this;
     }
@@ -45,6 +46,7 @@ class IdeaLike
     public function setUser(?User $user): self
     {
         $this->user = $user;
+        $this->user->addIdeaLike($this);
 
         return $this;
     }
