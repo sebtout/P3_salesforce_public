@@ -49,7 +49,7 @@ class CommentRepository extends ServiceEntityRepository
             ->leftJoin('cms.author', 'a')
             ->andWhere('c.author = :val')
             ->setParameter('val', $user)
-            ->orderBy('c.id', 'DESC')
+            ->orderBy('c.createdAt', 'DESC')
             ->getQuery();
 
         return $query->getResult();

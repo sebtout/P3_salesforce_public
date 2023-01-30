@@ -9,41 +9,42 @@
 
 	<div class=" mx-2 mx-md-5 rounded-5 ">
 		{% for key, idea in ideas %}
-				<div class="border rounded-5 border-secondary border-3 my-5 bg-light pt-2 pb-2">
-					<div class='row d-flex justify-content-center'>
-						<a class="col-12 col-md-10 d-flex justify-content-center justify-content-md-start" data-bs-toggle="collapse" href="#idea_{{loop.index}}" role="button" aria-expanded="false" aria-controls="idea_{{loop.index}}">
-							<h4 class="text-center text_user ps-2 pe-2 ps-md-5 pe-md-1">{{idea.title}}</h4>
-						</a>
-						<a href="{{path('app_idea_show',{'id':idea.id})}}" class="col-6 col-md-1  btn btn-success">Comment</a>
-					</div>
+			<div class="border rounded-5 border-secondary border-3 my-5 bg-light pt-2 pb-2">
+				<div class='row d-flex justify-content-center'>
+					<a class="col-12 col-md-10 d-flex justify-content-center justify-content-md-start" data-bs-toggle="collapse" href="#idea_{{loop.index}}" role="button" aria-expanded="false" aria-controls="idea_{{loop.index}}">
+						<h4 class="text-center text_user ps-2 pe-2 ps-md-5 pe-md-1">{{idea.title}}</h4>
+					</a>
+					<a href="{{path('app_idea_show',{'id':idea.id})}}" class="col-6 col-md-1  btn btn-success">Comment</a>
+				</div>
 
-					<div class="collapse" id="idea_{{loop.index}}">
-						{% for comment in idea.comments|sort((a, b) => b.id <=> a.id) %}
-							{% if loop.index == 1 or loop.index == 2 or loop.index == 3 %}
-								<div class="d-flex  {{ key is even ? 'justify-content-end' : 'justify-content-start' }} p-2">
-									<div class="comment row border col-12 col-md-9  p-2 mx-1 mx-md-3 rounded-5 ">
-										<div class="user_picture2 p-2  col-6 col-md-2">
-											{% if comment.author.profilePicture %}
-												<img class="card-img-top img-fluid mx-auto d-block rounded" src="{{ vich_uploader_asset(comment.author) }}" alt="{{ comment.author.firstname }}">
-											{% else %}
-												<img class="card-img-top img-thumbnail img-fluid mx-auto d-block rounded" src="{{ asset('/build/images/astroSalesforce.png') }}" alt="astro salesforce">
-											{% endif %}
-										</div>
-										<div class="col-6 col-md-2 mt-2">
-											<strong class="d-flex px-3">
-												{{comment.author.firstname}}
-												{{comment.author.lastname}}
-											</strong>
-										</div>
-										<div class=" col-12 col-md-8">
-											{{comment.content|raw}}
-										</div>
+				<div class="collapse" id="idea_{{loop.index}}">
+					{% for comment in idea.comments|sort((a, b) => b.createdAt <=> a.createdAt) %}
+						{% if loop.index == 1 or loop.index == 2 or loop.index == 3 %}
+							<div class="d-flex  {{ key is even ? 'justify-content-end' : 'justify-content-start' }} p-2">
+								<div class="comment row border col-12 col-md-9  p-2 mx-1 mx-md-3 rounded-5 ">
+									<div class="user_picture2 p-2  col-6 col-md-2">
+										{% if comment.author.profilePicture %}
+											<img class="card-img-top img-fluid mx-auto d-block rounded" src="{{ vich_uploader_asset(comment.author) }}" alt="{{ comment.author.firstname }}">
+										{% else %}
+											<img class="card-img-top img-thumbnail img-fluid mx-auto d-block rounded" src="{{ asset('/build/images/astroSalesforce.png') }}" alt="astro salesforce">
+										{% endif %}
+									</div>
+									<div class="col-6 col-md-2 mt-2">
+										<strong class="d-flex px-3">
+											{{comment.author.firstname}}
+											{{comment.author.lastname}}
+										</strong>
+									</div>
+									<div class=" col-12 col-md-8">
+										<p>{{ comment.createdAt|date('Y-m-d H:i')}}</p>
+										{{comment.content|raw}}
 									</div>
 								</div>
-							{% endif %}
-						{% endfor %}
-					</div>
+							</div>
+						{% endif %}
+					{% endfor %}
 				</div>
+			</div>
 		{% endfor %}
 	</div>
 {% endblock %}
