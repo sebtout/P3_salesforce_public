@@ -20,7 +20,8 @@
 				<div class="collapse" id="idea_{{loop.index}}">
 					{% for comment1 in comment.idea.comments|sort((a, b) => b.id <=> a.id) %}
 						{% if loop.index == 1 or loop.index == 2 or loop.index == 3 %}
-							<div class="d-flex  {{ key is even ? 'justify-content-end' : 'justify-content-start' }} p-2">
+							<div class="d-flex text-break  {{ key is even ? 'justify-content-end' : 'justify-content-start' }} p-2">
+
 								<div class="comment row border col-12 col-md-9  p-2 mx-1 mx-md-3 rounded-5 ">
 									<div class="user_picture2 p-2  col-6 col-md-2">
 										{% if comment1.author.profilePicture %}
