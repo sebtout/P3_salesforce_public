@@ -9,8 +9,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 #[Route('/comment', name: 'app_comment_')]
+#[IsGranted('ROLE_USER')]
+
 class CommentController extends AbstractController
 {
     #[Route('/{id}', name: 'show', methods: ['GET'])]
