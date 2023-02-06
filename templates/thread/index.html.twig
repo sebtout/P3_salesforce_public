@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ThreadController!
-{% endblock %}
+{% block title %}{% endblock %}
 
 {% block body %}
 
@@ -12,7 +11,7 @@
 			<div class="border rounded-5 border-secondary border-3 my-5 bg-light pt-2 pb-2">
 				<div class='row d-flex justify-content-center'>
 					<a class="col-12 col-md-10 d-flex justify-content-center justify-content-md-start" data-bs-toggle="collapse" href="#idea_{{loop.index}}" role="button" aria-expanded="false" aria-controls="idea_{{loop.index}}">
-						<h4 class="text-center text_user ps-2 pe-2 ps-md-5 pe-md-1">{{idea.title}}</h4>
+						<h4 class="text-center text_user ps-2 pe-2 ps-md-5 pe-md-1 hoverThread ">{{idea.title}}</h4>
 					</a>
 					<a href="{{path('app_idea_show',{'id':idea.id})}}" class="col-6 col-md-1  btn btn-success">Comment</a>
 				</div>

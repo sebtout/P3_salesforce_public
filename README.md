@@ -2,22 +2,8 @@
 
 ## Presentation
 
-This starter kit is here to easily start a repository for Wild Code School students.
+Projet Salerforce
 
-It's symfony website-skeleton project with some additional library (webpack, fixtures) and tools to validate code standards.
-
-* GrumPHP, as pre-commit hook, will run 2 tools when `git commit` is run :
-
-    * PHP_CodeSniffer to check PSR12
-    * PHPStan focuses on finding errors in your code (without actually running it)
-    * PHPmd will check if you follow PHP best practices
-
-  If tests fail, the commit is canceled and a warning message is displayed to developper.
-
-* Github Action as Continuous Integration will be run when a branch with active pull request is updated on github. It will run :
-
-    * Tasks to check if vendor, .idea, env.local are not versionned,
-    * PHP_CodeSniffer, PHPStan and PHPmd with same configuration as GrumPHP.
 
 ## Getting Started for Students
 
@@ -31,19 +17,34 @@ It's symfony website-skeleton project with some additional library (webpack, fix
 1. Clone this project
 2. Run `composer install`
 3. Run `yarn install`
-4. Run `yarn encore dev` to build assets
+4. Run `yarn encore dev ou yarn build` to build assets
+5. config env.local:
 
-### Working
+copy file env. and name it env.local uncomment the line:
+DATABASE_URL="mysql://db_user:db_password@127.0.0.1:3306/db_name?serverVersion=5.7&charset=utf8mb4" and complete it with its identifiers: -
+-name
+-password
+-database name
+
+6. enter symfony console doctrine:database:create
+7. symfony console doctrine:migrations:migrate
+8. php bin/console doctrine:fixtures:load
 
 1. Run `symfony server:start` to launch your local php web server
 2. Run `yarn run dev --watch` to launch your local server for assets (or `yarn dev-server` do the same with Hot Module Reload activated)
 
-### Testing
 
-1. Run `php ./vendor/bin/phpcs` to launch PHP code sniffer
-2. Run `php ./vendor/bin/phpstan analyse src --level max` to launch PHPStan
-3. Run `php ./vendor/bin/phpmd src text phpmd.xml` to launch PHP Mess Detector
-4. Run `./node_modules/.bin/eslint assets/js` to launch ESLint JS linter
+
+account user:
+Email :user@salesforce.com
+ password: 123s@lesforce
+
+
+account admin:
+Rmail :admin@salesforce.com
+ password: 123s@lesforce
+
+
 
 ### Windows Users
 
