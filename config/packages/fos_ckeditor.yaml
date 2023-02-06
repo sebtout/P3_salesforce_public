@@ -17,6 +17,7 @@ fos_ck_editor:
                         "CodeSnippet", 
                         "Code",
                         "Blockquote",
+                        "Font",
                         "-",
                         "Link",
                         "-",
@@ -27,19 +28,13 @@ fos_ck_editor:
                         "Outdent",
                         "Indent",
                         "-",
-                        "-",
                         "JustifyLeft",
                         "JustifyCenter",
                         "JustifyRight",
                         "JustifyBlock",
                         "-",
-                        "-",
                         "TextColor",
                         "BGColor",
-                        "HorizontalRule",
-                        "/",
-                        "Styles", "Format", "Font", "FontSize", "Source",
-                        
                       ]
                   }
 

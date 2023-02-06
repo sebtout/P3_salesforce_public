@@ -11,9 +11,9 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
+#[IsGranted('ROLE_ADMIN')]
 class IdeaCrudController extends AbstractCrudController
 {
-    #[IsGranted('ROLE_ADMIN')]
     public static function getEntityFqcn(): string
     {
         return Idea::class;
