@@ -22,7 +22,7 @@
 						{% if loop.index == 1 or loop.index == 2 or loop.index == 3 %}
 							<div class="d-flex  {{ key is even ? 'justify-content-end' : 'justify-content-start' }} p-2">
 								<div class="comment row border col-12 col-md-9  p-2 mx-1 mx-md-3 rounded-5 ">
-									<div class="user_picture2 p-2  col-6 col-md-2">
+									<div class="user_picture2 p-2  col-6 col-md-2 text-break">
 										{% if comment1.author.profilePicture %}
 											<img class="card-img-top img-fluid mx-auto d-block rounded" src="{{ vich_uploader_asset(comment1.author) }}" alt="{{ comment1.author.firstname }}">
 										{% else %}
