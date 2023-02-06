@@ -48,7 +48,7 @@
 				</div>
 			</div>
 
-			{% for comment in idea.comments %}
+			{% for comment in idea.comments|sort((a, b) => b.createdAt <=> a.createdAt) %}
 				<div class="comment m-3 p-3 rounded border-5 text-break">
 					<div class="row">
 						<div class="user_picture col-4">

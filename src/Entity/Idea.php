@@ -15,7 +15,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 #[UniqueEntity(
     fields: ['title'],
     errorPath: '',
-    message: 'Don\'t leave me empty'
+    message: 'this title already exists'
 )]
 
 class Idea
