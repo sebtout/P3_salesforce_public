@@ -61,7 +61,7 @@
 							<h3>From:
 								{{ comment.author.lastname }}
 								{{ comment.author.firstname }}</h3>
-							<p class="comment">{{ comment.createdAt ? comment.createdAt|date('Y-m-d H:i:s') : '' }}</p>
+							<p class="comment">{{ comment.createdAt ? comment.createdAt|date('Y-m-d H:i') : '' }}</p>
 						</div>
 					</div>
 					<p class="comment">{{ comment.content|raw }}</p>
