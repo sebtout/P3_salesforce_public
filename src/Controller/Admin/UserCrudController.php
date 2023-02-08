@@ -4,6 +4,8 @@ namespace App\Controller\Admin;
 
 use App\Entity\User;
 use App\Form\RoleType;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
@@ -11,9 +13,11 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class UserCrudController extends AbstractCrudController
 {
+    #[IsGranted('ROLE_ADMIN')]
     public static function getEntityFqcn(): string
     {
         return User::class;
@@ -48,5 +52,14 @@ class UserCrudController extends AbstractCrudController
             TextField::new('Lastname'),
             TextField::new('profession'),
         ];
+    }
+
+    public function configureActions(Actions $actions): Actions
+    {
+        return $actions
+
+        ->remove(Crud::PAGE_INDEX, Action::DELETE)
+        ->remove(Crud::PAGE_DETAIL, Action::DELETE)
+        ;
     }
 }

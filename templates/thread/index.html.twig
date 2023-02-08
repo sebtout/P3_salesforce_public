@@ -1,42 +1,44 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ThreadController!
-{% endblock %}
+{% block title %}{% endblock %}
 
 {% block body %}
 
 	<h1 class="text-center pt-5">Thread</h1>
 
 	<div class=" mx-2 mx-md-5 rounded-5 ">
-		{% for key, comment in comments %}
+		{% for key, idea in ideas %}
 			<div class="border rounded-5 border-secondary border-3 my-5 bg-light pt-2 pb-2">
 				<div class='row d-flex justify-content-center'>
 					<a class="col-12 col-md-10 d-flex justify-content-center justify-content-md-start" data-bs-toggle="collapse" href="#idea_{{loop.index}}" role="button" aria-expanded="false" aria-controls="idea_{{loop.index}}">
-						<h4 class="text-center text_user ps-2 pe-2 ps-md-5 pe-md-1">{{comment.idea.title}}</h4>
+						<h4 class="text-center text_user ps-2 pe-2 ps-md-5 pe-md-1 hoverThread ">{{idea.title}}</h4>
 					</a>
-					<a href="{{path('app_idea_show',{'id':comment.idea.id})}}" class="col-6 col-md-1  btn btn-success">Comment</a>
+					<a href="{{path('app_idea_show',{'id':idea.id})}}" class="col-6 col-md-1  btn btn-success">Comment</a>
 				</div>
 
 				<div class="collapse" id="idea_{{loop.index}}">
-					{% for comment1 in comment.idea.comments|sort((a, b) => b.id <=> a.id) %}
+					{% for comment in idea.comments|sort((a, b) => b.createdAt <=> a.createdAt) %}
 						{% if loop.index == 1 or loop.index == 2 or loop.index == 3 %}
-							<div class="d-flex  {{ key is even ? 'justify-content-end' : 'justify-content-start' }} p-2">
+							<div class="d-flex text-break  {{ key is even ? 'justify-content-end' : 'justify-content-start' }} p-2">
+
 								<div class="comment row border col-12 col-md-9  p-2 mx-1 mx-md-3 rounded-5 ">
-									<div class="user_picture2 p-2  col-6 col-md-2">
-										{% if comment1.author.profilePicture %}
-											<img class="card-img-top img-fluid mx-auto d-block rounded" src="{{ vich_uploader_asset(comment1.author) }}" alt="{{ comment1.author.firstname }}">
+
+									<div class="user_picture2 p-2  col-6 col-md-2 text-break">
+										{% if comment.author.profilePicture %}
+											<img class="card-img-top img-fluid mx-auto d-block rounded" src="{{ vich_uploader_asset(comment.author) }}" alt="{{ comment.author.firstname }}">
 										{% else %}
 											<img class="card-img-top img-thumbnail img-fluid mx-auto d-block rounded" src="{{ asset('/build/images/astroSalesforce.png') }}" alt="astro salesforce">
 										{% endif %}
 									</div>
 									<div class="col-6 col-md-2 mt-2">
 										<strong class="d-flex px-3">
-											{{comment1.author.firstname}}
-											{{comment1.author.lastname}}
+											{{comment.author.firstname}}
+											{{comment.author.lastname}}
 										</strong>
 									</div>
 									<div class=" col-12 col-md-8">
-										{{comment1.content|raw}}
+										<p>{{ comment.createdAt|date('Y-m-d H:i')}}</p>
+										{{comment.content|raw}}
 									</div>
 								</div>
 							</div>
